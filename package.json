@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "order-imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
