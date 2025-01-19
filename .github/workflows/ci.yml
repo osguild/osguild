@@ -33,4 +33,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'pnpm'
     - run: pnpm install
+    - name: Run Biome Linter and Formatter
+      run: pnpm biome ci
 
