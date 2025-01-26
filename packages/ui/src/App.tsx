@@ -25,7 +25,13 @@ function App() {
 				<button
 					type="button"
 					onClick={async () => {
-						await fetch("");
+						const response = await fetch(
+							`api/github/callback?client_id=${import.meta.env.VITE_GITHUB_CLIENT}`,
+						);
+
+						const json = await response.text();
+
+						console.log(json);
 					}}
 				>
 					Login with GitHub

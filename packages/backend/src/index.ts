@@ -1,6 +1,14 @@
-import type { APIGatewayProxyEvent, Context } from "aws-lambda";
+import type {
+	APIGatewayProxyEvent,
+	APIGatewayProxyResult,
+	Context,
+} from "aws-lambda";
 
 // core lambda code
-export async function handler(event: APIGatewayProxyEvent, context: Context) {
-	return { body: "Hello from CDK!" };
+export async function handler(
+	event: APIGatewayProxyEvent,
+	_context: Context,
+): Promise<APIGatewayProxyResult> {
+	console.log(event);
+	return { body: JSON.stringify({ body: "hello" }), statusCode: 200 };
 }
