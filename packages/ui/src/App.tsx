@@ -21,6 +21,15 @@ function App() {
 				<button type="button" onClick={() => setCount((count) => count + 1)}>
 					count is {count}
 				</button>
+
+				<button
+					type="button"
+					onClick={async () => {
+						await fetch("");
+					}}
+				>
+					Login with GitHub
+				</button>
 				<p>
 					Edit <code>src/App.tsx</code> and save to test HMR
 				</p>

@@ -7,6 +7,6 @@ export class BackendStack extends cdk.Stack {
 	constructor(scope: Construct, id: string, props?: cdk.StackProps) {
 		super(scope, id, props);
 
-		new RestApiConstruct(this, "rest-api");
+		new RestApiConstruct(this, "restApi");
 	}
 }
