@@ -22,20 +22,11 @@ function App() {
 					count is {count}
 				</button>
 
-				<button
-					type="button"
-					onClick={async () => {
-						const response = await fetch(
-							`api/github/callback?client_id=${import.meta.env.VITE_GITHUB_CLIENT}`,
-						);
-
-						const json = await response.text();
-
-						console.log(json);
-					}}
+				<a
+					href={`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_GITHUB_CLIENT}`}
 				>
-					Login with GitHub
-				</button>
+					<button type="button">Login with GitHub</button>
+				</a>
 				<p>
 					Edit <code>src/App.tsx</code> and save to test HMR
 				</p>
