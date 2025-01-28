@@ -27,7 +27,7 @@ export class RestApiConstruct extends Construct {
 		const githubCallbackResource = githubResource.addResource("callback");
 
 		githubCallbackResource.addMethod(
-			"GET",
+			"POST",
 			new LambdaIntegration(githubCallbackFunction),
 		);
 	}
