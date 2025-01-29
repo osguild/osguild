@@ -1,30 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
+import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
+
+const redirectURI = "http://localhost:5173/auth/github/callback";
 
 function App() {
 	const [count, setCount] = useState(0);
-	const redirectURI = "http://localhost:5173/auth/github/callback";
 
-	useEffect(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const code = urlParams.get("code");
-
-		if (code) {
-			// Send code to backend
-			fetch("/api/github/callback", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ code }),
-			})
-				.then((response) => response.text())
-				.then((data) => {
-					console.log(data);
-					// Handle the response from your backend. Maybe store an authentication token or set user data.
-				});
-		}
-	}, []);
+	useAuthenticateUser();
 
 	return (
 		<>

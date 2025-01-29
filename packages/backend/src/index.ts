@@ -18,6 +18,7 @@ export async function handler(
 			statusCode: 400,
 			body: "No body sent",
 		};
+
 	const { code } = JSON.parse(event.body) as ClientAuthRequest;
 
 	// fetch API token
