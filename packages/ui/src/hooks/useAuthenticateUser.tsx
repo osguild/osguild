@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-
+import { useNavigate } from "react-router";
 interface OauthSuccessResponse {
 	access_token: string;
 	expires_in: number;
@@ -14,9 +14,32 @@ interface OauthErrorResponse {
 	error_description: string;
 	error_uri: string;
 }
+
+function isSuccessfulResponse(obj: unknown): obj is OauthSuccessResponse {
+	const { access_token, expires_in, refresh_token, refresh_token_expires_in } =
+		obj as OauthSuccessResponse;
+	return (
+		typeof access_token === "string" &&
+		typeof expires_in === "number" &&
+		typeof refresh_token === "string" &&
+		typeof refresh_token_expires_in === "number"
+	);
+}
+
+function isErrorResponse(obj: unknown): obj is OauthErrorResponse {
+	const { error, error_description, error_uri } = obj as OauthErrorResponse;
+	return (
+		typeof error === "string" &&
+		typeof error_description === "string" &&
+		typeof error_uri === "string"
+	);
+}
+
 export function useAuthenticateUser() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const code = urlParams.get("code");
+
+	const navigate = useNavigate();
 
 	const fetchTokens = useCallback(async () => {
 		// Send code to backend
@@ -28,8 +51,12 @@ export function useAuthenticateUser() {
 
 		const data = await response.json();
 
-		console.log(data);
-	}, [code]);
+		if (isErrorResponse(data)) {
+			console.log("the token could not be read");
+			return;
+		}
+		navigate("/");
+	}, [code, navigate]);
 
 	useEffect(() => {
 		if (!code) return;
