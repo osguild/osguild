@@ -55,13 +55,17 @@ export function useAuthenticateUser() {
 			console.log("the token could not be read");
 			return;
 		}
+
+		if (isSuccessfulResponse(data)) {
+			// set tokens here
+			sessionStorage.setItem("accessToken", JSON.stringify(data));
+		}
 		navigate("/");
 	}, [code, navigate]);
 
 	useEffect(() => {
 		if (!code) return;
 
-		console.log(code);
 		fetchTokens();
 	}, [fetchTokens, code]);
 }
