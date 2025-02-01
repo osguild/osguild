@@ -10,6 +10,14 @@ on:
     branches: [ "main" ]
 
 jobs:
+  codeql:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: github/codeql-action/init@v3
+        with:
+          queries: security-extended
+
   build:
 
     runs-on: ubuntu-latest
@@ -35,7 +43,4 @@ jobs:
     - run: pnpm install
     - name: Run Biome Linter and Formatter
       run: pnpm biome ci
-    - uses: github/codeql-action/init@v3
-      with:
-        queries: security-extended
 
