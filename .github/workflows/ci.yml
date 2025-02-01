@@ -35,4 +35,7 @@ jobs:
     - run: pnpm install
     - name: Run Biome Linter and Formatter
       run: pnpm biome ci
+    - uses: github/codeql-action/init@v3
+      with:
+        queries: security-extended
 
