@@ -37,6 +37,7 @@ function isErrorResponse(obj: unknown): obj is OauthErrorResponse {
 
 /**
  * This hook handles when a user clicks on the login through GitHub button.
+ * The custom hook looks at the URL and grabs the auth code, if it's present.
  */
 export function useAuthenticateUser() {
 	const urlParams = new URLSearchParams(window.location.search);
@@ -46,23 +47,30 @@ export function useAuthenticateUser() {
 
 	const fetchTokens = useCallback(async () => {
 		// Send code to backend
-		const response = await fetch("/api/github/callback", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ code }),
-		});
 
-		const data = await response.json();
+		try {
+			const response = await fetch("/api/github/callback", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ code }),
+			});
 
-		if (isErrorResponse(data)) {
-			console.error("the token could not be read", data);
-			return;
+			const data = await response.json();
+
+			if (isErrorResponse(data)) {
+				console.error("the token could not be read", data);
+
+				return;
+			}
+
+			if (isSuccessfulResponse(data)) {
+				// set tokens here
+				sessionStorage.setItem("accessToken", JSON.stringify(data));
+			}
+		} catch (e) {
+			console.error("an error has occurred", e);
 		}
 
-		if (isSuccessfulResponse(data)) {
-			// set tokens here
-			sessionStorage.setItem("accessToken", JSON.stringify(data));
-		}
 		navigate("/");
 	}, [code, navigate]);
 
