@@ -35,6 +35,9 @@ function isErrorResponse(obj: unknown): obj is OauthErrorResponse {
 	);
 }
 
+/**
+ * This hook handles when a user clicks on the login through GitHub button.
+ */
 export function useAuthenticateUser() {
 	const urlParams = new URLSearchParams(window.location.search);
 	const code = urlParams.get("code");
@@ -52,7 +55,7 @@ export function useAuthenticateUser() {
 		const data = await response.json();
 
 		if (isErrorResponse(data)) {
-			console.log("the token could not be read");
+			console.error("the token could not be read", data);
 			return;
 		}
 
