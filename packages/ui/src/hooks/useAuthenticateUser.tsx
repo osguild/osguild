@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router";
-interface OauthSuccessResponse {
+import { ACCESS_TOKEN } from "../utils/constants";
+
+export interface OauthSuccessResponse {
 	access_token: string;
 	expires_in: number;
 	refresh_token: string;
@@ -15,7 +17,9 @@ interface OauthErrorResponse {
 	error_uri: string;
 }
 
-function isSuccessfulResponse(obj: unknown): obj is OauthSuccessResponse {
+export function isSuccessfulResponse(
+	obj: unknown,
+): obj is OauthSuccessResponse {
 	const { access_token, expires_in, refresh_token, refresh_token_expires_in } =
 		obj as OauthSuccessResponse;
 	return (
@@ -65,7 +69,7 @@ export function useAuthenticateUser() {
 
 			if (isSuccessfulResponse(data)) {
 				// set tokens here
-				sessionStorage.setItem("accessToken", JSON.stringify(data));
+				sessionStorage.setItem(ACCESS_TOKEN, JSON.stringify(data));
 			}
 		} catch (e) {
 			console.error("an error has occurred", e);
