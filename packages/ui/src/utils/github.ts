@@ -4,7 +4,7 @@ import { isSuccessfulResponse } from "../hooks/useAuthenticateUser";
 
 let octokit: Octokit;
 
-async function getOctokitClient() {
+export function getOctokitClient(): Octokit {
 	if (octokit) return octokit;
 
 	const credentials = sessionStorage.getItem(ACCESS_TOKEN);
@@ -14,4 +14,8 @@ async function getOctokitClient() {
 
 	const { access_token } = credentials;
 	octokit = new Octokit({ auth: access_token });
+
+	return octokit;
 }
+
+export async function getIssues() {}
