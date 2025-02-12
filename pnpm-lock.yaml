@@ -23,6 +23,9 @@ importers:
       constructs:
         specifier: ^10.0.0
         version: 10.4.2
+      octokit:
+        specifier: ^4.1.0
+        version: 4.1.0
     devDependencies:
       '@types/aws-lambda':
         specifier: ^8.10.147

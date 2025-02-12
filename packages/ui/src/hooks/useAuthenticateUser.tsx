@@ -51,7 +51,6 @@ export function useAuthenticateUser() {
 
 	const fetchTokens = useCallback(async () => {
 		// Send code to backend
-
 		try {
 			const response = await fetch("/api/github/callback", {
 				method: "POST",
