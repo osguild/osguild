@@ -1,6 +1,6 @@
 import { Octokit } from "octokit";
-import { ACCESS_TOKEN } from "./constants";
 import { isSuccessfulResponse } from "../hooks/useAuthenticateUser";
+import { ACCESS_TOKEN } from "./constants";
 
 let octokit: Octokit;
 
