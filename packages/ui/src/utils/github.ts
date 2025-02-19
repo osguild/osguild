@@ -18,4 +18,13 @@ export function getOctokitClient(): Octokit {
 	return octokit;
 }
 
-export async function getIssues() {}
+export async function getIssues() {
+	const octokitClient = getOctokitClient();
+
+	octokitClient.request("GET /users/{username}/repos", {
+		username: "branberry",
+		headers: {
+			"X-GitHub-Api-Version": "2022-11-28",
+		},
+	});
+}
