@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
+    "skipLibCheck": true,
     "alwaysStrict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -25,8 +26,11 @@
       "./node_modules/@types"
     ]
   },
+
+  "include": ["bin","lib","src","test"],
   "exclude": [
     "node_modules",
-    "cdk.out"
+    "cdk.out",
+    "../../node_modules"
   ]
 }
