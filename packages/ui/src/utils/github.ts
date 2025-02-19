@@ -18,7 +18,7 @@ export function getOctokitClient(): Octokit {
 	return octokit;
 }
 
-export async function getIssues() {
+export async function getUserRepos() {
 	const octokitClient = getOctokitClient();
 
 	octokitClient.request("GET /users/{username}/repos", {
