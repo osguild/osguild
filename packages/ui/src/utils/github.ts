@@ -29,7 +29,7 @@ export async function getUserRepos() {
 	});
 }
 
-export async function searchForIssues(platform = "windows",language = "python") {
+export async function searchForIssues(platform = "macOS",language = "python") {
 	const octokitClient = getOctokitClient();
 
 	// TODO: Search for issues that are labeled with "Good first issue".
