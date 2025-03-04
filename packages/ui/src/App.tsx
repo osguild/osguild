@@ -4,7 +4,6 @@ import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
-import { searchForIssues } from "./utils/github";
 
 const redirectURI = "http://localhost:5173/auth/github/callback";
 
@@ -12,7 +11,6 @@ function App() {
 	const [count, setCount] = useState(0);
 
 	useAuthenticateUser();
-	searchForIssues();
 
 	return (
 		<>
