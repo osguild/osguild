@@ -29,19 +29,19 @@ export async function getUserRepos() {
 	});
 }
 
-export async function searchForIssues(platform = "macOS",language = "python") {
+export async function searchForIssues(platform = "macOS", language = "python") {
 	const octokitClient = getOctokitClient();
 	// Documentation on how to search issues https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-issues-and-pull-requests
 
 	const query = `${platform}+label:good-first-issue+language:${language}+state:open`;
 
-	const response = await octokitClient.request('GET /search/issues', {
-		q: query, 
+	const response = await octokitClient.request("GET /search/issues", {
+		q: query,
 		sort: "updated",
 		headers: {
-			'X-GitHub-Api-Version': '2022-11-28'
-		}
-	})
+			"X-GitHub-Api-Version": "2022-11-28",
+		},
+	});
 
-	console.log(response.data)
+	console.log(response.data);
 }
