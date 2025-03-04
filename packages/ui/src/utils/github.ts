@@ -31,8 +31,6 @@ export async function getUserRepos() {
 
 export async function searchForIssues(platform = "macOS",language = "python") {
 	const octokitClient = getOctokitClient();
-
-	// TODO: Search for issues that are labeled with "Good first issue".
 	// Documentation on how to search issues https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-issues-and-pull-requests
 
 	const query = `${platform}+label:good-first-issue+language:${language}+state:open`;
@@ -43,7 +41,7 @@ export async function searchForIssues(platform = "macOS",language = "python") {
 		headers: {
 			'X-GitHub-Api-Version': '2022-11-28'
 		}
-	});
+	})
 
 	console.log(response.data)
 }
