@@ -51,8 +51,6 @@ export async function handler(
 			},
 		);
 
-		console.log("response", response);
-
 		const body = await response.text();
 
 		console.log("body", body);

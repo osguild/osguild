@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "strictNullChecks": true,
+    "declarationMap": true,
     "noImplicitThis": true,
     "skipLibCheck": true,
     "alwaysStrict": true,
