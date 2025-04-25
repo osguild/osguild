@@ -22,32 +22,50 @@ export async function handler(
 	event: APIGatewayProxyEvent,
 	_context: Context,
 ): Promise<APIGatewayProxyResult> {
+	console.log("request received", event);
 	if (!event.body)
 		return {
 			statusCode: 400,
 			body: "No body sent",
 		};
 
-	const { code } = JSON.parse(event.body) as ClientAuthRequest;
+	try {
+		const { code } = JSON.parse(event.body) as ClientAuthRequest;
 
-	// fetch API token
-	const response = await fetch("https://github.com/login/oauth/access_token", {
-		method: "POST",
-		headers: {
-			Accept: "application/json",
-			"content-type": "application/json",
-		},
-		body: JSON.stringify({
-			code,
-			client_id: process.env.GITHUB_CLIENT,
-			client_secret: process.env.GITHUB_SECRET,
-		}),
-	});
+		console.log("code", code);
 
-	const body = await response.text();
+		// fetch API token
+		const response = await fetch(
+			"https://github.com/login/oauth/access_token",
+			{
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({
+					code,
+					client_id: process.env.GITHUB_CLIENT,
+					client_secret: process.env.GITHUB_SECRET,
+				}),
+			},
+		);
 
-	return {
-		statusCode: 200,
-		body,
-	};
+		console.log("response", response);
+
+		const body = await response.text();
+
+		console.log("body", body);
+
+		return {
+			statusCode: 200,
+			body,
+		};
+	} catch (e) {
+		console.log(e);
+		return {
+			statusCode: 500,
+			body: "internal server error",
+		};
+	}
 }

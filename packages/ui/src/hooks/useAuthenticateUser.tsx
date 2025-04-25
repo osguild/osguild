@@ -52,11 +52,14 @@ export function useAuthenticateUser() {
 	const fetchTokens = useCallback(async () => {
 		// Send code to backend
 		try {
-			const response = await fetch("/api/github/callback", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ code }),
-			});
+			const response = await fetch(
+				"https://sp89tu7492.execute-api.us-east-1.amazonaws.com/prod/github/callback",
+				{
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ code }),
+				},
+			);
 
 			const data = await response.json();
 
