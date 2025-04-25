@@ -32,8 +32,6 @@ export async function handler(
 	try {
 		const { code } = JSON.parse(event.body) as ClientAuthRequest;
 
-		console.log("code", code);
-
 		// fetch API token
 		const response = await fetch(
 			"https://github.com/login/oauth/access_token",
