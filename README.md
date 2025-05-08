@@ -7,3 +7,4 @@ The server is written using TypeScript + Node.js, and is deployed with AWS API G
 ## TODO:
 
 - create test users
+- add `cloudflared`

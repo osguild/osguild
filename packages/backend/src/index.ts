@@ -51,8 +51,6 @@ export async function handler(
 
 		const body = await response.text();
 
-		console.log("body", body);
-
 		return {
 			statusCode: 200,
 			body,

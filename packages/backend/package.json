@@ -9,6 +9,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk"
+
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.147",

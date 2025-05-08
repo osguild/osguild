@@ -1,5 +1,5 @@
 import path from "node:path";
-import { Cors, LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
+import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
@@ -9,20 +9,16 @@ export class RestApiConstruct extends Construct {
 	constructor(scope: Construct, id: string) {
 		super(scope, id);
 
-		const githubClientId = StringParameter.fromSecureStringParameterAttributes(
+		const githubClientId = StringParameter.fromStringParameterArn(
 			this,
 			"githubClientId",
-			{
-				parameterName: "/osguild/githubClientId",
-			},
+			"arn:aws:ssm:us-east-1:842234083685:parameter/osguild/githubClientId",
 		);
 
-		const githubSecretId = StringParameter.fromSecureStringParameterAttributes(
+		const githubSecretId = StringParameter.fromStringParameterArn(
 			this,
 			"githubSecretId",
-			{
-				parameterName: "/osguild/githubSecretId",
-			},
+			"arn:aws:ssm:us-east-1:842234083685:parameter/osguild/githubSecretId",
 		);
 
 		const githubCallbackFunction = new NodejsFunction(this, "callback", {
