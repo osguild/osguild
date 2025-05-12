@@ -6,6 +6,7 @@
     "synth":"pnpm --filter backend build && pnpm --filter backend cdk synth",
     "server:start": "pnpm synth && sam local start-api --env-vars ./packages/backend/env.json -t ./packages/backend/cdk.out/BackendStack.template.json",
     "dev:ui": "pnpm --filter ui dev --host",
+    "cdk": "pnpm --filter backend cdk",
     "server:deploy": "pnpm --filter backend cdk deploy --require-approval never",
     "order-imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write",
     "test": "echo \"Error: no test specified\" && exit 1"

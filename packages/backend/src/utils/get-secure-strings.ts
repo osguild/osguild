@@ -1,48 +1,24 @@
-export async function getSecureStrings(
-	ssmPrefix: string,
-	secureStrings: readonly string[],
-	paramToEnvMap: Map<string, string>,
-	resourceName: string,
-) {
-	const ssmClient = new SSMClient({ region: process.env.CDK_DEFAULT_REGION });
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm";
 
-	const secureStringsMap: Record<string, string> = {};
+export const sensitiveKeys: string[] = [];
 
-	await Promise.all(
-		secureStrings.map(async (paramName: string) => {
-			const getParamCommand = new GetParameterCommand({
-				Name: `${ssmPrefix}${paramName}`,
-				WithDecryption: true,
-			});
+export async function getSecureString(
+	parameterName: string,
+): Promise<string | undefined> {
+	const ssmClient = new SSMClient({ region: "us-east-1" });
 
-			const ssmResponse = await ssmClient.send(getParamCommand);
-			const secureString = ssmResponse.Parameter?.Value;
+	const getParamCommand = new GetParameterCommand({
+		Name: parameterName,
+		WithDecryption: true,
+	});
 
-			if (!secureString) {
-				console.error(
-					`ERROR! Could not retrieve string for the following param: ${paramName}`,
-				);
-				return;
-			}
+	try {
+		const ssmResponse = await ssmClient.send(getParamCommand);
+		const secureString = ssmResponse.Parameter?.Value;
+		return secureString;
+	} catch (e) {
+		console.log(`could not retrieve value ${parameterName}`, e);
 
-			/**
-			 * Hijacks the getSecureString to populate the
-			 * sensitive key array, used in the filterSensitiveValue
-			 */
-			sensitiveKeys.push(secureString);
-
-			const envName = paramToEnvMap.get(paramName);
-
-			if (!envName) {
-				console.error(
-					`ERROR! The param '${paramName}' does not have a mapping to an environment variable name. Please define this in the ${resourceName} map.`,
-				);
-				return;
-			}
-
-			secureStringsMap[envName] = secureString;
-		}),
-	);
-
-	return secureStringsMap;
+		return;
+	}
 }
