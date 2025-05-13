@@ -15,8 +15,9 @@ export class RestApiConstruct extends Construct {
 			runtime: Runtime.NODEJS_22_X,
 		});
 
+		// change dist back to src later
 		const githubApiFunction = new NodejsFunction(this, "api", {
-			code: Code.fromAsset(path.join(__dirname, "../../src/github/endpoints")),
+			code: Code.fromAsset(path.join(__dirname, "../../dist/github/endpoints")),
 			handler: "index.handler",
 			memorySize: 1024,
 			runtime: Runtime.NODEJS_22_X,

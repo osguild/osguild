@@ -1,7 +1,7 @@
 import { getOctokitClient } from "../utils/github-api";
 import type { RestEndpointMethodTypes } from "@octokit/rest";
 
-export async function getPullRequests(): Promise<
+export async function getPullRequestRatio(): Promise<
 	RestEndpointMethodTypes["pulls"]["list"]["response"]
 > {
 	const client = getOctokitClient();
@@ -10,6 +10,12 @@ export async function getPullRequests(): Promise<
 		owner: "biomejs",
 		repo: "biome",
 	});
+
+	for (const pullRequest of pullRequests.data) {
+		pullRequest;
+	}
+
+	console.log("pullRequests", pullRequests);
 
 	return pullRequests;
 }
