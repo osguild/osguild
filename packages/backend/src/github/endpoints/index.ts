@@ -9,9 +9,9 @@ export async function handler(
 	_event: APIGatewayProxyEvent,
 	_context: Context,
 ): Promise<APIGatewayProxyResult> {
-	await getPullRequestRatio();
+	const ratio = await getPullRequestRatio();
 	return {
 		statusCode: 200,
-		body: "hello github",
+		body: JSON.stringify({ ratio }),
 	};
 }
