@@ -28,19 +28,5 @@ export async function getPullRequestRatio(): Promise<number> {
 		}),
 	);
 
-	// for (const pullRequest of pullRequests.data) {
-	// 	// look at pull request review comments to see if PR has been reviewed
-	// 	// use the review_comments_url to get the review comments on a PR
-	// 	// if there are no review comments i.e. it hasn't been reviewed yet, then we know it hasn't been reviewed
-	// 	// if the array is NOT empty, we know it's been reviewed
-	// 	pullRequest.review_comments_url;
-	// 	const reviewComments = await client.pulls.listReviewComments({
-	// 		owner: "biomejs",
-	// 		repo: "biome",
-	// 		pull_number: pullRequest.number,
-	// 	});
-	// 	reviewedPRCount += reviewComments.data.length > 0 ? 1 : 0;
-	// }
-
 	return reviewedPRCount / pullRequests.data.length;
 }
