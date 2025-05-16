@@ -3,23 +3,18 @@ import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
-import { StringParameter } from "aws-cdk-lib/aws-ssm";
 
+interface RestApiConstructArgs {
+	githubSecret: string;
+	githubClientId: string;
+}
 export class RestApiConstruct extends Construct {
-	constructor(scope: Construct, id: string) {
+	constructor(
+		scope: Construct,
+		id: string,
+		{ githubClientId, githubSecret }: RestApiConstructArgs,
+	) {
 		super(scope, id);
-
-		const githubClientId = StringParameter.fromStringParameterArn(
-			this,
-			"githubClientId",
-			"arn:aws:ssm:us-east-1:842234083685:parameter/osguild/githubClientId",
-		);
-
-		const githubSecretId = StringParameter.fromStringParameterArn(
-			this,
-			"githubSecretId",
-			"arn:aws:ssm:us-east-1:842234083685:parameter/osguild/githubSecretId",
-		);
 
 		const githubCallbackFunction = new NodejsFunction(this, "callback", {
 			code: Code.fromAsset(path.join(__dirname, "../../src")),
@@ -27,13 +22,10 @@ export class RestApiConstruct extends Construct {
 			memorySize: 1024,
 			runtime: Runtime.NODEJS_22_X,
 			environment: {
-				GITHUB_CLIENT: githubClientId.stringValue,
-				GITHUB_SECRET: githubSecretId.stringValue,
+				GITHUB_CLIENT: githubClientId,
+				GITHUB_SECRET: githubSecret,
 			},
 		});
-
-		githubClientId.grantRead(githubCallbackFunction);
-		githubSecretId.grantRead(githubCallbackFunction);
 
 		const api = new RestApi(this, "Api", {
 			restApiName: "OsGuildApi",
@@ -52,10 +44,12 @@ export class RestApiConstruct extends Construct {
 			],
 			allowCredentials: true,
 		});
-
+		// myapi.com/github
 		const githubResource = api.root.addResource("github");
+		// myapi.com/github/callback
 		const githubCallbackResource = githubResource.addResource("callback");
 
+		// this adds a POST method to myapi.com/github/callback
 		githubCallbackResource.addMethod(
 			"POST",
 			new LambdaIntegration(githubCallbackFunction),
