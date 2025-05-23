@@ -16,6 +16,6 @@ Note, changes made to the backend will not be hot-reloaded. You'll need to resta
 
 Once the command completes, the server should be running on `localhost:3000`.
 
-#### TODO
+### Frontend Setup 
 
-For the backend, we'll want to have the callback 
+To start the frontend locally, run `pnpm dev:ui`
