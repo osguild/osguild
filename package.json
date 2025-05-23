@@ -8,7 +8,7 @@
     "server:start-auth": "pnpm synth && sam local start-api --env-vars ./packages/backend/env.json -t ./packages/backend/cdk.out/BackendStack.template.json",
     "dev:ui": "pnpm --filter ui dev --host",
     "server:deploy": "pnpm --filter backend cdk deploy --require-approval never",
-    "lint": "biome",
+    "lint": "biome lint",
     "order-imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky"
