@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "synth":"pnpm --filter backend build && pnpm --filter backend cdk synth",
-    "server:start": "pnpm synth && sam local start-api --env-vars ./packages/backend/env.json -t ./packages/backend/cdk.out/BackendStack.template.json",
+    "server:start": "pnpm synth && sam local start-api -t ./packages/backend/cdk.out/BackendStack.template.json",
+    "server:start-auth": "pnpm synth && sam local start-api --env-vars ./packages/backend/env.json -t ./packages/backend/cdk.out/BackendStack.template.json",
     "dev:ui": "pnpm --filter ui dev --host",
     "server:build": "pnpm --filter backend build",
     "server:deploy": "pnpm --filter backend cdk deploy --require-approval never",
