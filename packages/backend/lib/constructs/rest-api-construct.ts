@@ -2,8 +2,8 @@ import path from "node:path";
 import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import { Construct } from "constructs";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
+import { Construct } from "constructs";
 
 export class RestApiConstruct extends Construct {
 	constructor(scope: Construct, id: string) {
