@@ -1,4 +1,3 @@
-import type { RestEndpointMethodTypes } from "@octokit/rest";
 import { getOctokitClient } from "../utils/github-api";
 
 export async function getPullRequestRatio(): Promise<number> {
