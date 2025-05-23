@@ -50,6 +50,8 @@ export function useAuthenticateUser() {
 	const navigate = useNavigate();
 
 	const fetchTokens = useCallback(async () => {
+		const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
+		if (!accessToken) return;
 		// Send code to backend
 		try {
 			const response = await fetch(
