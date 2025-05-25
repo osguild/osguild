@@ -4,8 +4,16 @@ import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 
+interface RestApiConstructArgs {
+	githubSecret: string;
+	githubClientId: string;
+}
 export class RestApiConstruct extends Construct {
-	constructor(scope: Construct, id: string) {
+	constructor(
+		scope: Construct,
+		id: string,
+		{ githubClientId, githubSecret }: RestApiConstructArgs,
+	) {
 		super(scope, id);
 
 		const githubCallbackFunction = new NodejsFunction(this, "callback", {
@@ -13,6 +21,10 @@ export class RestApiConstruct extends Construct {
 			handler: "index.handler",
 			memorySize: 1024,
 			runtime: Runtime.NODEJS_22_X,
+			environment: {
+				GITHUB_CLIENT: githubClientId,
+				GITHUB_SECRET: githubSecret,
+			},
 		});
 
 		// change dist back to src later
@@ -49,6 +61,7 @@ export class RestApiConstruct extends Construct {
 
 		const githubCallbackResource = githubResource.addResource("callback");
 
+		// this adds a POST method to myapi.com/github/callback
 		githubCallbackResource.addMethod(
 			"POST",
 			new LambdaIntegration(githubCallbackFunction),
