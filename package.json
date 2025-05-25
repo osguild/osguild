@@ -10,6 +10,9 @@
     "server:build": "pnpm --filter backend build",
     "server:deploy": "pnpm --filter backend cdk deploy --require-approval never",
     "lint": "biome lint",
+    "lint:write": "biome lint --write",
+    "format": "biome format",
+    "format:write": "biome format --write",
     "order-imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky"
