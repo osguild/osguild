@@ -27,6 +27,14 @@ export class RestApiConstruct extends Construct {
 			},
 		});
 
+		// change dist back to src later
+		const githubApiFunction = new NodejsFunction(this, "api", {
+			code: Code.fromAsset(path.join(__dirname, "../../dist/github/endpoints")),
+			handler: "index.handler",
+			memorySize: 1024,
+			runtime: Runtime.NODEJS_22_X,
+		});
+
 		const api = new RestApi(this, "Api", {
 			restApiName: "OsGuildApi",
 		});
@@ -44,15 +52,24 @@ export class RestApiConstruct extends Construct {
 			],
 			allowCredentials: true,
 		});
-		// myapi.com/github
+
+		// url.com/github
 		const githubResource = api.root.addResource("github");
-		// myapi.com/github/callback
+
+		// url.com/github/api
+		const githubApiEndpoint = githubResource.addResource("api");
+
 		const githubCallbackResource = githubResource.addResource("callback");
 
 		// this adds a POST method to myapi.com/github/callback
 		githubCallbackResource.addMethod(
 			"POST",
 			new LambdaIntegration(githubCallbackFunction),
+		);
+
+		githubApiEndpoint.addMethod(
+			"GET",
+			new LambdaIntegration(githubApiFunction),
 		);
 	}
 }

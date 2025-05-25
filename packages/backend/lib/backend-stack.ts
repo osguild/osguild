@@ -3,11 +3,14 @@ import * as cdk from "aws-cdk-lib";
 import type { Construct } from "constructs";
 import { RestApiConstruct } from "./constructs/rest-api-construct";
 
+<<<<<<< HEAD
 interface BackendStackOptions extends cdk.StackProps {
 	githubSecret: string;
 	githubClientId: string;
 }
 
+=======
+>>>>>>> main
 export class BackendStack extends cdk.Stack {
 	constructor(
 		scope: Construct,
