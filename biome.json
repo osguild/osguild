@@ -7,7 +7,7 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": ["*.json", "*.js"]
+		"ignore": ["*.json", "*.js", "*.d.ts", "packages/backend/cdk.out/**/*"]
 	},
 	"formatter": {
 		"enabled": true,
