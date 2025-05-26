@@ -4,8 +4,9 @@ import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
+import { PAGES_URL } from "./utils/constants";
 
-const redirectURI = `${import.meta.env.CF_PAGES_URL ?? "http://localhost:5173/"}auth/github/callback`;
+const redirectURI = `${PAGES_URL ? new URL(PAGES_URL).toString() : "http://localhost:5173/"}auth/github/callback`;
 
 function App() {
 	const [count, setCount] = useState(0);
