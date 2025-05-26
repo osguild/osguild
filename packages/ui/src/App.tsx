@@ -5,7 +5,7 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
 
-const redirectURI = "http://localhost:5173/auth/github/callback";
+const redirectURI = `${import.meta.env.CF_PAGES_URL ?? "http://localhost:5173/"}auth/github/callback`;
 
 function App() {
 	const [count, setCount] = useState(0);
