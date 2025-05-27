@@ -6,7 +6,7 @@ import "./App.css";
 import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
 import { PAGES_URL } from "./utils/constants";
 
-const redirectURI = `${PAGES_URL ? new URL(PAGES_URL).toString() : "http://localhost:5173/"}auth/github/callback`;
+const redirectURI = new URL("/auth/github/callback", PAGES_URL ?? "http://localhost:5173/").toString()
 
 function App() {
 	const [count, setCount] = useState(0);
