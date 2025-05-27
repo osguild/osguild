@@ -51,7 +51,8 @@ export function useAuthenticateUser() {
 
 	const fetchTokens = useCallback(async () => {
 		const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-		if (!accessToken) return;
+		if (accessToken) return;
+
 		// Send code to backend
 		try {
 			const response = await fetch(
