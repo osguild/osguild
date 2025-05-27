@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
+    "happo": "happo",
     "build-storybook": "storybook build"
   },
   "dependencies": {
