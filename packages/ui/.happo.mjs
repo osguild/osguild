@@ -1,6 +1,6 @@
+import happoPluginStorybook from "happo-plugin-storybook";
 // .happo.js
 import { RemoteBrowserTarget } from "happo.io";
-import happoPluginStorybook from "happo-plugin-storybook";
 
 // https://docs.happo.io/docs/configuration
 export default {
