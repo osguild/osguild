@@ -5,7 +5,11 @@ The OS Guild app uses PNPM workspaces to handle dependency management between th
 
 ## Project Setup
 
-This project uses Node 22.8.0. To install Node, we recommend using [`nvm`](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating)
+This project uses Node 22.8.0. To install Node, we recommend using [`nvm`](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating).
+
+Once you have `nvm` installed, run the following command:
+
+`nvm use`
 
 To get started, you'll need [PNPM installed](https://pnpm.io/installation). Run `pnpm install` in the root directory of the project to install dependencies for each project. To start the server, you'll want to have the [AWS SAM CLI installed](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html).
 
