@@ -18,4 +18,4 @@ jobs:
         env:
           HAPPO_API_KEY: ${{ secrets.HAPPO_API_KEY }}
           HAPPO_API_SECRET: ${{ secrets.HAPPO_API_SECRET }}
-          HAPPO_CONFIG_FILE: packages/ui/.happo.mjs
+          HAPPO_CONFIG_FILE: ${{github.workspace}}/packages/ui/.happo.mjs
