@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env*
+
+# Python specific
+__pycache__
