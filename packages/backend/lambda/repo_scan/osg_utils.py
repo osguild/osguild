@@ -1,6 +1,8 @@
 import os
 import urllib3
 import json
+import boto3
+from io import BytesIO
 
 class engine():
     def __init__(self, gh_api_key=None):
@@ -28,3 +30,18 @@ class engine():
         except Exception as e:
             print(f'Error making request: {str(e)}')
             return None
+        
+def write_data_to_s3(df,s3_bucket_location,folder,keyname):
+    s3_client = boto3.client('s3')
+    buffer = BytesIO()
+    df.to_csv(buffer, index=False)
+    buffer.seek(0)
+    s3_client.put_object(
+        Bucket=s3_bucket_location,
+        Key=keyname,
+        Body=buffer.getvalue()
+    )
+    return 'Loaded {keyname} to {s3_bucket_location}/{folder}/{keyname} successfully!'.format(keyname=keyname,s3_bucket_location=s3_bucket_location,folder=folder)
+
+
+

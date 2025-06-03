@@ -2,6 +2,7 @@ import boto3
 import json
 import os
 from osg_utils import engine as osg_engine
+from osg_utils import write_data_to_s3
 import pandas as pd
 from io import BytesIO
 
@@ -20,21 +21,9 @@ def lambda_handler(event, context):
         print(target_url)
         json_data = meta_engine.request(target_url)
         df = pd.read_json(json_data)
-
-    output_key = 'data.csv'#todo: make dynamic
-    # Initialize S3 client (uses Lambda IAM role)
-    s3_client = boto3.client('s3')
-    # Write DataFrame to BytesIO
-    buffer = BytesIO()
-    df.to_csv(buffer, index=False)
-    buffer.seek(0)  # Reset buffer position
-    
-    # Upload to S3
-    s3_client.put_object(
-        Bucket=s3_bucket_location,
-        Key=output_key,
-        Body=buffer.getvalue()
-    )
+        keyname = x + '.csv'
+        folder = owner + '-' + repo
+        write_data_to_s3(df,s3_bucket_location,folder,keyname)
 
     return {
         'statusCode': 200,
