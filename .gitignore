@@ -24,6 +24,3 @@ dist-ssr
 *.sw?
 .env*
 !packages/ui/.env
-
-# Python specific
-__pycache__
