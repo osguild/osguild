@@ -23,6 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .env*
+!packages/ui/.env
 
 # Python specific
 __pycache__
