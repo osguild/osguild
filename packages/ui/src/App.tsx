@@ -4,8 +4,12 @@ import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
+import { PAGES_URL } from "./utils/constants";
 
-const redirectURI = "http://localhost:5173/auth/github/callback";
+const redirectURI = new URL(
+	"/auth/github/callback",
+	PAGES_URL ?? "http://localhost:5173/",
+).toString();
 
 function App() {
 	const [count, setCount] = useState(0);

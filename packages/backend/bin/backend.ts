@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib";
 import { BackendStack } from "../lib/backend-stack";
+import { getSecureString } from "../src/utils/get-secure-strings";
 
 const app = new cdk.App();
-new BackendStack(app, "BackendStack", {
-	/* If you don't specify 'env', this stack will be environment-agnostic.
-	 * Account/Region-dependent features and context lookups will not work,
-	 * but a single synthesized template can be deployed anywhere. */
-	/* Uncomment the next line to specialize this stack for the AWS Account
-	 * and Region that are implied by the current CLI configuration. */
-	// env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
-	/* Uncomment the next line if you know exactly what Account and Region you
-	 * want to deploy the stack to. */
-	// env: { account: '123456789012', region: 'us-east-1' },
-	/* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+
+async function main() {
+	const githubSecret = await getSecureString("/osguild/githubSecretId");
+	const githubClientId = await getSecureString("/osguild/githubClientId");
+
+	if (!githubClientId || !githubSecret) {
+		throw new Error("Error! githubClient or githubSecret is not defined");
+	}
+
+	new BackendStack(app, "BackendStack", { githubSecret, githubClientId });
+}
+
+main();
