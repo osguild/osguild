@@ -1,29 +1,20 @@
 import path from "node:path";
-import { Cors, LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
+import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
 import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
-import { StringParameter } from "aws-cdk-lib/aws-ssm";
 
+interface RestApiConstructArgs {
+	githubSecret: string;
+	githubClientId: string;
+}
 export class RestApiConstruct extends Construct {
-	constructor(scope: Construct, id: string) {
+	constructor(
+		scope: Construct,
+		id: string,
+		{ githubClientId, githubSecret }: RestApiConstructArgs,
+	) {
 		super(scope, id);
-
-		const githubClientId = StringParameter.fromSecureStringParameterAttributes(
-			this,
-			"githubClientId",
-			{
-				parameterName: "/osguild/githubClientId",
-			},
-		);
-
-		const githubSecretId = StringParameter.fromSecureStringParameterAttributes(
-			this,
-			"githubSecretId",
-			{
-				parameterName: "/osguild/githubSecretId",
-			},
-		);
 
 		const githubCallbackFunction = new NodejsFunction(this, "callback", {
 			code: Code.fromAsset(path.join(__dirname, "../../src")),
@@ -31,13 +22,18 @@ export class RestApiConstruct extends Construct {
 			memorySize: 1024,
 			runtime: Runtime.NODEJS_22_X,
 			environment: {
-				GITHUB_CLIENT: githubClientId.stringValue,
-				GITHUB_SECRET: githubSecretId.stringValue,
+				GITHUB_CLIENT: githubClientId,
+				GITHUB_SECRET: githubSecret,
 			},
 		});
 
-		githubClientId.grantRead(githubCallbackFunction);
-		githubSecretId.grantRead(githubCallbackFunction);
+		// change dist back to src later
+		const githubApiFunction = new NodejsFunction(this, "api", {
+			code: Code.fromAsset(path.join(__dirname, "../../dist/github/endpoints")),
+			handler: "index.handler",
+			memorySize: 1024,
+			runtime: Runtime.NODEJS_22_X,
+		});
 
 		const api = new RestApi(this, "Api", {
 			restApiName: "OsGuildApi",
@@ -57,12 +53,23 @@ export class RestApiConstruct extends Construct {
 			allowCredentials: true,
 		});
 
+		// url.com/github
 		const githubResource = api.root.addResource("github");
+
+		// url.com/github/api
+		const githubApiEndpoint = githubResource.addResource("api");
+
 		const githubCallbackResource = githubResource.addResource("callback");
 
+		// this adds a POST method to myapi.com/github/callback
 		githubCallbackResource.addMethod(
 			"POST",
 			new LambdaIntegration(githubCallbackFunction),
+		);
+
+		githubApiEndpoint.addMethod(
+			"GET",
+			new LambdaIntegration(githubApiFunction),
 		);
 	}
 }

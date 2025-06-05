@@ -4,6 +4,9 @@ import { defineConfig } from "vite";
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react()],
+	define: {
+		"import.meta.env.CF_PAGES_URL": JSON.stringify(process.env.CF_PAGES_URL),
+	},
 	server: {
 		proxy: {
 			// Target is your backend API
