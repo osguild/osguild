@@ -1,0 +1,118 @@
+---
+import { Image } from "astro:assets";
+import Button from "@components/button/Button.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { useTranslations } from "@js/translationUtils";
+import { Icon } from "astro-icon/components";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(currLocale);
+---
+
+<section id="hero-gradient" class="bg-primary-950 dark:bg-base-950">
+	<div
+		class:list={[
+			"relative flex min-h-[100svh] items-center justify-center overflow-hidden",
+			"from-background via-background/95 to-primary/15 bg-gradient-to-br",
+			"dark text-foreground pt-16",
+		]}
+	>
+		<!-- Animated Background Elements -->
+		<div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+			<div class="absolute inset-0 opacity-30">
+				<div
+					class="animate-blob bg-primary/30 absolute top-0 -left-4 h-72 w-72 rounded-full mix-blend-multiply blur-xl"
+				>
+				</div>
+				<div
+					class="animation-delay-2000 animate-blob absolute top-0 -right-4 h-72 w-72 rounded-full bg-purple-300 mix-blend-multiply blur-xl dark:bg-purple-900"
+				>
+				</div>
+				<div
+					class="animation-delay-4000 animate-blob absolute -bottom-8 left-20 h-72 w-72 rounded-full bg-pink-300 mix-blend-multiply blur-xl dark:bg-pink-900"
+				>
+				</div>
+
+				<!-- from-primary/50 to-primary-300/50 -->
+			</div>
+		</div>
+
+		<!-- Main Content -->
+		<div class="site-container relative z-10">
+			<div class="mx-auto max-w-4xl">
+				<div class="text-center">
+					<h1
+						class:list={[
+							"font-heading mb-6 text-5xl md:text-7xl",
+							"from-primary bg-gradient-to-r via-purple-500 to-pink-500 bg-clip-text text-transparent",
+							"dark:from-primary dark:via-purple-400 dark:to-pink-400",
+						]}
+						data-aos="fade-up"
+						data-aos-trigger="#hero-gradient"
+						data-aos-duration="1.2"
+					>
+						{t("hero_text")}
+					</h1>
+					<p
+						class="text-base-400 mb-12 text-xl text-pretty"
+						data-aos="fade-in"
+						data-aos-delay="1"
+						data-aos-trigger="#hero-gradient"
+						data-aos-duration="1.2"
+					>
+						{t("hero_description")}
+					</p>
+
+					<!-- Call to Action Buttons -->
+					<div
+						class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+						data-aos="fade-in"
+						data-aos-delay="2"
+						data-aos-trigger="#hero-gradient"
+						data-aos-duration="1.2"
+					>
+						<Button href="#contact" arrow="right"> Get Started </Button>
+						<Button
+							href={getLocalizedRoute(currLocale, `/projects`)}
+							variant="ghost"
+							class="border-border hover:border-primary"
+						>
+							View Work
+						</Button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	@keyframes blob {
+		0% {
+			transform: translate(0, 0) scale(1);
+		}
+		33% {
+			transform: translate(30px, -50px) scale(1.1);
+		}
+		66% {
+			transform: translate(-20px, 20px) scale(0.9);
+		}
+		100% {
+			transform: translate(0, 0) scale(1);
+		}
+	}
+
+	.animate-blob {
+		animation: blob 7s infinite;
+	}
+
+	.animation-delay-2000 {
+		animation-delay: 2s;
+	}
+
+	.animation-delay-4000 {
+		animation-delay: 4s;
+	}
+</style>

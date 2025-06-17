@@ -1,0 +1,17 @@
+---
+import ProcessSectionHorizontal from "@components/process/ProcessSectionHorizontal.astro";
+import ProcessSectionVertical from "@components/process/ProcessSectionVertical.astro";
+import ProjectShowcaseCards from "@components/project-showcase/ProjectShowcaseCards.astro";
+import ProjectShowcaseSideImage from "@components/project-showcase/ProjectShowcaseSideImage.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="Project Showcase and Process Sections"
+	description="All project showcase and process sections included with this template"
+>
+	<ProjectShowcaseCards />
+	<ProjectShowcaseSideImage />
+	<ProcessSectionVertical />
+	<ProcessSectionHorizontal />
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { getTranslatedData } from "@js/translationUtils";
+import { Icon } from "astro-icon/components";
+
+import TestimonialCard from "./TestimonialCard.astro";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const testimonials = getTranslatedData("testimonialData", currLocale);
+---
+
+<section
+	class="text-foreground bg-base-100 dark:bg-background overflow-hidden pt-12 pb-20 md:pt-24 md:pb-32"
+>
+	<div class="site-container px-8">
+		<div class="mx-auto mb-20 max-w-3xl text-center" data-aos="fade-up">
+			<h2 class="h2 mb-4">Client Stories</h2>
+			<p class="description text-xl">Real experiences from our valued clients</p>
+		</div>
+
+		<div
+			class="mx-auto grid max-w-6xl gap-8 md:grid-cols-2"
+			data-aos="fade-up"
+			data-aos-delay="0.4"
+		>
+			{
+				testimonials.map((testimonial, index) => (
+					<TestimonialCard testimonial={testimonial} isOffset={index % 2 === 0} />
+				))
+			}
+		</div>
+	</div>
+</section>

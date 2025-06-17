@@ -1,0 +1,106 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, getEntries } from "astro:content";
+import Button from "@components/button/Button.astro";
+import KeyFeatures from "@components/projects/KeyFeatures.astro";
+import TechStack from "@components/projects/TechStack.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { formatDate } from "@js/textUtils";
+import { useTranslations } from "@js/translationUtils";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+	project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props as Props;
+const { title, description, image, technologies, demoUrl, githubUrl, completionDate, keyFeatures } =
+	project.data;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(currLocale);
+---
+
+<BaseLayout type="general" title={title} description={description} heroImage={image}>
+	<article class="mt-16">
+		<!-- Hero Section -->
+		<div class="bg-base-950 relative mt-16 h-[60vh] min-h-[400px]">
+			<div class="absolute inset-0">
+				<Image
+					src={image}
+					alt={title}
+					loading="eager"
+					class="h-full w-full object-cover opacity-50"
+				/>
+				<div class="from-base-950 via-base-950/50 absolute inset-0 bg-gradient-to-t to-transparent">
+				</div>
+			</div>
+
+			<div class="site-container dark relative mx-auto flex h-full items-end px-4 pb-16">
+				<div class="max-w-3xl">
+					<h1 class="text-foreground font-heading mb-4 text-4xl md:text-5xl">
+						{title}
+					</h1>
+					<p class="description text-lg md:text-xl">{description}</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Content Section -->
+		<div class="site-container mx-auto px-4 py-16">
+			<div class="mx-auto max-w-3xl">
+				<div class="mb-12">
+					<h2 class="font-heading mb-4 text-2xl md:text-3xl">Technologies Used</h2>
+					<TechStack {technologies} />
+				</div>
+
+				<div class="mb-12">
+					<h2 class="font-heading mb-4 text-2xl md:text-3xl">Key Features</h2>
+					<KeyFeatures {keyFeatures} />
+				</div>
+
+				<div class="markdown-content">
+					<slot />
+				</div>
+
+				<div class="mt-10 flex flex-col gap-6">
+					<div class="opacity-70">
+						Completed on: {formatDate(completionDate, currLocale)}
+					</div>
+
+					<div class="flex flex-wrap gap-4">
+						{
+							demoUrl && (
+								<Button
+									href={demoUrl}
+									target="_blank"
+									variant="primary"
+									arrow="right"
+									class="px-6 py-3"
+								>
+									Live Demo
+								</Button>
+							)
+						}
+						{
+							githubUrl && (
+								<Button
+									href={githubUrl}
+									target="_blank"
+									variant="outline"
+									arrow="right"
+									class="px-6 py-3"
+								>
+									View Source
+								</Button>
+							)
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+</BaseLayout>

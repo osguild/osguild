@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, getEntries } from "astro:content";
+import Category from "@components/category/CategoryBadge.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { formatDate } from "@js/textUtils";
+import { Icon } from "astro-icon/components";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+interface Props {
+	post: CollectionEntry<"blog">;
+	showDescription?: boolean;
+	class?: string;
+	rest?: any; // catch-all for any additional parameters, such as "aria-label"
+}
+
+const { post, showDescription = false, class: className, ...rest } = Astro.props as Props;
+const { title, description, categories, pubDate, heroImage } = post.data;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+---
+
+<article
+	class:list={[
+		"hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 overflow-hidden rounded-2xl border bg-white duration-300 hover:shadow-xl",
+		className,
+	]}
+	data-pagefind-ignore
+	{...rest}
+>
+	<a href={getLocalizedRoute(currLocale, `/blog/${post.id}/`)}>
+		<div class="aspect-[16/9] overflow-hidden">
+			<Image
+				src={heroImage}
+				alt={title}
+				class="h-full w-full transform object-cover transition-transform duration-500 will-change-auto hover:scale-105"
+			/>
+		</div>
+	</a>
+	<div class="p-6">
+		<div class="mb-4 flex flex-wrap gap-2">
+			{categories && categories.slice(0, 2).map((category) => <Category category={category} />)}
+		</div>
+		<a
+			href={getLocalizedRoute(currLocale, `/blog/${post.id}/`)}
+			class="hover:text-primary text-xl font-bold transition-colors"
+		>
+			<h2>{title}</h2>
+		</a>
+		<p class="description mt-2 mb-4 line-clamp-2 text-base">
+			{description}
+		</p>
+		<div class="flex items-center justify-between">
+			<time datetime={pubDate.toISOString()} class="text-base-500 text-sm">
+				{formatDate(pubDate, currLocale)}
+			</time>
+			<a
+				href={getLocalizedRoute(currLocale, `/blog/${post.id}/`)}
+				class="decoration-primary group flex items-center transition-colors hover:underline"
+			>
+				Read More
+				<Icon
+					name="tabler/arrow-narrow-right"
+					class="ml-1 h-[1.4em] w-[1.4em] transition-transform group-hover:translate-x-1"
+				/>
+			</a>
+		</div>
+	</div>
+</article>

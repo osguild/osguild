@@ -1,0 +1,20 @@
+---
+type Props = {
+	value: string;
+	class?: string;
+};
+
+const { value, class: className } = Astro.props;
+---
+
+<div
+	class:list={[
+		"starwind-accordion-item",
+		"bg-background dark:bg-base-900 rounded-md border",
+		className,
+	]}
+	data-value={value}
+	data-state="closed"
+>
+	<slot />
+</div>

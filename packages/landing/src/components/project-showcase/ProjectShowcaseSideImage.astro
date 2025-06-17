@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Button from "@components/button/Button.astro";
+import ProjectCardSideImage from "@components/projects/ProjectCardSideImage.astro";
+import { filterCollectionByLanguage } from "@js/localeUtils";
+import { getLocaleFromUrl } from "@js/localeUtils";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+
+const projects = await getCollection("projects", ({ data }) => {
+	// filter out draft projects
+	return data.draft !== true;
+});
+const filteredProjects = filterCollectionByLanguage(
+	projects,
+	currLocale,
+) as CollectionEntry<"projects">[];
+const sortedProjects = filteredProjects.sort(
+	(a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY),
+);
+const slicedProjects = sortedProjects.slice(0, 3); // Only show first 3 projects
+---
+
+<section
+	id="showcase-side-image"
+	class="bg-background text-foreground relative overflow-hidden py-16 md:py-32"
+>
+	<div class="site-container relative mx-auto px-4">
+		<!-- Section Header -->
+		<div class="mx-auto mb-20 max-w-3xl text-center" data-aos="fade-in">
+			<h2 class="h2 mb-6">Featured Projects</h2>
+			<p class="description text-xl">Explore some of our recent work and creative solutions</p>
+		</div>
+
+		<!-- Projects Grid -->
+		<div class="space-y-24">
+			{
+				slicedProjects.map((project, index) => (
+					<ProjectCardSideImage project={project} imageSide={index % 2 === 0 ? "left" : "right"} />
+				))
+			}
+		</div>
+
+		<!-- View All Link -->
+		<div class="mt-20 flex justify-center">
+			<Button href={getLocalizedRoute(currLocale, "/projects")} variant="primary" arrow="right">
+				View All Projects
+			</Button>
+		</div>
+	</div>
+</section>

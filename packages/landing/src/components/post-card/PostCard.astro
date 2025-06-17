@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, getEntries } from "astro:content";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { formatDate } from "@js/textUtils";
+import { Icon } from "astro-icon/components";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+interface Props {
+	post: CollectionEntry<"blog">;
+	showDescription?: boolean;
+	class?: string;
+	rest?: any; // catch-all for any additional parameters, such as "aria-label"
+}
+
+const { post, showDescription = false, class: className, ...rest } = Astro.props as Props;
+const { title, description, categories, pubDate, heroImage } = post.data;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+---
+
+<a
+	href={getLocalizedRoute(currLocale, `/blog/${post.id}/`)}
+	class:list={[
+		"group hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 overflow-hidden rounded-2xl border bg-white transition-all duration-300 hover:shadow-xl",
+		className,
+	]}
+	data-pagefind-ignore
+	{...rest}
+>
+	<article>
+		<div class="aspect-[16/9] overflow-hidden">
+			<Image
+				src={heroImage}
+				alt={title}
+				class="h-full w-full transform object-cover transition-transform duration-500 will-change-auto group-hover:scale-105"
+			/>
+		</div>
+		<div class="p-6">
+			<div class="mb-4 flex flex-wrap gap-2">
+				{
+					categories &&
+						categories
+							.slice(0, 2)
+							.map((category) => (
+								<span class="bg-primary/5 text-primary dark:bg-primary/15 dark:text-primary-foreground rounded-full px-3 py-1 text-sm">
+									{category}
+								</span>
+							))
+				}
+			</div>
+			<h3 class="group-hover:text-primary mb-2 text-xl font-bold transition-colors">
+				{title}
+			</h3>
+			<p class="description mb-4 line-clamp-2 text-base">
+				{description}
+			</p>
+			<div class="flex items-center justify-between">
+				<time datetime={pubDate.toISOString()} class="text-base-500 text-sm">
+					{formatDate(pubDate, currLocale)}
+				</time>
+				<div
+					class="decoration-primary group/read flex items-center transition-colors hover:underline"
+				>
+					Read More
+					<Icon
+						name="tabler/arrow-narrow-right"
+						class="ml-1 h-[1.4em] w-[1.4em] transition-transform group-hover/read:translate-x-1"
+					/>
+				</div>
+			</div>
+		</div>
+	</article>
+</a>

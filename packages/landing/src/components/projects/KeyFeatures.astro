@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	keyFeatures: CollectionEntry<"projects">["data"]["keyFeatures"];
+}
+
+const { keyFeatures } = Astro.props;
+---
+
+<div class="grid gap-6 md:grid-cols-2">
+	{
+		keyFeatures.map((feature) => (
+			<div class="bg-base-200/50 dark:bg-base-900 hover:bg-base-200 dark:hover:bg-base-800 flex items-center gap-3 rounded-lg p-4 transition-colors">
+				<Icon name="tabler/check" class="text-primary size-5" />
+				<span>{feature}</span>
+			</div>
+		))
+	}
+</div>

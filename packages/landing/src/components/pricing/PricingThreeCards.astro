@@ -1,0 +1,184 @@
+---
+/**
+ * * pricing sections with toggle for monthly or yearly payments
+ * This is designed for 3 pricing items, but can be modified to support more
+ */
+import Button from "@components/button/Button.astro";
+import Switch from "@components/starwind/switch";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { Icon } from "astro-icon/components";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+// get the current page locale to use in links to other pages
+const currLocale = getLocaleFromUrl(Astro.url);
+
+interface PricingFeature {
+	text: string;
+	included: boolean;
+}
+
+interface PricingPlan {
+	name: string;
+	monthlyPrice: number;
+	yearlyPrice: number;
+	description: string;
+	isPopular?: boolean;
+	features: PricingFeature[];
+}
+
+const plans: PricingPlan[] = [
+	{
+		name: "Basic",
+		monthlyPrice: 40,
+		yearlyPrice: 400,
+		description: "Perfect for Small Projects and Individuals",
+		features: [
+			{ text: "Website Development +$3000", included: true },
+			{ text: "Hosting and Maintenance", included: true },
+			{ text: "Custom Domain", included: true },
+			{ text: "Support", included: true },
+			{ text: "Basic Analytics", included: true },
+			{ text: "Website Changes Included", included: false },
+		],
+	},
+	{
+		name: "Pro",
+		monthlyPrice: 300,
+		yearlyPrice: 3000,
+		description: "Ideal for Startups and Small Businesses",
+		isPopular: true,
+		features: [
+			{ text: "Website Design and Development", included: true },
+			{ text: "Unlimited Changes", included: true },
+			{ text: "One Request at a Time", included: true },
+			{ text: "Hosting and Maintenance Included", included: true },
+			{ text: "Support, Analytics, and Updates", included: true },
+			{ text: "Custom Domain", included: true },
+		],
+	},
+	{
+		name: "Enterprise",
+		monthlyPrice: 1000,
+		yearlyPrice: 10000,
+		description: "For Growing Businesses",
+		features: [
+			{ text: "Everything in Pro plus...", included: true },
+			{ text: "Manage up to 5 Projects", included: true },
+			{ text: "Three Requests at a Time", included: true },
+			{ text: "Hosting and Maintenance Included", included: true },
+			{ text: "Advanced Analytics", included: true },
+			{ text: "Priority Support", included: true },
+		],
+	},
+];
+---
+
+<section
+	id="pricing-three-cards"
+	class="bg-base-100 dark:bg-background text-foreground relative py-16 md:py-32"
+>
+	<div class="site-container">
+		<h2 class="h2 mb-4 text-center">Pricing Plans</h2>
+		<p class="description mb-16 text-center text-lg">Choose the perfect plan for your needs</p>
+
+		<div class="mb-16 flex items-center justify-center gap-4">
+			<span class="description">Monthly</span>
+			<Switch variant="primary" id="pricing-three-cards__toggle" size="lg" />
+			<span class="description">Yearly <span class="text-primary text-sm">(Save 20%)</span></span>
+		</div>
+
+		<div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-3">
+			{
+				plans.map((plan) => (
+					<div
+						class:list={[
+							"relative rounded-2xl p-8 transition-all duration-300",
+							"hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 border bg-white hover:shadow-xl",
+							plan.isPopular
+								? ["border-primary/30 shadow-primary/5 shadow-xl", "lg:-translate-y-2 lg:scale-105"]
+								: ["border-border"],
+						]}
+					>
+						{plan.isPopular && (
+							<div class="bg-primary absolute -top-4 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-sm font-medium text-white">
+								Most Popular
+							</div>
+						)}
+
+						<div class="mb-8 text-center">
+							<h3 class="font-heading mb-2 text-2xl">{plan.name}</h3>
+							<p class="description text-sm">{plan.description}</p>
+						</div>
+
+						<div class="mb-8 text-center">
+							<div class="relative">
+								<p class="pricing-monthly text-primary text-4xl font-bold">
+									${plan.monthlyPrice}
+									<span class="text-base-500 text-lg font-normal">/mo</span>
+								</p>
+								<p class="pricing-yearly text-primary hidden text-4xl font-bold">
+									${plan.yearlyPrice}
+									<span class="text-base-500 text-lg font-normal">/yr</span>
+								</p>
+							</div>
+						</div>
+
+						<ul class="mb-8 space-y-4">
+							{plan.features.map((feature) => (
+								<li class="description flex items-center text-base">
+									<span class:list={["mr-2", feature.included ? "text-primary" : "text-base-400"]}>
+										<Icon name={feature.included ? "tabler/check" : "tabler/x"} class="h-5 w-5" />
+									</span>
+									<span class:list={[feature.included ? "" : "opacity-70"]}>{feature.text}</span>
+								</li>
+							))}
+						</ul>
+
+						<Button
+							href="#contact"
+							variant={plan.isPopular ? "primary" : "secondary"}
+							class="w-full"
+						>
+							Get Started
+						</Button>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const setupPricingToggle = () => {
+		const pricingSection = document.getElementById("pricing-three-cards");
+		const toggle = pricingSection?.querySelector("#pricing-three-cards__toggle");
+		const monthlyPrices = pricingSection?.querySelectorAll(".pricing-monthly");
+		const yearlyPrices = pricingSection?.querySelectorAll(".pricing-yearly");
+
+		if (!toggle || !monthlyPrices || !yearlyPrices) return;
+
+		// Create a new MutationObserver to watch for aria-checked changes
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.type === "attributes" && mutation.attributeName === "aria-checked") {
+					const isYearly = toggle.getAttribute("aria-checked") === "true";
+					monthlyPrices.forEach((price) => price.classList.toggle("hidden", isYearly));
+					yearlyPrices.forEach((price) => price.classList.toggle("hidden", !isYearly));
+				}
+			});
+		});
+
+		// Start observing the toggle button for attribute changes
+		observer.observe(toggle, {
+			attributes: true,
+			attributeFilter: ["aria-checked"], // only watch for aria-checked changes
+		});
+	};
+
+	setupPricingToggle();
+
+	document.addEventListener("astro:after-swap", () => {
+		setupPricingToggle();
+	});
+</script>

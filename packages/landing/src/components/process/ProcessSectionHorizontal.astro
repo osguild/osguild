@@ -1,0 +1,63 @@
+---
+import ProcessStep from "./ProcessStepHorizontal.astro";
+
+interface ProcessStepProps {
+	title: string;
+	description: string;
+	icon: string;
+}
+
+const processSteps: ProcessStepProps[] = [
+	{
+		title: "Discovery Call",
+		description: "Initial consultation to understand your vision and goals",
+		icon: "tabler/message-dots",
+	},
+	{
+		title: "Strategic Planning",
+		description: "Developing a tailored roadmap for your project success",
+		icon: "tabler/clipboard",
+	},
+	{
+		title: "Design Process",
+		description: "Creating and refining your unique digital experience",
+		icon: "tabler/photo",
+	},
+	{
+		title: "Launch & Support",
+		description: "Deploying your project and providing ongoing assistance",
+		icon: "tabler/bolt",
+	},
+];
+---
+
+<section class="bg-base-100 dark:bg-background text-foreground py-16 md:py-32">
+	<div class="site-container mx-auto px-4">
+		<div class="mx-auto mb-16 max-w-3xl text-center">
+			<h2 class="h2 mb-4">How We Work</h2>
+			<p class="description text-xl">Our proven process for delivering exceptional results</p>
+		</div>
+
+		<div class="relative">
+			<!-- Process Steps -->
+			<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+				{
+					processSteps.map((step, index) => (
+						<ProcessStep
+							number={index + 1}
+							title={step.title}
+							description={step.description}
+							icon={step.icon}
+						/>
+					))
+				}
+			</div>
+
+			<!-- Connecting Lines (visible on larger screens) -->
+			<div
+				class="from-primary/0 via-primary/20 to-primary/0 absolute top-[6.5rem] left-0 z-0 hidden h-0.5 w-full bg-gradient-to-r lg:block"
+			>
+			</div>
+		</div>
+	</div>
+</section>

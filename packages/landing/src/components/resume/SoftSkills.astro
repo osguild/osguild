@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	softSkills: CollectionEntry<"resume">["data"]["softSkills"];
+}
+
+const { softSkills } = Astro.props;
+---
+
+<div class="space-y-4">
+	<h2 class="h3">Soft Skills</h2>
+	<div class="grid gap-4 sm:grid-cols-2">
+		{
+			softSkills.map((skill) => (
+				<div class="hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 flex items-center gap-4 rounded-lg border bg-white p-4 transition-all hover:shadow-lg">
+					<span class="text-2xl">{skill.icon}</span>
+					<span class="font-medium opacity-70">{skill.skill}</span>
+				</div>
+			))
+		}
+	</div>
+</div>

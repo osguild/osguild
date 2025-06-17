@@ -1,0 +1,81 @@
+---
+import Button from "@components/button/Button.astro";
+import LanguageSelect from "@components/language-select/LanguageSelect.astro";
+import MobileNav from "@components/nav/MobileNav/MobileNav.astro";
+import NavDropdownToggle from "@components/nav/NavDropdown/NavDropdownToggle.astro";
+import NavLink from "@components/nav/NavLink.astro";
+import SiteLogo from "@components/site-logo/SiteLogo.astro";
+import ThemeToggle from "@components/theme-toggle/ThemeToggle.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { getTranslatedData } from "@js/translationUtils";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+import MegaMenuDropdownToggle from "./NavDropdown/MegaMenuDropdownToggle.astro";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const navData = getTranslatedData("navData", currLocale);
+import { locales } from "@config/siteSettings.json";
+// console.log(JSON.stringify(navData, null, 2));
+---
+
+<section
+	id="nav"
+	class="navbar--initial dark bg-background/80 border-border/50 fixed top-0 left-0 z-30 flex w-full flex-col border-b py-3 backdrop-blur-sm transition-all duration-300"
+>
+	<div class="mx-auto flex w-full">
+		<div class="site-container flex w-full items-center">
+			<header class="relative flex w-full items-center gap-2">
+				<!-- home button / image -->
+				<div class="flex h-full flex-auto justify-start">
+					<SiteLogo />
+				</div>
+
+				<!-- <div class="flex flex-auto justify-center">
+          
+        </div> -->
+
+				<!-- desktop nav menu -->
+				<div>
+					<div class="flex h-full flex-auto justify-end gap-2">
+						<nav class="hidden md:block">
+							<ul class="flex h-full items-center">
+								{
+									// if dropdown exists, setup the dropdown, otherwise it is just a link
+									navData.map((navItem) =>
+										"dropdown" in navItem ? (
+											// non-mobile dropdown menu
+											<NavDropdownToggle navItem={navItem} />
+										) : "megaMenuColumns" in navItem ? (
+											<MegaMenuDropdownToggle {navItem} />
+										) : (
+											// normal nav link
+											<NavLink {navItem} />
+										),
+									)
+								}
+							</ul>
+						</nav>
+						<div class="hidden items-center gap-2 md:flex">
+							<!-- don't forget to also update the button in MobileNav.astro! -->
+							<Button
+								variant="primary"
+								href="https://cosmicthemes.com/themes/voyager"
+								class="px-4 py-2 whitespace-nowrap">Get Voyager</Button
+							>
+
+							<ThemeToggle class="" />
+
+							{locales.length > 1 && <LanguageSelect class="" />}
+						</div>
+
+						<!-- mobile nav menu, only load on small screens where it is visible -->
+						<div class="flex items-center md:hidden">
+							<MobileNav />
+						</div>
+					</div>
+				</div>
+			</header>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,22 @@
+---
+import FaqAccordions from "@components/faq/FaqAccordions.astro";
+import FaqCards from "@components/faq/FaqCards.astro";
+import PricingOnePrice from "@components/pricing/PricingOnePrice.astro";
+import PricingThreeCards from "@components/pricing/PricingThreeCards.astro";
+import PricingTwoCards from "@components/pricing/PricingTwoCards.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="Pricing and FAQ sections"
+	description="All Pricing and FAQ sections you get with the Voyager theme by Cosmic Themes."
+>
+	<div class="site-container my-28 flex justify-center">
+		<h1 class="h1">All Pricing and FAQ Sections</h1>
+	</div>
+	<PricingTwoCards />
+	<PricingThreeCards />
+	<PricingOnePrice />
+	<FaqAccordions />
+	<FaqCards />
+</BaseLayout>

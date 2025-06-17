@@ -1,0 +1,124 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import FilterButton from "@components/button/FilterButton.astro";
+import ContactSectionSimple from "@components/contact/ContactSectionSimple.astro";
+import ProjectCardSideImage from "@components/projects/ProjectCardSideImage.astro";
+import { filterCollectionByLanguage } from "@js/localeUtils";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import ProjectCard from "@/components/projects/ProjectCard.astro";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+
+const projects = await getCollection("projects", ({ data }) => {
+	// filter out draft projects
+	return data.draft !== true;
+});
+const filteredProjects = filterCollectionByLanguage(projects, currLocale);
+const sortedProjects = filteredProjects.sort(
+	(a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY),
+);
+
+// Get unique technologies from all projects
+const allTechnologies = [
+	...new Set(projects.flatMap((project) => project.data.technologies)),
+].sort();
+---
+
+<BaseLayout
+	title="My projects"
+	description="Learn from my projects about web development, design, and more."
+>
+	<div class="site-container mt-24 pb-24 md:mt-36">
+		<!-- Header -->
+		<div class="mx-auto mb-16 max-w-7xl">
+			<div class="text-center">
+				<h1 class="h2 mb-4">Projects</h1>
+				<p class="description opacity-80 lg:text-xl">
+					Explore my projects and learn about my development journey
+				</p>
+			</div>
+		</div>
+
+		<!-- Technology Filters -->
+		<div class="mx-auto mb-12 max-w-5xl">
+			<div class="bg-base-100 dark:bg-base-900 rounded-2xl p-6">
+				<h2 class="mb-4 text-lg font-bold">Filter by Technology</h2>
+				<div class="flex flex-wrap gap-2">
+					<FilterButton text="All" class="tech-filter" data-tech="all" aria-pressed="true" />
+					{
+						allTechnologies.map((tech) => (
+							<FilterButton text={tech} class="tech-filter" data-tech={tech} aria-pressed="false" />
+						))
+					}
+				</div>
+			</div>
+		</div>
+
+		<!-- Projects grid -->
+		<!-- <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+			{
+				sortedProjects.map((project) => (
+					<div
+						class="project-item grid"
+						data-technologies={JSON.stringify(project.data.technologies)}
+					>
+						<ProjectCard project={project} />
+					</div>
+				))
+			}
+		</div> -->
+
+		<!-- alternating side project cards -->
+		<div class="space-y-24">
+			{
+				sortedProjects.map((project, index) => (
+					<div
+						class="project-item grid"
+						data-technologies={JSON.stringify(project.data.technologies)}
+					>
+						<ProjectCardSideImage project={project} imageSide="left" animations={false} />
+					</div>
+				))
+			}
+		</div>
+	</div>
+
+	<ContactSectionSimple />
+</BaseLayout>
+
+<script>
+	const setupProjectsFiltering = () => {
+		// Get all filter buttons and project items
+		const filterButtons = document.querySelectorAll(".tech-filter");
+		const projectItems = document.querySelectorAll(".project-item");
+
+		// Add click event listeners to filter buttons
+		filterButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const selectedTech = button.getAttribute("data-tech");
+
+				// Update button states
+				filterButtons.forEach((btn) => {
+					btn.setAttribute("aria-pressed", "false");
+				});
+				button.setAttribute("aria-pressed", "true");
+
+				// Filter projects
+				projectItems.forEach((item) => {
+					const technologies = JSON.parse(item.getAttribute("data-technologies") || "[]");
+					if (selectedTech === "all" || technologies.includes(selectedTech)) {
+						item.classList.remove("hidden");
+					} else {
+						item.classList.add("hidden");
+					}
+				});
+			});
+		});
+	};
+
+	setupProjectsFiltering();
+
+	document.addEventListener("astro:after-swap", setupProjectsFiltering);
+</script>

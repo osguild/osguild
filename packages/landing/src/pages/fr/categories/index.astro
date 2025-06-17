@@ -1,0 +1,28 @@
+---
+import CategoryCloud from "@components/category-cloud/CategoryCloud.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { useTranslations } from "@js/translationUtils";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(currLocale);
+---
+
+<BaseLayout title="Blog Categories" description="Explore our blog posts by category">
+	<div class="site-container mt-24 md:mt-36">
+		<!-- Header -->
+		<div class="mx-auto max-w-3xl text-center">
+			<h1 class="h2 mb-4">Blog Categories</h1>
+			<p class="description mx-auto max-w-2xl text-xl text-pretty opacity-80">
+				Explore our blog posts by category to find the content that interests you most
+			</p>
+		</div>
+
+		<!-- Categories Section -->
+		<div class="mx-auto mt-16 max-w-4xl">
+			<div class="bg-base-200/50 dark:bg-base-900 rounded-2xl p-8 md:p-12">
+				<CategoryCloud showCount={true} class="justify-center gap-4 text-lg" />
+			</div>
+		</div>
+	</div>
+</BaseLayout>

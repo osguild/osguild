@@ -1,0 +1,46 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	number: number;
+	title: string;
+	description: string;
+	icon: string;
+}
+
+const { number, title, description, icon } = Astro.props;
+---
+
+<div class="group relative">
+	<!-- Step Content -->
+	<div class="relative z-10 flex flex-col items-center text-center">
+		<!-- Number Badge -->
+		<div
+			class="bg-primary/10 text-primary dark:text-base-200 group-hover:bg-primary mb-6 flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold transition-all duration-300 group-hover:text-white"
+		>
+			{number}
+		</div>
+
+		<!-- Icon -->
+		<div
+			class="text-primary bg-base-100 dark:bg-background mb-4 text-4xl transition-transform duration-300 group-hover:scale-110"
+			aria-hidden="true"
+		>
+			<Icon name={icon} class="h-8 w-8" />
+		</div>
+
+		<!-- Text Content -->
+		<h3 class="group-hover:text-primary mb-2 text-xl font-bold transition-colors">
+			{title}
+		</h3>
+		<p class="description text-base leading-relaxed">
+			{description}
+		</p>
+	</div>
+
+	<!-- Hover Effect Background -->
+	<div
+		class="group-hover:border-primary/30 group-hover:shadow-primary/5 border-base-200 absolute inset-0 -z-10 rounded-2xl border bg-white transition-all duration-300 group-hover:shadow-xl"
+	>
+	</div>
+</div>

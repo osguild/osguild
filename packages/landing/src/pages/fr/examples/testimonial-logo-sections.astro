@@ -1,0 +1,20 @@
+---
+import LogoCloudMarquee from "@components/logo-cloud/LogoCloudMarquee.astro";
+import LogoCloudStatic from "@components/logo-cloud/LogoCloudStatic.astro";
+import TestimonialCards from "@components/testimonials/TestimonialCards.astro";
+import TestimonialSwiper from "@components/testimonials/TestimonialSwiper.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="testimonial and logo sections"
+	description="All Testimonial and Logo sections you get with the Voyager theme by Cosmic Themes."
+>
+	<div class="site-container my-28 flex justify-center">
+		<h1 class="h1">All Testimonial and Logo Cloud Sections</h1>
+	</div>
+	<LogoCloudStatic />
+	<TestimonialCards />
+	<LogoCloudMarquee />
+	<TestimonialSwiper />
+</BaseLayout>

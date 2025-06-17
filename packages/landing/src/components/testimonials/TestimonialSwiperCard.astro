@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import type { TestimonialItem } from "@config/types/configDataTypes";
+
+interface Props {
+	testimonial: TestimonialItem;
+}
+
+const { testimonial } = Astro.props;
+---
+
+<div class="swiper-slide">
+	<div class="bg-background bg-base-100 dark:bg-base-900 rounded-2xl p-8 backdrop-blur-sm md:p-12">
+		<div class="flex h-full flex-col">
+			<blockquote class="mb-8 flex-1">
+				<p class="description text-lg leading-relaxed md:text-xl">
+					"{testimonial.testimonial}"
+				</p>
+			</blockquote>
+			<div class="flex items-center gap-4">
+				<div class="h-12 w-12 overflow-hidden rounded-full border">
+					<Image
+						src={testimonial.avatar}
+						alt={`${testimonial.name}'s avatar`}
+						class="h-full w-full object-cover"
+						width={60}
+					/>
+				</div>
+				<div class="flex flex-col">
+					<div class="font-medium">{testimonial.name}</div>
+					<div class="description text-sm">{testimonial.title}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

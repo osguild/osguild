@@ -1,0 +1,126 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = Omit<HTMLAttributes<"button">, "role" | "type" | "aria-checked"> & {
+	id: string;
+	label?: string;
+	checked?: boolean;
+	padding?: number;
+	size?: "sm" | "md" | "lg";
+	variant?: "primary" | "secondary" | "default";
+};
+
+const {
+	id,
+	label,
+	checked = false,
+	padding,
+	size = "sm",
+	variant = "default",
+	class: className,
+	...rest
+} = Astro.props;
+
+// if no specific padding is set, base it off of size
+let newPadding = padding;
+if (!padding) {
+	newPadding = size === "sm" ? 2 : size === "lg" ? 4 : 3;
+}
+
+const sizeMultiplier = size === "sm" ? 4 : size === "lg" ? 6 : 5;
+
+let ariaLabel;
+if (rest["aria-label"]) {
+	ariaLabel = rest["aria-label"];
+	delete rest["aria-label"];
+} else if (label) {
+	ariaLabel = label;
+} else {
+	ariaLabel = "switch";
+}
+---
+
+<div class="starwind-switch flex items-center">
+	<button
+		type="button"
+		id={id}
+		role="switch"
+		aria-checked={checked ? "true" : "false"}
+		aria-label={ariaLabel}
+		class:list={[
+			"inline-flex h-(--height) w-(--width) items-center rounded-full transition-colors",
+			"group peer ring-offset-background focus-visible:outline-2 focus-visible:outline-offset-2",
+			"aria-[checked=false]:bg-input",
+			"not-disabled:cursor-pointer disabled:cursor-not-allowed disabled:opacity-50",
+			{
+				"aria-checked:bg-primary focus:outline-primary": variant === "primary",
+				"aria-checked:bg-secondary focus:outline-secondary": variant === "secondary",
+				"aria-checked:bg-foreground focus:outline-outline": variant === "default",
+			},
+			className,
+		]}
+		style={{
+			"--padding": `${newPadding}px`,
+			"--height": `calc((var(--spacing) * ${sizeMultiplier}) + (var(--padding) * 2))`,
+			"--width": `calc((var(--spacing) * ${sizeMultiplier} * 2) + (var(--padding) * 3))`,
+		}}
+		{...rest}
+	>
+		<span
+			class:list={[
+				"bg-background inline-block transform rounded-full transition-transform",
+				"group-aria-checked:translate-x-(--translation) group-aria-[checked=false]:translate-x-(--padding)",
+				`w-${sizeMultiplier} h-${sizeMultiplier}`,
+			]}
+			style={{
+				"--translation": `calc((var(--spacing) * ${sizeMultiplier}) + (var(--padding) * 2))`,
+			}}></span>
+	</button>
+	{
+		label && (
+			<label
+				for={id}
+				class:list={[
+					"text-foreground ml-2 font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+					{
+						"text-sm": size === "sm" || size === "md",
+						"text-base": size === "lg",
+					},
+				]}
+			>
+				{label}
+			</label>
+		)
+	}
+</div>
+
+<script>
+	const setupSwitches = () => {
+		const switchButtons = document.querySelectorAll(
+			'.starwind-switch button[role="switch"]',
+		) as NodeListOf<HTMLButtonElement>;
+
+		switchButtons.forEach((switchButton) => {
+			switchButton.addEventListener("click", () => {
+				if (switchButton.disabled) return;
+
+				const isChecked = switchButton.getAttribute("aria-checked") === "true";
+				switchButton.setAttribute("aria-checked", (!isChecked).toString());
+			});
+
+			switchButton.addEventListener("keydown", (event) => {
+				if (switchButton.disabled) return;
+
+				if (event.key === " " || event.key === "Enter") {
+					event.preventDefault();
+					const isChecked = switchButton.getAttribute("aria-checked") === "true";
+					switchButton.setAttribute("aria-checked", (!isChecked).toString());
+				}
+			});
+		});
+	};
+
+	setupSwitches();
+
+	document.addEventListener("astro:after-swap", setupSwitches);
+</script>

@@ -1,0 +1,101 @@
+---
+import { Image } from "astro:assets";
+
+import VerticalProcessStep from "./ProcessStepVertical.astro";
+
+interface VerticalProcessStepProps {
+	title: string;
+	description: string;
+	icon: string;
+}
+
+const verticalProcessSteps: VerticalProcessStepProps[] = [
+	{
+		title: "Initial Consultation",
+		description:
+			"We start with a detailed discussion to understand your goals, requirements, and vision for the project.",
+		icon: "tabler/message-dots",
+	},
+	{
+		title: "Research & Strategy",
+		description:
+			"Our team conducts thorough research and develops a strategic plan tailored to your specific needs.",
+		icon: "tabler/clipboard",
+	},
+	{
+		title: "Design & Development",
+		description:
+			"We bring your vision to life through iterative design and development, keeping you involved at every step.",
+		icon: "tabler/photo",
+	},
+	{
+		title: "Testing & Refinement",
+		description:
+			"Rigorous testing and refinement ensure your project meets the highest quality standards.",
+		icon: "tabler/circle-check",
+	},
+	{
+		title: "Launch & Support",
+		description:
+			"We handle the deployment and provide ongoing support to ensure long-term success.",
+		icon: "tabler/bolt",
+	},
+];
+
+import designImg from "@/assets/images/design-img-2-min.jpg";
+---
+
+<section class="bg-background text-foreground py-16 md:py-32">
+	<div class="site-container mx-auto px-4">
+		<div class="grid items-center gap-16 lg:grid-cols-2">
+			<div>
+				<div class="max-w-2xl">
+					<h2 class="h2 mb-4">My Process</h2>
+					<p class="description mb-16 text-xl">
+						A streamlined approach to bringing your vision to life
+					</p>
+
+					<div id="process-vertical" class="relative space-y-12">
+						<!-- Vertical Line -->
+						<div
+							class="from-primary/30 to-primary/5 absolute top-0 bottom-0 left-8 w-px bg-gradient-to-b"
+						>
+						</div>
+
+						{
+							verticalProcessSteps.map((step, index) => (
+								<VerticalProcessStep
+									number={index + 1}
+									title={step.title}
+									description={step.description}
+									icon={step.icon}
+									data-aos="fade-up"
+									data-aos-delay={index * 0.2}
+									data-aos-trigger="#process-vertical"
+								/>
+							))
+						}
+					</div>
+				</div>
+			</div>
+
+			<!-- Image Section -->
+			<div class="relative hidden lg:block">
+				<div
+					class="group relative aspect-[3/4] overflow-hidden rounded-2xl"
+					data-aos="fade-up"
+					data-aos-delay=".2"
+					data-aos-trigger="#process-vertical"
+				>
+					<Image
+						src={designImg}
+						width={600}
+						densities={[1, 2]}
+						alt="Design process illustration"
+						class="h-full w-full transform object-cover transition-transform duration-500 group-hover:scale-105"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

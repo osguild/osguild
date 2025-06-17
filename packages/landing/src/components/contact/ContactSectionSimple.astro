@@ -1,0 +1,33 @@
+---
+import ContactForm from "@components/forms/ContactForm.astro";
+import { Icon } from "astro-icon/components";
+import type { ComponentProps } from "astro/types";
+---
+
+<section
+	id="contact"
+	class="bg-background dark text-foreground relative overflow-clip py-16 md:py-32 dark:border-y"
+>
+	<!-- Background Pattern -->
+	<div class="absolute inset-0 scale-125 rotate-6" aria-hidden="true">
+		<svg class="absolute h-full w-full opacity-5" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<pattern id="contact-simple-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+					<path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+				</pattern>
+			</defs>
+			<rect width="100%" height="100%" fill="url(#contact-simple-grid)"></rect>
+		</svg>
+	</div>
+
+	<div class="site-container relative">
+		<div class="mx-auto max-w-6xl">
+			<h2 class="h2 mb-16 text-center">Get in Touch</h2>
+
+			<!-- Contact Form -->
+			<div class="mx-auto max-w-xl">
+				<ContactForm />
+			</div>
+		</div>
+	</div>
+</section>

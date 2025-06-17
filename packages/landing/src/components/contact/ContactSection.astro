@@ -1,0 +1,126 @@
+---
+import ContactForm from "@components/forms/ContactForm.astro";
+import type SocialIcon from "@components/social/SocialIcon.astro";
+import { Icon } from "astro-icon/components";
+import type { ComponentProps } from "astro/types";
+
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props as Props;
+
+const socialLinks: ComponentProps<typeof SocialIcon>[] = [
+	{
+		name: "Twitter",
+		url: "https://x.com/BowTiedWebReapr",
+		icon: "tabler/brand-x",
+	},
+	{
+		name: "Threads",
+		url: "https://www.threads.net/@bowtiedwebreaper",
+		icon: "tabler/brand-threads",
+	},
+	{
+		name: "BlueSky",
+		url: "https://bsky.app/profile/webreaper.dev",
+		icon: "tabler/brand-bluesky",
+	},
+	{
+		name: "GitHub",
+		url: "https://github.com/Boston343",
+		icon: "tabler/brand-github",
+	},
+];
+
+const contactInfo = [
+	{
+		title: "Email",
+		value: "contact@example.com",
+		href: "mailto:contact@example.com",
+		icon: "tabler/mail",
+	},
+	{
+		title: "Phone",
+		value: "+1 (234) 567-890",
+		href: "tel:+1234567890",
+		icon: "tabler/phone",
+	},
+	{
+		title: "Location",
+		value: "123 Design Street\nCreative City, DC 12345",
+		icon: "tabler/map-pin",
+	},
+];
+---
+
+<section
+	id="contact"
+	class:list={[
+		className,
+		"bg-background dark text-foreground relative overflow-clip py-20 md:py-40 dark:border-y",
+	]}
+>
+	<!-- Background Pattern -->
+	<div class="absolute inset-0 scale-125 rotate-6" aria-hidden="true">
+		<svg class="absolute h-full w-full opacity-5" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<pattern id="contact-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+					<path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+				</pattern>
+			</defs>
+			<rect width="100%" height="100%" fill="url(#contact-grid)"></rect>
+		</svg>
+	</div>
+
+	<div class="site-container relative">
+		<div class="mx-auto max-w-6xl">
+			<h2 class="h2 mb-16 text-center">Get in Touch</h2>
+
+			<div class="grid gap-16 md:grid-cols-5">
+				<!-- Contact Form -->
+				<div class="md:col-span-3">
+					<ContactForm />
+				</div>
+
+				<!-- Social Links & Contact Info -->
+				<div class="space-y-8 md:col-span-2">
+					<!-- Social Links -->
+					<div>
+						<h3 class="mb-4 text-xl font-bold">Connect With Us</h3>
+						<div class="flex flex-wrap gap-4">
+							{socialLinks.map((social) => <SocialIcon {...social} />)}
+						</div>
+					</div>
+
+					<!-- Contact Info -->
+					<div>
+						<h3 class="mb-4 text-xl font-bold">Contact Information</h3>
+						<div class="space-y-4">
+							{
+								contactInfo.map((info) => (
+									<div class="flex items-start gap-4">
+										<Icon name={info.icon} class="text-primary h-6 w-6" />
+										<div>
+											<div class="font-medium">{info.title}</div>
+											{info.href ? (
+												<a
+													href={info.href}
+													class="hover:text-primary description text-base transition-colors"
+												>
+													{info.value}
+												</a>
+											) : (
+												<div class="description text-base whitespace-pre-line">{info.value}</div>
+											)}
+										</div>
+									</div>
+								))
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

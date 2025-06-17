@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	experience: CollectionEntry<"resume">["data"]["experience"];
+}
+
+const { experience } = Astro.props;
+---
+
+<div class="space-y-4">
+	<h2 class="h3">Experience</h2>
+	<div class="space-y-6">
+		{
+			experience.map((exp) => (
+				<div class="hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 rounded-lg border bg-white p-6 transition-all hover:shadow-lg">
+					<div class="flex items-start gap-4">
+						<div class="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg">
+							<Image
+								src={exp.companyImage}
+								alt={`${exp.company} logo`}
+								class="h-full w-full object-contain"
+								width={48}
+							/>
+						</div>
+						<div class="flex-1">
+							<div class="flex flex-wrap items-start justify-between gap-2">
+								<div>
+									<h3 class="text-lg font-bold">{exp.title}</h3>
+								</div>
+								<div class="text-primary text-sm">{exp.dates}</div>
+							</div>
+							<div class="mb-4 flex items-center gap-1 text-sm">
+								<p class="font-medium opacity-70">{exp.company}</p>
+								<p class="opacity-70">- {exp.location}</p>
+							</div>
+							<ul class="space-y-2">
+								{exp.responsibilities.map((responsibility) => (
+									<li class="flex items-start gap-2">
+										<span class="text-primary">•</span>
+										<span class="opacity-70">{responsibility}</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
+				</div>
+			))
+		}
+	</div>
+</div>

@@ -1,0 +1,18 @@
+---
+interface Props {
+	text: string;
+	class?: string;
+}
+const { text, class: className, ...rest } = Astro.props;
+---
+
+<button
+	class:list={[
+		"bg-base-200 dark:bg-base-800 hover:bg-base-300 dark:hover:bg-base-700 rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200",
+		"aria-pressed:bg-primary aria-pressed:text-white",
+		className,
+	]}
+	{...rest}
+>
+	{text}
+</button>

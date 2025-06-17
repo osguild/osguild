@@ -1,0 +1,22 @@
+---
+import HeroCentered from "@components/hero/HeroCentered.astro";
+import HeroGradient from "@components/hero/HeroGradient.astro";
+import HeroSideImage from "@components/hero/HeroSideImage.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+	title="All Hero Sections"
+	description="All Hero sections you get with the Voyager theme by Cosmic Themes."
+>
+	<div class="bg-base-950 text-base-100">
+		<div class="site-container flex justify-center py-28">
+			<h1 class="h1">All Hero Sections</h1>
+		</div>
+		<HeroCentered />
+		<hr class="border-primary my-20" />
+		<HeroGradient />
+		<hr class="border-primary my-20" />
+		<HeroSideImage />
+	</div>
+</BaseLayout>

@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Button from "@components/button/Button.astro";
+import Certifications from "@components/resume/Certifications.astro";
+import Diplomas from "@components/resume/Diplomas.astro";
+import Experience from "@components/resume/Experience.astro";
+import HardSkills from "@components/resume/HardSkills.astro";
+import Languages from "@components/resume/Languages.astro";
+import SoftSkills from "@components/resume/SoftSkills.astro";
+import Tools from "@components/resume/Tools.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { useTranslations } from "@js/translationUtils";
+import { Icon } from "astro-icon/components";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+	title: string;
+	description: string;
+	resume: CollectionEntry<"resume">;
+}
+
+const { title, description, resume } = Astro.props as Props;
+const { diplomas, experience, hardSkills, softSkills, certifications, languages, tools } =
+	resume.data;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(currLocale);
+---
+
+<BaseLayout type="general" title={title} description={description}>
+	<div class="site-container mt-24 md:mt-36">
+		<div class="mx-auto max-w-4xl">
+			<!-- Header -->
+			<div class="mb-16 flex flex-col items-center justify-between gap-6 sm:flex-row">
+				<div class="text-center sm:text-left">
+					<h1 class="font-heading mb-4 text-4xl">{title}</h1>
+					<p class="description opacity-80">{description}</p>
+				</div>
+
+				<Button href="/ExampleResume.pdf" download="ExampleResume.pdf" variant="secondary">
+					<div class="flex items-center gap-2">
+						<span>Download CV</span>
+						<Icon name="tabler/download" aria-hidden="true" class="size-5" />
+					</div>
+				</Button>
+			</div>
+
+			<!-- Resume Sections -->
+			<div class="space-y-16 pb-10">
+				<Diplomas {diplomas} />
+
+				<Experience {experience} />
+
+				<div class="grid gap-8 md:grid-cols-2">
+					<Certifications {certifications} />
+					<Languages {languages} />
+				</div>
+
+				<div class="grid gap-8 md:grid-cols-2">
+					<HardSkills {hardSkills} />
+					<SoftSkills {softSkills} />
+				</div>
+
+				<Tools {tools} />
+				<!-- you can also limit the number of tools to display here -->
+				<!-- <Tools {tools} limit={4} /> -->
+				<!-- <Button variant="secondary" href={getLocalizedRoute(currLocale, "/tools")} arrow="right">
+					See all tools
+				</Button> -->
+			</div>
+		</div>
+	</div>
+
+	<slot />
+</BaseLayout>

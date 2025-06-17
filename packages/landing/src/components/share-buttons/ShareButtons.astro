@@ -1,0 +1,135 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	title: string;
+	url: URL; // full URL, including "https://" Easiest way is in BlogLayout.astro `const url = Astro.url.toString();``
+	x?: boolean;
+	facebook?: boolean;
+	linkedin?: boolean;
+	pinterest?: boolean;
+	whatsapp?: boolean;
+	email?: boolean; // include email button
+	linktext?: string; // where possible, includes this text in the share link when a user clicks the button (ex. Twitter)
+	class?: string;
+	rest?: any; // catch-all for any additional parameters, note:aria-label is already implemented
+}
+
+const {
+	x = true,
+	facebook = true,
+	linkedin = true,
+	pinterest = false,
+	whatsapp = false,
+	email = false,
+	url,
+	title,
+	linktext = "Check out this great post!",
+	class: className,
+	...rest
+} = Astro.props as Props;
+
+const validtext = linktext.replace(/ /g, "%20");
+const svgStyle = "w-6 h-6 text-inherit";
+---
+
+{
+	x && (
+		<a
+			class={`share-button ${className}`}
+			href={`https://twitter.com/intent/tweet?url=${url}&text=${validtext}`}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Share on Twitter"
+			{...rest}
+		>
+			<div class="sr-only">share on</div>
+			Twitter
+		</a>
+	)
+}
+{
+	facebook && (
+		<a
+			class={`share-button ${className}`}
+			href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Share on Facebook"
+			{...rest}
+		>
+			<div class="sr-only">share on</div>
+			Facebook
+		</a>
+	)
+}
+{
+	linkedin && (
+		<a
+			class={`share-button ${className}`}
+			href={`https://www.linkedin.com/shareArticle?mini=true&url=${url}`}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Share on Linkedin"
+			{...rest}
+		>
+			<div class="sr-only">share on</div>
+			Linkedin
+		</a>
+	)
+}
+{
+	pinterest && (
+		<a
+			class={`share-button ${className}`}
+			href={`https://pinterest.com/pin/create/button/?url=${url}&media=&description=${validtext}`}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Share on Pinterest"
+			{...rest}
+		>
+			<div class="sr-only">share on</div>
+			Pinterest
+		</a>
+	)
+}
+{
+	whatsapp && (
+		<a
+			class={`share-button ${className}`}
+			href={`https://wa.me/?text=${validtext} ${url}`}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Share on Whatsapp"
+			{...rest}
+		>
+			<div class="sr-only">share on</div>
+			Whatsapp
+		</a>
+	)
+}
+{
+	email && (
+		<a
+			class={`share-button ${className}`}
+			href={`mailto:?subject=${validtext} "${title}"&body=${url}`}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Share through email"
+			{...rest}
+		>
+			<div class="sr-only">share by</div>
+			Email
+		</a>
+	)
+}
+
+<style>
+	@import "tailwindcss/theme" theme(reference);
+	@import "@/styles/tailwind-theme.css" theme(reference);
+
+	/* share buttons on blog posts */
+	.share-button {
+		@apply hover:text-primary text-foreground/70 flex justify-center rounded-md text-sm transition;
+	}
+</style>

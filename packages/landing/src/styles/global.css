@@ -1,0 +1,163 @@
+@import url("./fonts.css");
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* tailwind plugins */
+@plugin "@tailwindcss/forms";
+
+/* dark mode */
+@variant dark (&:where(.dark, .dark *));
+
+/* theme definition import */
+@import "./tailwind-theme.css";
+
+/* other imports into specific layers */
+@import "./aos.css" layer(utilities);
+@import "./markdown-content.css" layer(components);
+@import "./buttons.css" layer(components);
+
+@layer base {
+	:root {
+		/* starwind component variables  */
+		--background: var(--color-base-50);
+		--foreground: var(--color-base-900);
+		--card: var(--color-base-50);
+		--card-foreground: var(--color-base-950);
+		--popover: var(--color-base-50);
+		--popover-foreground: var(--color-base-950);
+		--primary: var(--color-primary-700);
+		--primary-dark: var(--color-primary-800);
+		--primary-foreground: var(--color-base-50);
+		--secondary: var(--color-fuchsia-700);
+		--secondary-foreground: var(--color-base-50);
+		--muted: var(--color-base-100);
+		--muted-foreground: var(--color-base-600);
+		--accent: var(--color-base-200);
+		--accent-foreground: var(--color-base-900);
+		--info: var(--color-sky-300);
+		--info-foreground: var(--color-sky-950);
+		--success: var(--color-green-300);
+		--success-foreground: var(--color-green-950);
+		--warning: var(--color-amber-300);
+		--warning-foreground: var(--color-amber-950);
+		--error: var(--color-red-700);
+		--error-foreground: var(--color-base-50);
+		--border: var(--color-base-200);
+		--input: var(--color-base-200);
+		--outline: var(--primary);
+
+		--radius: 0.5rem;
+
+		/* custom shiki styling for markdown code blocks. These are the variables Astro uses
+		Shiki Themes: https://shiki.style/themes   https://shiki.matsu.io/guide/theme-colors#css-variables-theme */
+		--astro-code-foreground: var(--color-base-50);
+		--astro-code-background: #202022;
+		--astro-code-token-constant: #a5b4fc; /* recommend making this a slightly off color from your primary-300 color */
+		--astro-code-token-string: var(--color-primary-700);
+		--astro-code-token-comment: var(--color-base-400);
+		--astro-code-token-keyword: var(--color-base-300);
+		--astro-code-token-parameter: var(--color-sky-400);
+		--astro-code-token-function: var(--color-base-50);
+		--astro-code-token-string-expression: var(--color-primary-300);
+		--astro-code-token-punctuation: var(--color-base-200);
+		--astro-code-token-link: var(--color-base-100);
+
+		/* default font */
+		font-family: var(--font-sans);
+	}
+
+	.dark {
+		/* starwind dark theme config */
+		--background: var(--color-base-950);
+		--foreground: var(--color-base-200);
+		--card: oklch(1% 0 0);
+		--card-foreground: var(--color-base-100);
+		--popover: oklch(1% 0 0);
+		--popover-foreground: var(--color-base-100);
+		--primary: var(--color-primary-700);
+		--primary-dark: var(--color-primary-800);
+		--primary-foreground: var(--color-base-50);
+		--secondary: var(--color-fuchsia-300);
+		--secondary-foreground: oklch(1% 0 0);
+		--muted: var(--color-base-900);
+		--muted-foreground: var(--color-base-400);
+		--accent: var(--color-base-900);
+		--accent-foreground: var(--color-base-100);
+		--info: var(--color-sky-300);
+		--info-foreground: var(--color-sky-950);
+		--success: var(--color-green-300);
+		--success-foreground: var(--color-green-950);
+		--warning: var(--color-amber-300);
+		--warning-foreground: var(--color-amber-950);
+		--error: var(--color-red-800);
+		--error-foreground: oklch(99% 0 0);
+		--border: var(--color-base-800);
+		--input: var(--color-base-800);
+		--outline: var(--primary);
+
+		@apply scheme-dark;
+	}
+
+	/* starwind preflight merged with Cosmic Themes */
+	* {
+		@apply border-border;
+	}
+	*:focus-visible {
+		@apply outline-outline !transition-none;
+	}
+	html {
+		@apply bg-background text-foreground leading-[1.6rem] scheme-light dark:scheme-dark;
+		scroll-behavior: smooth;
+		-moz-text-size-adjust: none;
+		-webkit-text-size-adjust: none;
+		text-size-adjust: none;
+	}
+	button {
+		@apply cursor-pointer;
+	}
+}
+
+@layer components {
+	.h1 {
+		@apply font-heading text-4xl md:text-5xl;
+	}
+
+	.h2 {
+		@apply font-heading text-4xl;
+	}
+
+	.h3 {
+		@apply font-heading text-2xl;
+	}
+
+	.description {
+		@apply text-base-700 dark:text-base-400 md:text-lg;
+	}
+
+	/* styles various navbar elements like links, language switcher, dropdowns, theme toggle, etc. */
+	.nav__link--base {
+		@apply text-base-900 hover:text-primary dark:text-base-200 leading-tight transition-colors;
+	}
+
+	.site-container {
+		@apply mx-auto max-w-[1400px] px-4;
+	}
+}
+
+@layer utilities {
+	/* used with select field */
+	.sr-only {
+		@apply sr-only;
+	}
+
+	/* focus utility class (for when user is tabbing through items on page) */
+	.primary-focus {
+		@apply focus-visible:outline-outline focus-visible:rounded-xs focus-visible:outline-2 focus-visible:transition-none;
+	}
+
+	/* use with "animate-pause" to pause a CSS animation */
+	.pause {
+		animation-play-state: paused !important;
+	}
+}

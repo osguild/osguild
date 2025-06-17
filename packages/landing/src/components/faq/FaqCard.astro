@@ -1,0 +1,17 @@
+---
+interface Props {
+	question: string;
+	answer: string;
+}
+
+const { question, answer } = Astro.props as Props;
+---
+
+<div
+	class="group hover:border-primary/30 hover:shadow-primary/5 bg-base-50 dark:bg-base-900 overflow-hidden rounded-2xl border p-6 transition-all duration-300 hover:shadow-xl"
+>
+	<p class="text-foreground text-lg font-semibold md:text-xl">{question}</p>
+	<div class="markdown-content mt-3">
+		<Fragment set:html={answer} />
+	</div>
+</div>
