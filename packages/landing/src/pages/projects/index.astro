@@ -16,7 +16,9 @@ const projects = await getCollection("projects", ({ data }) => {
 });
 const filteredProjects = filterCollectionByLanguage(projects, currLocale);
 const sortedProjects = filteredProjects.sort(
-	(a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY),
+	(a, b) =>
+		(a.data.order ?? Number.POSITIVE_INFINITY) -
+		(b.data.order ?? Number.POSITIVE_INFINITY),
 );
 
 // Get unique technologies from all projects

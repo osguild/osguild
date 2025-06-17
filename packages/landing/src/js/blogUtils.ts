@@ -1,7 +1,10 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 
 import type { locales } from "@/config/siteSettings.json";
-import { filterCollectionByLanguage, removeLocaleFromSlug } from "@/js/localeUtils";
+import {
+	filterCollectionByLanguage,
+	removeLocaleFromSlug,
+} from "@/js/localeUtils";
 import { slugify } from "@/js/textUtils";
 
 // --------------------------------------------------------
@@ -39,7 +42,10 @@ export async function getAllPosts(
 	let filteredPosts: CollectionEntry<"blog">[];
 	if (lang) {
 		// console.log("filtering by language", lang);
-		filteredPosts = filterCollectionByLanguage(posts, lang) as CollectionEntry<"blog">[];
+		filteredPosts = filterCollectionByLanguage(
+			posts,
+			lang,
+		) as CollectionEntry<"blog">[];
 		// filteredPosts = posts;
 	} else {
 		// console.log("no language passed, returning all posts");

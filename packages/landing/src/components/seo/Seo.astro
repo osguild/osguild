@@ -30,7 +30,13 @@ interface BlogProps extends BaseProps {
 	postFrontmatter: CollectionEntry<"blog">["data"];
 }
 
-const { type, title, description, image, noindex = false } = Astro.props as GenProps | BlogProps;
+const {
+	type,
+	title,
+	description,
+	image,
+	noindex = false,
+} = Astro.props as GenProps | BlogProps;
 
 let optimizedImage;
 let jsonLD;
@@ -74,14 +80,14 @@ else {
 function trimEndSlash(str: string) {
 	if (str[str.length - 1] === "/") {
 		return str.slice(0, -1);
-	} else {
-		return str;
 	}
+		return str;
 }
 
 // put together the image URL
 const imageUrl =
-	trimEndSlash(Astro.site?.toString() || "") + (optimizedImage?.src || siteData.defaultImage.src);
+	trimEndSlash(Astro.site?.toString() || "") +
+	(optimizedImage?.src || siteData.defaultImage.src);
 ---
 
 <SEO

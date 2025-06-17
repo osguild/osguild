@@ -87,6 +87,9 @@ importers:
 
   packages/landing:
     dependencies:
+      '@astrojs/cloudflare':
+        specifier: ^12.5.5
+        version: 12.5.5(@types/node@22.13.14)(astro@5.7.12(@netlify/blobs@8.2.0)(@types/node@22.13.14)(idb-keyval@6.2.2)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.41.1)(terser@5.39.2)(typescript@5.8.3)(yaml@2.8.0))(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.2)(yaml@2.8.0)
       '@astrojs/mdx':
         specifier: 4.2.6
         version: 4.2.6(astro@5.7.12(@netlify/blobs@8.2.0)(@types/node@22.13.14)(idb-keyval@6.2.2)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.41.1)(terser@5.39.2)(typescript@5.8.3)(yaml@2.8.0))
@@ -326,6 +329,11 @@ packages:
     peerDependencies:
       astro: ^5.0.0
 
+  '@astrojs/cloudflare@12.5.5':
+    resolution: {integrity: sha512-iSqGPKvAq0N5VjuT7jQgUx7CyayfDleH60RXkjxnv5O9eVG+T8yNhcJ+cz500+56v3Jzyzyk0khXAFKZgTNnrA==}
+    peerDependencies:
+      astro: ^5.0.0
+
   '@astrojs/compiler@2.12.0':
     resolution: {integrity: sha512-7bCjW6tVDpUurQLeKBUN9tZ5kSv5qYrGmcn0sG0IwacL7isR2ZbyyA3AdZ4uxsuUFOS2SlgReTH7wkxO6zpqWA==}
 
@@ -403,6 +411,9 @@ packages:
 
   '@astrojs/underscore-redirects@0.6.1':
     resolution: {integrity: sha512-4bMLrs2KW+8/vHEE5Ffv2HbxCbbgXO+2N6MpoCsMXUlUoi7pgEEx8kbkzMXJ2dZtWF3gvwm9lvgjnFeanC2LGg==}
+
+  '@astrojs/underscore-redirects@1.0.0':
+    resolution: {integrity: sha512-qZxHwVnmb5FXuvRsaIGaqWgnftjCuMY+GSbaVZdBmE4j8AfgPqKPxYp8SUERyJcjpKCEmO4wD6ybuGH8A2kVRQ==}
 
   '@astrojs/yaml2ts@0.2.2':
     resolution: {integrity: sha512-GOfvSr5Nqy2z5XiwqTouBBpy5FyI6DEe+/g/Mk5am9SjILN1S5fOEvYK0GuWHg98yS/dobP4m8qyqw/URW35fQ==}
@@ -8187,6 +8198,30 @@ snapshots:
       - utf-8-validate
       - yaml
 
+  '@astrojs/cloudflare@12.5.5(@types/node@22.13.14)(astro@5.7.12(@netlify/blobs@8.2.0)(@types/node@22.13.14)(idb-keyval@6.2.2)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.41.1)(terser@5.39.2)(typescript@5.8.3)(yaml@2.8.0))(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.2)(yaml@2.8.0)':
+    dependencies:
+      '@astrojs/internal-helpers': 0.6.1
+      '@astrojs/underscore-redirects': 1.0.0
+      '@cloudflare/workers-types': 4.20250603.0
+      astro: 5.7.12(@netlify/blobs@8.2.0)(@types/node@22.13.14)(idb-keyval@6.2.2)(jiti@2.4.2)(lightningcss@1.29.3)(rollup@4.41.1)(terser@5.39.2)(typescript@5.8.3)(yaml@2.8.0)
+      tinyglobby: 0.2.14
+      vite: 6.3.5(@types/node@22.13.14)(jiti@2.4.2)(lightningcss@1.29.3)(terser@5.39.2)(yaml@2.8.0)
+      wrangler: 4.18.0(@cloudflare/workers-types@4.20250603.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - bufferutil
+      - jiti
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - utf-8-validate
+      - yaml
+
   '@astrojs/compiler@2.12.0': {}
 
   '@astrojs/internal-helpers@0.6.1': {}
@@ -8391,7 +8426,7 @@ snapshots:
   '@astrojs/telemetry@3.2.1':
     dependencies:
       ci-info: 4.2.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       dlv: 1.1.3
       dset: 3.1.4
       is-docker: 3.0.0
@@ -8413,6 +8448,8 @@ snapshots:
       - supports-color
 
   '@astrojs/underscore-redirects@0.6.1': {}
+
+  '@astrojs/underscore-redirects@1.0.0': {}
 
   '@astrojs/yaml2ts@0.2.2':
     dependencies:
@@ -8819,7 +8856,7 @@ snapshots:
       '@babel/traverse': 7.27.4
       '@babel/types': 7.27.6
       convert-source-map: 2.0.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -8877,13 +8914,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-imports@7.27.1':
-    dependencies:
-      '@babel/traverse': 7.27.1
-      '@babel/types': 7.27.1
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/helper-module-imports@7.27.1(supports-color@7.2.0)':
     dependencies:
       '@babel/traverse': 7.27.1(supports-color@7.2.0)
@@ -8903,7 +8933,7 @@ snapshots:
   '@babel/helper-module-transforms@7.27.3(@babel/core@7.27.4)':
     dependencies:
       '@babel/core': 7.27.4
-      '@babel/helper-module-imports': 7.27.1
+      '@babel/helper-module-imports': 7.27.1(supports-color@7.2.0)
       '@babel/helper-validator-identifier': 7.27.1
       '@babel/traverse': 7.27.4
     transitivePeerDependencies:
@@ -9124,18 +9154,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/traverse@7.27.1':
-    dependencies:
-      '@babel/code-frame': 7.27.1
-      '@babel/generator': 7.27.1
-      '@babel/parser': 7.27.2
-      '@babel/template': 7.27.2
-      '@babel/types': 7.27.1
-      debug: 4.4.0
-      globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/traverse@7.27.1(supports-color@7.2.0)':
     dependencies:
       '@babel/code-frame': 7.27.1
@@ -9155,7 +9173,7 @@ snapshots:
       '@babel/parser': 7.27.5
       '@babel/template': 7.27.2
       '@babel/types': 7.27.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -9589,7 +9607,7 @@ snapshots:
   '@eslint/config-array@0.20.1':
     dependencies:
       '@eslint/object-schema': 2.1.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -9621,7 +9639,7 @@ snapshots:
   '@eslint/eslintrc@3.3.1':
     dependencies:
       ajv: 6.12.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       espree: 10.3.0
       globals: 14.0.0
       ignore: 5.3.2
@@ -9720,7 +9738,7 @@ snapshots:
       '@antfu/install-pkg': 1.1.0
       '@antfu/utils': 8.1.1
       '@iconify/types': 2.0.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       globals: 15.14.0
       kolorist: 1.8.0
       local-pkg: 1.1.1
@@ -11406,7 +11424,7 @@ snapshots:
       '@typescript-eslint/types': 8.32.0
       '@typescript-eslint/typescript-estree': 8.32.0(typescript@5.8.3)
       '@typescript-eslint/visitor-keys': 8.32.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       eslint: 9.26.0(jiti@2.4.2)
       typescript: 5.8.3
     transitivePeerDependencies:
@@ -11437,7 +11455,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/typescript-estree': 8.32.0(typescript@5.8.3)
       '@typescript-eslint/utils': 8.32.0(eslint@9.26.0(jiti@2.4.2))(typescript@5.8.3)
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       eslint: 9.26.0(jiti@2.4.2)
       ts-api-utils: 2.1.0(typescript@5.8.3)
       typescript: 5.8.3
@@ -11466,7 +11484,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.32.0
       '@typescript-eslint/visitor-keys': 8.32.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.5
@@ -11961,7 +11979,7 @@ snapshots:
       '@typescript-eslint/scope-manager': 8.20.0
       '@typescript-eslint/types': 8.20.0
       astrojs-compiler-sync: 1.1.1(@astrojs/compiler@2.12.0)
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       entities: 6.0.0
       eslint-scope: 8.2.0
       eslint-visitor-keys: 4.2.0
@@ -12012,7 +12030,7 @@ snapshots:
       common-ancestor-path: 1.0.1
       cookie: 1.0.2
       cssesc: 3.0.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       deterministic-object-hash: 2.0.2
       devalue: 5.1.1
       diff: 5.2.0
@@ -12111,7 +12129,7 @@ snapshots:
       common-ancestor-path: 1.0.1
       cookie: 1.0.2
       cssesc: 3.0.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       deterministic-object-hash: 2.0.2
       devalue: 5.1.1
       diff: 5.2.0
@@ -12493,7 +12511,7 @@ snapshots:
     dependencies:
       bytes: 3.1.2
       content-type: 1.0.5
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       http-errors: 2.0.0
       iconv-lite: 0.6.3
       on-finished: 2.4.1
@@ -12944,10 +12962,6 @@ snapshots:
       call-bound: 1.0.4
       es-errors: 1.3.0
       is-data-view: 1.0.2
-
-  debug@4.4.0:
-    dependencies:
-      ms: 2.1.3
 
   debug@4.4.0(supports-color@7.2.0):
     dependencies:
@@ -13459,7 +13473,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       escape-string-regexp: 4.0.0
       eslint-scope: 8.4.0
       eslint-visitor-keys: 4.2.0
@@ -13599,7 +13613,7 @@ snapshots:
       content-type: 1.0.5
       cookie: 0.7.2
       cookie-signature: 1.2.2
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1
@@ -13636,7 +13650,7 @@ snapshots:
 
   extract-zip@2.0.1:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -13706,7 +13720,7 @@ snapshots:
 
   finalhandler@2.1.0:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       encodeurl: 2.0.0
       escape-html: 1.0.3
       on-finished: 2.4.1
@@ -15589,7 +15603,7 @@ snapshots:
   micromark@4.0.2:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       decode-named-character-reference: 1.1.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.3
@@ -16586,7 +16600,7 @@ snapshots:
 
   router@2.2.0:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       depd: 2.0.0
       is-promise: 4.0.0
       parseurl: 1.3.3
@@ -16658,7 +16672,7 @@ snapshots:
 
   send@1.2.0:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@7.2.0)
       encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1

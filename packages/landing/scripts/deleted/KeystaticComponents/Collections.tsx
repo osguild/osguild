@@ -33,13 +33,14 @@ const Blog = (locale: (typeof locales)[number]) =>
 			}),
 			draft: fields.checkbox({
 				label: "Draft",
-				description: "Set this post as draft to prevent it from being published.",
+				description:
+					"Set this post as draft to prevent it from being published.",
 			}),
 
 			authors: fields.array(
 				fields.relationship({
 					label: "Post author",
-					collection: `authors`,
+					collection: "authors",
 					// authors field in keystatic.config.tsx must match the collection name here (like "authorsEN" or "authorsFR")
 					// collection: `authors${locale.toUpperCase()}`,
 				}),
@@ -52,7 +53,8 @@ const Blog = (locale: (typeof locales)[number]) =>
 			pubDate: fields.date({ label: "Publish Date" }),
 			updatedDate: fields.date({
 				label: "Updated Date",
-				description: "If you update this post at a later date, put that date here.",
+				description:
+					"If you update this post at a later date, put that date here.",
 			}),
 			heroImage: fields.image({
 				label: "Hero Image",
@@ -203,7 +205,8 @@ const OtherPages = (locale: (typeof locales)[number]) =>
 			}),
 			draft: fields.checkbox({
 				label: "Draft",
-				description: "Set this page as draft to prevent it from being published.",
+				description:
+					"Set this page as draft to prevent it from being published.",
 			}),
 			content: fields.mdx({
 				label: "Page Contents",
@@ -285,7 +288,8 @@ const Projects = (locale: (typeof locales)[number]) =>
 			}),
 			order: fields.number({
 				label: "Display Order",
-				description: "Optional: Use to control the order of projects (lower numbers appear first)",
+				description:
+					"Optional: Use to control the order of projects (lower numbers appear first)",
 			}),
 			mappingKey: fields.text({
 				label: "Mapping Key",
@@ -293,7 +297,8 @@ const Projects = (locale: (typeof locales)[number]) =>
 			}),
 			draft: fields.checkbox({
 				label: "Draft",
-				description: "Set this project as draft to prevent it from being published.",
+				description:
+					"Set this project as draft to prevent it from being published.",
 			}),
 			content: fields.mdx({
 				label: "Content",
@@ -350,7 +355,8 @@ const Resume = (locale: (typeof locales)[number]) =>
 				}),
 				{
 					label: "Certifications",
-					itemLabel: (props) => `${props.fields.title.value} (${props.fields.year.value})`,
+					itemLabel: (props) =>
+						`${props.fields.title.value} (${props.fields.year.value})`,
 				},
 			),
 			experience: fields.array(
@@ -364,14 +370,18 @@ const Resume = (locale: (typeof locales)[number]) =>
 					}),
 					dates: fields.text({ label: "Dates" }),
 					location: fields.text({ label: "Location" }),
-					responsibilities: fields.array(fields.text({ label: "Responsibility" }), {
-						label: "Responsibilities",
-						itemLabel: (props) => props.value,
-					}),
+					responsibilities: fields.array(
+						fields.text({ label: "Responsibility" }),
+						{
+							label: "Responsibilities",
+							itemLabel: (props) => props.value,
+						},
+					),
 				}),
 				{
 					label: "Experience",
-					itemLabel: (props) => `${props.fields.title.value} at ${props.fields.company.value}`,
+					itemLabel: (props) =>
+						`${props.fields.title.value} at ${props.fields.company.value}`,
 				},
 			),
 			hardSkills: fields.array(
@@ -389,7 +399,8 @@ const Resume = (locale: (typeof locales)[number]) =>
 				}),
 				{
 					label: "Hard Skills",
-					itemLabel: (props) => `${props.fields.skill.value} - ${props.fields.percentage.value}%`,
+					itemLabel: (props) =>
+						`${props.fields.skill.value} - ${props.fields.percentage.value}%`,
 				},
 			),
 			softSkills: fields.array(
@@ -439,7 +450,8 @@ const Resume = (locale: (typeof locales)[number]) =>
 					}),
 					category: fields.text({
 						label: "Category",
-						description: "Tool category (e.g., 'Development', 'Design', 'DevOps')",
+						description:
+							"Tool category (e.g., 'Development', 'Design', 'DevOps')",
 						validation: { isRequired: true },
 					}),
 					image: fields.image({
@@ -456,7 +468,8 @@ const Resume = (locale: (typeof locales)[number]) =>
 				}),
 				{
 					label: "Tools & Technologies",
-					itemLabel: (props) => `${props.fields.name.value} (${props.fields.category.value})`,
+					itemLabel: (props) =>
+						`${props.fields.name.value} (${props.fields.category.value})`,
 				},
 			),
 			mappingKey: fields.text({

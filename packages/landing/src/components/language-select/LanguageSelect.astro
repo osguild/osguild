@@ -21,7 +21,10 @@ const currLocale = getLocaleFromUrl(Astro.url);
 // Precompute the localized paths for each locale (since getLocalizedPathname is async)
 const localizedPaths = Object.fromEntries(
 	await Promise.all(
-		locales.map(async (lang) => [lang, await getLocalizedPathname(lang, Astro.url)]),
+		locales.map(async (lang) => [
+			lang,
+			await getLocalizedPathname(lang, Astro.url),
+		]),
 	),
 );
 ---

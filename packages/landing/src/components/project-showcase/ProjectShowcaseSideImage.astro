@@ -19,7 +19,9 @@ const filteredProjects = filterCollectionByLanguage(
 	currLocale,
 ) as CollectionEntry<"projects">[];
 const sortedProjects = filteredProjects.sort(
-	(a, b) => (a.data.order ?? Number.POSITIVE_INFINITY) - (b.data.order ?? Number.POSITIVE_INFINITY),
+	(a, b) =>
+		(a.data.order ?? Number.POSITIVE_INFINITY) -
+		(b.data.order ?? Number.POSITIVE_INFINITY),
 );
 const slicedProjects = sortedProjects.slice(0, 3); // Only show first 3 projects
 ---

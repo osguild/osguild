@@ -23,8 +23,15 @@ interface Props {
 }
 
 const { title, description, resume } = Astro.props as Props;
-const { diplomas, experience, hardSkills, softSkills, certifications, languages, tools } =
-	resume.data;
+const {
+	diplomas,
+	experience,
+	hardSkills,
+	softSkills,
+	certifications,
+	languages,
+	tools,
+} = resume.data;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(currLocale);

@@ -47,7 +47,7 @@ export async function GET(context) {
 			// custom data example, define in XML tags
 			// this adds the blog post image
 			customData: `<media:content
-          type="image/${post.data.heroImage.format == "jpg" ? "jpeg" : "png"}"
+          type="image/${post.data.heroImage.format === "jpg" ? "jpeg" : "png"}"
           width="${post.data.heroImage.width}"
           height="${post.data.heroImage.height}"
           medium="image"

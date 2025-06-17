@@ -2,7 +2,8 @@
 import Button from "@components/button/Button.astro";
 import FooterLink from "@components/footer/FooterLink.astro";
 import SiteLogo from "@components/site-logo/SiteLogo.astro";
-import type SocialIconSimple from "@components/social/SocialIconSimple.astro";
+// biome-ignore lint/style/useImportType: <explanation>
+import SocialIconSimple from "@components/social/SocialIconSimple.astro";
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { getTranslatedData } from "@js/translationUtils";
 import { Icon } from "astro-icon/components";
@@ -29,8 +30,16 @@ const quickLinks: FooterLinkItem[] = [
 ];
 
 const legalLinks: FooterLinkItem[] = [
-	{ label: "Refund Policy", href: "https://cosmicthemes.com/refund/", newTab: true },
-	{ label: "Terms of Service", href: "https://cosmicthemes.com/terms/", newTab: true },
+	{
+		label: "Refund Policy",
+		href: "https://cosmicthemes.com/refund/",
+		newTab: true,
+	},
+	{
+		label: "Terms of Service",
+		href: "https://cosmicthemes.com/terms/",
+		newTab: true,
+	},
 	{ label: "Support", href: "https://cosmicthemes.com/support/", newTab: true },
 ];
 

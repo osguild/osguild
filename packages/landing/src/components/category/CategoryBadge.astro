@@ -11,7 +11,12 @@ interface Props {
 	class?: string;
 }
 
-const { category, variant = "default", count, class: classList } = Astro.props as Props;
+const {
+	category,
+	variant = "default",
+	count,
+	class: classList,
+} = Astro.props as Props;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 ---

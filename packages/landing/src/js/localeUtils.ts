@@ -49,7 +49,9 @@ export function filterCollectionByLanguage<T extends keyof DataEntryMap>(
 		return [];
 	}
 
-	const filteredCollection = collection.filter((item) => item.id.startsWith(`${locale}/`));
+	const filteredCollection = collection.filter((item) =>
+		item.id.startsWith(`${locale}/`),
+	);
 
 	// remove locale from URL
 	if (removeLocale) {

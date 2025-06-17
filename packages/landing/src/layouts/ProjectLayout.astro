@@ -17,8 +17,16 @@ interface Props {
 }
 
 const { project } = Astro.props as Props;
-const { title, description, image, technologies, demoUrl, githubUrl, completionDate, keyFeatures } =
-	project.data;
+const {
+	title,
+	description,
+	image,
+	technologies,
+	demoUrl,
+	githubUrl,
+	completionDate,
+	keyFeatures,
+} = project.data;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(currLocale);

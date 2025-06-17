@@ -53,7 +53,7 @@ export const dataTranslations = {
 export const textTranslations = {
 	en: {
 		hero_text: "Crafting Digital Experiences",
-		hero_description: `Transforming ideas into beautiful, functional designs that leave lasting impressions.`,
+		hero_description: "Transforming ideas into beautiful, functional designs that leave lasting impressions.",
 		back_to_all_posts: "Back to all posts",
 		updated: "Updated",
 		share_this_article: "Share this article",

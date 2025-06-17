@@ -14,7 +14,12 @@ type Props = HTMLAttributes<"a"> & {
 	arrow?: "left" | "right" | "none";
 };
 
-const { variant = "primary", arrow = "none", class: className, ...rest } = Astro.props;
+const {
+	variant = "primary",
+	arrow = "none",
+	class: className,
+	...rest
+} = Astro.props;
 
 let Component = "button";
 if (Astro.props.href) {

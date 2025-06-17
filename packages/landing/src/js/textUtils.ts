@@ -53,7 +53,10 @@ export function categorify(text: string): string {
  * @param locale: string - locale to format the date in
  * @returns string - formatted date
  */
-export function formatDate(date: string | number | Date, locale: (typeof locales)[number]): string {
+export function formatDate(
+	date: string | number | Date,
+	locale: (typeof locales)[number],
+): string {
 	let localeString = "en-US";
 
 	if (locales.includes(locale)) {

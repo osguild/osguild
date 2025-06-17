@@ -8,13 +8,19 @@ export const getAnimation = (
 	defaults: AnimeOptions,
 ) => {
 	const tempDelay = element.dataset.aosDelay;
-	const delay = tempDelay ? Number.parseFloat(tempDelay) * 1000 : defaults.delay * 1000;
+	const delay = tempDelay
+		? Number.parseFloat(tempDelay) * 1000
+		: defaults.delay * 1000;
 
 	const tempDistance = element.dataset.aosDistance;
-	const distance = tempDistance ? Number.parseFloat(tempDistance) : defaults.distance;
+	const distance = tempDistance
+		? Number.parseFloat(tempDistance)
+		: defaults.distance;
 
 	const tempDuration = element.dataset.aosDuration;
-	const duration = tempDuration ? Number.parseFloat(tempDuration) * 1000 : defaults.duration * 1000;
+	const duration = tempDuration
+		? Number.parseFloat(tempDuration) * 1000
+		: defaults.duration * 1000;
 
 	const onStartFunction = () => {
 		element.classList.add("aos-animate");

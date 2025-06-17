@@ -13,6 +13,8 @@
     "server:deploy": "pnpm --filter backend cdk deploy --require-approval never",
     "lint": "biome lint",
     "lint:write": "biome lint --write",
+    "landing:build": "pnpm --filter landing build",
+    "landing:dev": "pnpm --filter landing dev",
     "format": "biome format",
     "format:write": "biome format --write",
     "order-imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write",

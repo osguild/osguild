@@ -63,9 +63,16 @@ export const getPositionIn = (
 	return triggerPoint + additionalOffset;
 };
 
-export const getPositionOut = (el: HTMLElement, defaultOffset: number): number => {
+export const getPositionOut = (
+	el: HTMLElement,
+	defaultOffset: number,
+): number => {
 	const trigger = getInlineOption(el, "trigger") as string;
-	const additionalOffset = getInlineOption(el, "offset", defaultOffset) as number;
+	const additionalOffset = getInlineOption(
+		el,
+		"offset",
+		defaultOffset,
+	) as number;
 	let finalEl = el;
 
 	if (trigger && document.querySelectorAll(trigger)) {

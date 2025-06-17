@@ -20,7 +20,10 @@ if (limit) {
 }
 
 // Get unique categories for tools to display
-const categories = ["All", ...new Set(toolsToDisplay.map((tool) => tool.category))].sort();
+const categories = [
+	"All",
+	...new Set(toolsToDisplay.map((tool) => tool.category)),
+].sort();
 ---
 
 <div class="">

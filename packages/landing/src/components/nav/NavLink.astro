@@ -11,8 +11,12 @@ import { getLocalizedRoute } from "@/js/translationUtils";
  * @param path2 Second path to compare
  * @returns boolean indicating if the paths are equal
  */
-const comparePathsWithTrailingSlash = (path1: string, path2: string): boolean => {
-	const ensureTrailingSlash = (path: string): string => (path.endsWith("/") ? path : `${path}/`);
+const comparePathsWithTrailingSlash = (
+	path1: string,
+	path2: string,
+): boolean => {
+	const ensureTrailingSlash = (path: string): string =>
+		path.endsWith("/") ? path : `${path}/`;
 
 	return ensureTrailingSlash(path1) === ensureTrailingSlash(path2);
 };

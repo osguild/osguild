@@ -1,3 +1,4 @@
+import cloudflare from "@astrojs/cloudflare";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
@@ -9,8 +10,9 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
 	site: "https://voyager.cosmicthemes.com",
-	redirects: {
-	},
+
+	redirects: {},
+
 	// i18n configuration must match src/config/translations.json.ts
 	i18n: {
 		defaultLocale: "en",
@@ -19,6 +21,7 @@ export default defineConfig({
 			prefixDefaultLocale: false,
 		},
 	},
+
 	markdown: {
 		shikiConfig: {
 			// Shiki Themes: https://shiki.style/themes
@@ -26,6 +29,7 @@ export default defineConfig({
 			wrap: true,
 		},
 	},
+
 	integrations: [
 		// example auto import component into blog post mdx files
 		AutoImport({
@@ -46,7 +50,10 @@ export default defineConfig({
 			SVG: false, // astro-icon handles this
 		}),
 	],
+
 	vite: {
 		plugins: [tailwindcss()],
 	},
+
+	adapter: cloudflare(),
 });

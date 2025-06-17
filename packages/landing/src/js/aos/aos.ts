@@ -145,13 +145,12 @@ const disable = () => {
 /**
  * Check if AOS should be disabled based on provided setting
  */
-const isDisabled = (optionDisable) => (
-		optionDisable === true ||
-		(optionDisable === "mobile" && detect.mobile()) ||
-		(optionDisable === "phone" && detect.phone()) ||
-		(optionDisable === "tablet" && detect.tablet()) ||
-		(typeof optionDisable === "function" && optionDisable() === true)
-	);
+const isDisabled = (optionDisable) =>
+	optionDisable === true ||
+	(optionDisable === "mobile" && detect.mobile()) ||
+	(optionDisable === "phone" && detect.phone()) ||
+	(optionDisable === "tablet" && detect.tablet()) ||
+	(typeof optionDisable === "function" && optionDisable() === true);
 
 /**
  * Initializing AOS
@@ -216,7 +215,10 @@ const init = function init(settings?: Partial<AOSDefaultOptions>) {
 	/**
 	 * Recalculate positions of elements on window resize or orientation change
 	 */
-	window.addEventListener("resize", debounce(recalculatePositions, options.debounceDelay, true));
+	window.addEventListener(
+		"resize",
+		debounce(recalculatePositions, options.debounceDelay, true),
+	);
 
 	window.addEventListener(
 		"orientationchange",

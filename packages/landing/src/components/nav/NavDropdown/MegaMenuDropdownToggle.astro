@@ -16,13 +16,13 @@ let insetClass: string;
 if (cols >= 5) {
 	gridClass = "grid-cols-5";
 	insetClass = "inset-x-0";
-} else if (cols == 4) {
+} else if (cols === 4) {
 	gridClass = "grid-cols-4";
 	insetClass = "inset-x-4 xl:inset-x-32";
-} else if (cols == 3) {
+} else if (cols === 3) {
 	gridClass = "grid-cols-3";
 	insetClass = "inset-x-20 xl:inset-x-64";
-} else if (cols == 2) {
+} else if (cols === 2) {
 	gridClass = "grid-cols-2";
 	insetClass = "inset-x-32 xl:inset-x-96";
 } else {

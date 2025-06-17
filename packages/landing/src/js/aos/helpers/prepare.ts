@@ -6,10 +6,17 @@ import type { AOSDefaultOptions, AOSElement } from "./aosTypes";
 import getInlineOption from "./getInlineOption";
 import { getPositionIn, getPositionOut } from "./offsetCalculator";
 
-const prepare = (aosElements: AOSElement[], options: AOSDefaultOptions): AOSElement[] => {
+const prepare = (
+	aosElements: AOSElement[],
+	options: AOSDefaultOptions,
+): AOSElement[] => {
 	aosElements.forEach((el) => {
 		const animationName = el.node.getAttribute("data-aos") as string;
-		const mirror = getInlineOption(el.node, "mirror", options.mirror) as boolean;
+		const mirror = getInlineOption(
+			el.node,
+			"mirror",
+			options.mirror,
+		) as boolean;
 		const once = getInlineOption(el.node, "once", options.once) as boolean;
 		const trigger = getInlineOption(el.node, "trigger") as string | undefined;
 

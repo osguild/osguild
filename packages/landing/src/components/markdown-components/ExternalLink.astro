@@ -9,8 +9,8 @@ const domain = import.meta.env.SITE; // pulls from astro.config.mjs
 const attr: { target?: string; rel?: string } = {};
 
 if (!href.includes(domain) && !href.startsWith("/") && !href.startsWith("#")) {
-	attr["target"] = "_blank";
-	attr["rel"] = "noopener noreferrer";
+	attr.target = "_blank";
+	attr.rel = "noopener noreferrer";
 }
 ---
 

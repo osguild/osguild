@@ -1,7 +1,10 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = Omit<HTMLAttributes<"button">, "role" | "type" | "aria-checked"> & {
+type Props = Omit<
+	HTMLAttributes<"button">,
+	"role" | "type" | "aria-checked"
+> & {
 	id: string;
 	label?: string;
 	checked?: boolean;
@@ -32,7 +35,7 @@ const sizeMultiplier = size === "sm" ? 4 : size === "lg" ? 6 : 5;
 let ariaLabel;
 if (rest["aria-label"]) {
 	ariaLabel = rest["aria-label"];
-	delete rest["aria-label"];
+	rest["aria-label"] = undefined;
 } else if (label) {
 	ariaLabel = label;
 } else {

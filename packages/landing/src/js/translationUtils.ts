@@ -26,7 +26,9 @@ import {
  */
 export function useTranslations(locale: keyof typeof textTranslations) {
 	return function t(key: keyof (typeof textTranslations)[typeof locale]) {
-		return textTranslations[locale][key] || textTranslations[defaultLocale][key];
+		return (
+			textTranslations[locale][key] || textTranslations[defaultLocale][key]
+		);
 	};
 }
 
@@ -51,7 +53,9 @@ export function getTranslatedData<T extends Locale, K extends DataKey<T>>(
 	data: K,
 	locale: T,
 ): (typeof dataTranslations)[T][K] {
-	return dataTranslations[locale][data] || dataTranslations[defaultLocale as T][data];
+	return (
+		dataTranslations[locale][data] || dataTranslations[defaultLocale as T][data]
+	);
 }
 
 /**
@@ -92,7 +96,9 @@ export function getLocalizedRoute(
 	if (normalized === "") {
 		// If there's a fragment, make sure to include it
 		if (fragment) {
-			return locale === defaultLocale ? "/" + fragment : `/${locale}/` + fragment;
+			return locale === defaultLocale
+				? `/${fragment}`
+				: `/${locale}/${fragment}`;
 		}
 		return locale === defaultLocale ? "/" : `/${locale}/`;
 	}
@@ -107,7 +113,9 @@ export function getLocalizedRoute(
 	// Try longest to shortest prefix
 	for (let i = segments.length; i > 0; i--) {
 		const prefix = segments.slice(0, i).join("/");
-		const key = Object.keys(defaultTranslations).find((k) => defaultTranslations[k] === prefix);
+		const key = Object.keys(defaultTranslations).find(
+			(k) => defaultTranslations[k] === prefix,
+		);
 		if (key && localeTranslations[key]) {
 			const translatedPrefix = localeTranslations[key];
 			const rest = segments.slice(i).join("/");
@@ -128,20 +136,24 @@ export function getLocalizedRoute(
 	// Combine the route path with the fragment
 	// If there's a fragment, ensure there's exactly one slash before it
 	if (fragment) {
-		return `/${routePath.replace(/\\/g, "/")}/` + fragment;
-	} else {
-		return `/${routePath.replace(/\\/g, "/")}/`;
+		return `/${routePath.replace(/\\/g, "/")}/${fragment}`;
 	}
+		return `/${routePath.replace(/\\/g, "/")}/`;
 }
 
 // Module-level cache for dynamic route translations
-let dynamicRouteTranslationsCache: Record<string, Record<string, string>> | null = null;
+let dynamicRouteTranslationsCache: Record<
+	string,
+	Record<string, string>
+> | null = null;
 
 /**
  * Returns cached dynamic route translations, generating them on first call.
  * Ensures generateRouteTranslations only runs once per process.
  */
-async function getDynamicRouteTranslations(): Promise<Record<string, Record<string, string>>> {
+async function getDynamicRouteTranslations(): Promise<
+	Record<string, Record<string, string>>
+> {
 	if (dynamicRouteTranslationsCache) return dynamicRouteTranslationsCache;
 	dynamicRouteTranslationsCache = await generateRouteTranslations();
 
@@ -166,11 +178,17 @@ export async function getLocalizedPathname(
 	// figure out if the current URL has a language in it's path
 	const [, lang, ...rest] = url.pathname.split("/");
 
-	const getKeyByValue = (obj: Record<string, string>, value: string): string | undefined => {
-		return Object.keys(obj).find((key) => obj[key] === value.replace(/\/$/, "").replace(/^\//, ""));
+	const getKeyByValue = (
+		obj: Record<string, string>,
+		value: string,
+	): string | undefined => {
+		return Object.keys(obj).find(
+			(key) => obj[key] === value.replace(/\/$/, "").replace(/^\//, ""),
+		);
 	};
 
-	let oldPath: string, currLocale: (typeof locales)[number];
+	let oldPath: string;
+	let currLocale: (typeof locales)[number];
 	// @ts-expect-error the whole point of this is to check if lang is a valid locale
 	if (locales.includes(lang)) {
 		// remove locale from URL if it's already there
@@ -214,12 +232,12 @@ export async function getLocalizedPathname(
 		if (foundWildcardKey) {
 			// Use the mapped value for the wildcard key in the target locale
 			const mappedBase = dynamicRouteTranslations[locale][foundWildcardKey];
-			const subPath = routeStringTrimmed.slice(foundWildcardBase!.length);
+			const subPath = routeStringTrimmed.slice(foundWildcardBase?.length);
 			// If the mappedBase in the target locale ends with /*, append the sub-path
 			if (typeof mappedBase === "string" && mappedBase.endsWith("/*")) {
 				translatedRoute =
 					mappedBase.slice(0, -2).replace(/\/$/, "") +
-					(subPath ? "/" + subPath.replace(/^\//, "") : "");
+					(subPath ? `/${subPath.replace(/^\//, "")}` : "");
 			} else {
 				// Otherwise, just use the mappedBase directly (ignore subPath)
 				translatedRoute = mappedBase;
@@ -246,11 +264,19 @@ export async function getLocalizedPathname(
  */
 export async function generateRouteTranslations() {
 	// List of content collections to include
-	const collections = Object.keys(localizedCollections) as Array<keyof DataEntryMap>;
+	const collections = Object.keys(localizedCollections) as Array<
+		keyof DataEntryMap
+	>;
 
 	// Initialize base translations with existing static translations
-	const dynamicRouteTranslations: Record<string, Record<string, string>> = Object.fromEntries(
-		Object.keys(routeTranslations).map((locale) => [locale, { ...routeTranslations[locale] }]),
+	const dynamicRouteTranslations: Record<
+		string,
+		Record<string, string>
+	> = Object.fromEntries(
+		Object.keys(routeTranslations).map((locale) => [
+			locale,
+			{ ...routeTranslations[locale] },
+		]),
 	);
 
 	const allEntries = await Promise.all(
@@ -271,9 +297,11 @@ export async function generateRouteTranslations() {
 		const [locale, slug] = entry.id.split("/");
 
 		// Retrieve mappingKey from entry metadata, if available
-		const mappingKey = "mappingKey" in entry.data ? entry.data.mappingKey : undefined;
+		const mappingKey =
+			"mappingKey" in entry.data ? entry.data.mappingKey : undefined;
 
-		const base = localizedCollections[entry.collection]?.[locale] ?? entry.collection;
+		const base =
+			localizedCollections[entry.collection]?.[locale] ?? entry.collection;
 
 		if (mappingKey) {
 			if (!entriesByMapping[mappingKey]) {
@@ -292,7 +320,9 @@ export async function generateRouteTranslations() {
 			const otherLocales = locales.filter((l: string) => l !== locale);
 			// For each other locale, map to the appropriate base with the same entry slug
 			otherLocales.forEach((otherLocale: string) => {
-				const otherBase = localizedCollections[entry.collection]?.[otherLocale] ?? entry.collection;
+				const otherBase =
+					localizedCollections[entry.collection]?.[otherLocale] ??
+					entry.collection;
 				entriesByMapping[generatedKey][otherLocale] = `${otherBase}/${slug}`;
 			});
 		}

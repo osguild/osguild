@@ -19,7 +19,15 @@ interface Props {
 }
 
 const { post, headings } = Astro.props as Props;
-const { title, description, authors, pubDate, categories, updatedDate, heroImage } = post.data;
+const {
+	title,
+	description,
+	authors,
+	pubDate,
+	categories,
+	updatedDate,
+	heroImage,
+} = post.data;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(currLocale);

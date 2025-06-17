@@ -6,7 +6,7 @@ import type { AOSElement } from "./aosTypes";
  * @param {array}  classes
  */
 const addClasses = (node, classes) =>
-	classes && classes.forEach((className) => node.classList.add(className));
+	classes?.forEach((className) => node.classList.add(className));
 
 /**
  * Removes multiple classes from node
@@ -14,7 +14,7 @@ const addClasses = (node, classes) =>
  * @param {array}  classes
  */
 const removeClasses = (node, classes) =>
-	classes && classes.forEach((className) => node.classList.remove(className));
+	classes?.forEach((className) => node.classList.remove(className));
 
 const fireEvent = (eventName, data) => {
 	const customEvent = new CustomEvent(eventName, {

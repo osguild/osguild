@@ -18,8 +18,15 @@ const filteredResumes = filterCollectionByLanguage(
 // should only be one resume
 const resume = filteredResumes[0];
 
-const { diplomas, experience, hardSkills, softSkills, certifications, languages, tools } =
-	resume.data;
+const {
+	diplomas,
+	experience,
+	hardSkills,
+	softSkills,
+	certifications,
+	languages,
+	tools,
+} = resume.data;
 
 const t = useTranslations(currLocale);
 

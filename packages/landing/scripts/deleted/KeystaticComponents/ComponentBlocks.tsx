@@ -7,7 +7,9 @@ import KeystaticAdmonition from "./KeystaticAdmonition";
 const Admonition = wrapper({
 	label: "Admonition",
 	ContentView: (props) => (
-		<KeystaticAdmonition variant={props.value.variant}>{props.children}</KeystaticAdmonition>
+		<KeystaticAdmonition variant={props.value.variant}>
+			{props.children}
+		</KeystaticAdmonition>
 	),
 	schema: {
 		variant: fields.select({

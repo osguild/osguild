@@ -5,7 +5,12 @@ type Props = {
 	class?: string;
 };
 
-const { type = "single", defaultValue, class: className, ...rest } = Astro.props;
+const {
+	type = "single",
+	defaultValue,
+	class: className,
+	...rest
+} = Astro.props;
 ---
 
 <div

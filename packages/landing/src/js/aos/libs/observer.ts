@@ -1,12 +1,14 @@
 let callback = () => {};
 
 function containsAOSNode(nodes) {
-	let i, currentNode, result;
+	let i;
+	let currentNode;
+	let result;
 
 	for (i = 0; i < nodes.length; i += 1) {
 		currentNode = nodes[i];
 
-		if (currentNode.dataset && currentNode.dataset.aos) {
+		if (currentNode.dataset?.aos) {
 			return true;
 		}
 

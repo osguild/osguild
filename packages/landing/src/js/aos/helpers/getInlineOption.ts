@@ -12,14 +12,14 @@ export default (
 	key: string,
 	fallback?: string | number | boolean,
 ): string | number | boolean => {
-	const attr = el.getAttribute("data-aos-" + key);
+	const attr = el.getAttribute(`data-aos-${key}`);
 
 	fallback = fallback || "";
 
 	if (typeof attr !== "undefined") {
 		if (attr === "true") {
 			return true;
-		} else if (attr === "false") {
+		}if (attr === "false") {
 			return false;
 		}
 	}

@@ -1,6 +1,6 @@
 /**
  * * Tailwind theme settings
- * 
+ *
  * These are in a separate file so it can be imported into <style> tags in .astro components
  */
 @theme {
@@ -32,13 +32,13 @@
 	--color-base-950: var(--color-neutral-950);
 
 	/* font families */
-	--font-fallback:
-		"-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif",
-		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	--font-fallback: "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto",
+		"Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol";
 	--font-heading: "Archivo Black", var(--font-fallback);
 	--font-sans: "InterVariable", var(--font-fallback);
-	--font-mono:
-		"SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace";
+	--font-mono: "SFMono-Regular", "Menlo", "Monaco", "Consolas",
+		"Liberation Mono", "Courier New", "monospace";
 
 	/* starwind and cosmic themes animations */
 	--animate-accordion-down: accordion-down 0.2s ease-out;

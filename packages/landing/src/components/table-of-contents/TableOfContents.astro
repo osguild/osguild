@@ -7,7 +7,9 @@ interface Props {
 const { headings, levels = 2 } = Astro.props as Props;
 
 // filter out all tags above depth level specified
-const filteredHeadings = headings.filter((heading) => heading.depth <= levels + 1);
+const filteredHeadings = headings.filter(
+	(heading) => heading.depth <= levels + 1,
+);
 
 // console.log(JSON.stringify(headings, null, 4));
 ---
