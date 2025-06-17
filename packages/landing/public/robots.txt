@@ -1,1 +1,1 @@
-Sitemap: https://voyager.cosmicthemes.com/sitemap-index.xml
+Sitemap: https://www.osguild.io/sitemap-index.xml

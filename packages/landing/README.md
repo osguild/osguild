@@ -1,4 +1,4 @@
-# Welcome to Voyager!
+# Welcome to OS Guild Landing!
 
 This is the first theme using Tailwind CSS V4! This is also the first theme to make use of my up-coming Starwind UI components and setup. It includes more accessible and capable components than I was previously creating and I am excited to hear what you think of it.
 

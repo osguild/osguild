@@ -2,18 +2,17 @@ import type { SiteDataProps } from "../types/configDataTypes";
 
 // Update this file with your site specific information
 const siteData: SiteDataProps = {
-	name: "Voyager",
+	name: "OS Guild",
 	// Your website's title and description (meta fields)
-	title:
-		"Voyager - a standout portfolio and freelancing template built with Astro and Tailwind CSS",
+	title: "Building software together",
 	description:
-		"Get your new startup website up and running quickly with our beautiful website theme designed using Astro v5 and Tailwind CSS v4. Perfect for freelancers, developers, startups, and personal use.",
+		"Get real-world software engineering experience through open source software development.",
 
 	// Your information for blog post purposes
 	author: {
-		name: "Cosmic Themes",
-		email: "creator@cosmicthemes.com",
-		twitter: "Cosmic_Themes",
+		name: "Brandon Ly",
+		email: "brandon@osguild.io",
+		twitter: "",
 	},
 
 	// default image for meta tags if the page doesn't have an image already

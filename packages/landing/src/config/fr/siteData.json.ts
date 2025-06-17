@@ -2,7 +2,7 @@ import type { SiteDataProps } from "../types/configDataTypes";
 
 // Update this file with your site specific information
 const siteData: SiteDataProps = {
-	name: "French Voyager",
+	name: "French OS Guild",
 	// Your website's title and description (meta fields)
 	title:
 		"Voyager - a standout portfolio and freelancing template built with Astro and Tailwind CSS",
