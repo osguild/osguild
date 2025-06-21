@@ -1,13 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import Button from "@components/button/Button.astro";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import { slugify } from "@js/textUtils";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const _currLocale = getLocaleFromUrl(Astro.url);
 
 interface Props {
 	project: CollectionEntry<"projects">;

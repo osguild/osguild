@@ -1,3 +1,2 @@
-pnpm order-imports
 pnpm lint:write
 pnpm format:write

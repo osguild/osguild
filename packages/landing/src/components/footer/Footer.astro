@@ -1,20 +1,15 @@
 ---
-import Button from "@components/button/Button.astro";
-import FooterLink from "@components/footer/FooterLink.astro";
-import SiteLogo from "@components/site-logo/SiteLogo.astro";
 // biome-ignore lint/style/useImportType: <explanation>
 import SocialIconSimple from "@components/social/SocialIconSimple.astro";
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { getTranslatedData } from "@js/translationUtils";
-import { Icon } from "astro-icon/components";
 import type { ComponentProps } from "astro/types";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const siteData = getTranslatedData("siteData", currLocale);
+const _siteData = getTranslatedData("siteData", currLocale);
 
-const today = new Date();
+const _today = new Date();
 
 interface FooterLinkItem {
 	label: string;
@@ -22,14 +17,14 @@ interface FooterLinkItem {
 	newTab?: boolean;
 }
 
-const quickLinks: FooterLinkItem[] = [
+const _quickLinks: FooterLinkItem[] = [
 	{ label: "Projects", href: "/projects", newTab: false },
 	{ label: "Blog", href: "/blog", newTab: false },
 	{ label: "Resume", href: "/resume", newTab: false },
 	{ label: "Contact", href: "/#contact", newTab: false },
 ];
 
-const legalLinks: FooterLinkItem[] = [
+const _legalLinks: FooterLinkItem[] = [
 	{
 		label: "Refund Policy",
 		href: "https://cosmicthemes.com/refund/",
@@ -43,7 +38,7 @@ const legalLinks: FooterLinkItem[] = [
 	{ label: "Support", href: "https://cosmicthemes.com/support/", newTab: true },
 ];
 
-const socialLinks: ComponentProps<typeof SocialIconSimple>[] = [
+const _socialLinks: ComponentProps<typeof SocialIconSimple>[] = [
 	{
 		name: "Twitter",
 		url: "https://x.com/BowTiedWebReapr",
@@ -66,7 +61,7 @@ const socialLinks: ComponentProps<typeof SocialIconSimple>[] = [
 	},
 ];
 
-const contactInfo = [
+const _contactInfo = [
 	{
 		value: "contact@example.com",
 		href: "mailto:contact@example.com",

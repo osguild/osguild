@@ -1,8 +1,5 @@
 ---
-import NavLink from "@components/nav/NavLink.astro";
 import type { navMegaDropdownItem } from "@config/types/configDataTypes";
-import { slugify } from "@js/textUtils";
-import { Icon } from "astro-icon/components";
 
 interface Props {
 	navItem: navMegaDropdownItem;
@@ -11,20 +8,20 @@ interface Props {
 const { navItem } = Astro.props as Props;
 
 const cols = navItem.megaMenuColumns.length;
-let gridClass: string;
-let insetClass: string;
+let _gridClass: string;
+let _insetClass: string;
 if (cols >= 5) {
-	gridClass = "grid-cols-5";
-	insetClass = "inset-x-0";
+	_gridClass = "grid-cols-5";
+	_insetClass = "inset-x-0";
 } else if (cols === 4) {
-	gridClass = "grid-cols-4";
-	insetClass = "inset-x-4 xl:inset-x-32";
+	_gridClass = "grid-cols-4";
+	_insetClass = "inset-x-4 xl:inset-x-32";
 } else if (cols === 3) {
-	gridClass = "grid-cols-3";
-	insetClass = "inset-x-20 xl:inset-x-64";
+	_gridClass = "grid-cols-3";
+	_insetClass = "inset-x-20 xl:inset-x-64";
 } else if (cols === 2) {
-	gridClass = "grid-cols-2";
-	insetClass = "inset-x-32 xl:inset-x-96";
+	_gridClass = "grid-cols-2";
+	_insetClass = "inset-x-32 xl:inset-x-96";
 } else {
 	throw new Error("Mega menu dropdown must have at least 2 columns");
 }

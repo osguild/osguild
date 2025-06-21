@@ -1,8 +1,5 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { ClientRouter } from "astro:transitions";
-import Seo from "@components/seo/Seo.astro";
-import siteSettings from "@config/siteSettings.json";
 
 export interface Props {
 	type?: "blog" | "general" | undefined;
@@ -24,8 +21,6 @@ const {
 	noindex = false,
 } = Astro.props as Props;
 
-import InterVariable from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2";
-import ArchivoBlack from "@fontsource/archivo-black/files/archivo-black-latin-400-normal.woff2";
 ---
 
 <meta charset="utf-8" />

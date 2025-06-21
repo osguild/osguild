@@ -1,9 +1,7 @@
 ---
-import { getEntry, render } from "astro:content";
-import ExternalLink from "@components/markdown-components/ExternalLink.astro";
+import { render } from "astro:content";
 import { getAllPosts } from "@js/blogUtils";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import BlogLayout from "@layouts/BlogLayoutCentered.astro";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const posts = await getAllPosts(currLocale);

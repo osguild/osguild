@@ -1,6 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
-
 interface Props {
 	title: string;
 	url: URL; // full URL, including "https://" Easiest way is in BlogLayout.astro `const url = Astro.url.toString();``
@@ -29,8 +27,8 @@ const {
 	...rest
 } = Astro.props as Props;
 
-const validtext = linktext.replace(/ /g, "%20");
-const svgStyle = "w-6 h-6 text-inherit";
+const _validtext = linktext.replace(/ /g, "%20");
+const _svgStyle = "w-6 h-6 text-inherit";
 ---
 
 {

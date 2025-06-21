@@ -1,8 +1,6 @@
 ---
 import { getLocaleFromUrl } from "@js/localeUtils";
-import { categorify, humanize, slugify } from "@js/textUtils";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
 interface Props {
 	category: string | undefined;
@@ -18,7 +16,7 @@ const {
 	class: classList,
 } = Astro.props as Props;
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const _currLocale = getLocaleFromUrl(Astro.url);
 ---
 
 {

@@ -1,7 +1,5 @@
 ---
-import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import FilterButton from "@components/button/FilterButton.astro";
 
 interface Props {
 	tools: CollectionEntry<"resume">["data"]["tools"];
@@ -20,7 +18,7 @@ if (limit) {
 }
 
 // Get unique categories for tools to display
-const categories = [
+const _categories = [
 	"All",
 	...new Set(toolsToDisplay.map((tool) => tool.category)),
 ].sort();

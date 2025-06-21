@@ -1,11 +1,8 @@
 ---
-import CategoryCloud from "@components/category-cloud/CategoryCloud.astro";
 import { defaultLocale } from "@config/siteSettings.json";
 import { countItems, getAllPosts, sortByValue } from "@js/blogUtils";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import { humanize, slugify } from "@js/textUtils";
-import BaseLayout from "@layouts/BaseLayout.astro";
-import BlogIndexLayout from "@layouts/BlogIndexGridDetailed.astro";
+import { slugify } from "@js/textUtils";
 import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
 
 // generate pagination for tag pages if there are a bunch of posts for a single tag
@@ -18,7 +15,7 @@ export async function getStaticPaths() {
 	const countedCategories = countItems(filteredCategories);
 	const processedCategories = sortByValue(countedCategories);
 
-	return processedCategories.map(([category, count]) => ({
+	return processedCategories.map(([category, _count]) => ({
 		params: { category: category },
 	}));
 }
@@ -31,7 +28,7 @@ const { category } = Astro.params as Params;
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const posts = await getAllPosts(currLocale);
-const filteredPosts = posts.filter((post) => {
+const _filteredPosts = posts.filter((post) => {
 	if (!post.data.categories) return false;
 	// make sure to slugify them for comparison
 	const slugifiedCategory = post.data.categories

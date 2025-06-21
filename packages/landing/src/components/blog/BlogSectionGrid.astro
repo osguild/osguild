@@ -1,18 +1,13 @@
 ---
-import { getCollection } from "astro:content";
-import PostCard from "@components/post-card/PostCard.astro";
 import { getAllPosts } from "@js/blogUtils";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import BlogIndexGrid from "@layouts/BlogIndexGrid.astro";
 
-import Button from "@/components/button/Button.astro";
-import { getLocalizedRoute } from "@/js/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const posts = await getAllPosts(currLocale);
 
 // get first 6 posts
-const slicedPosts = posts.slice(0, 6);
+const _slicedPosts = posts.slice(0, 6);
 ---
 
 <section class="bg-background text-foreground py-16 md:py-32">

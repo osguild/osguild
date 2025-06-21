@@ -3,14 +3,12 @@ import { getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { getTranslatedData } from "@js/translationUtils";
-import { SEO } from "astro-seo";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const siteData = getTranslatedData("siteData", currLocale);
 
 import jsonLDGenerator from "@js/jsonLD";
 
-import HrefLang from "./HrefLang.astro";
 
 interface BaseProps {
 	title: string;
@@ -39,7 +37,7 @@ const {
 } = Astro.props as GenProps | BlogProps;
 
 let optimizedImage;
-let jsonLD;
+let _jsonLD;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
 // if this is a blog page we do things differently
@@ -53,7 +51,7 @@ if (type === "blog") {
 		width: 1200,
 	});
 
-	jsonLD = jsonLDGenerator({
+	_jsonLD = jsonLDGenerator({
 		type: "blog",
 		postFrontmatter: postFrontmatter,
 		image: optimizedImage,
@@ -63,7 +61,7 @@ if (type === "blog") {
 }
 // for general pages
 else {
-	jsonLD = jsonLDGenerator({
+	_jsonLD = jsonLDGenerator({
 		type: "general",
 	});
 
@@ -85,7 +83,7 @@ function trimEndSlash(str: string) {
 }
 
 // put together the image URL
-const imageUrl =
+const _imageUrl =
 	trimEndSlash(Astro.site?.toString() || "") +
 	(optimizedImage?.src || siteData.defaultImage.src);
 ---

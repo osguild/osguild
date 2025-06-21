@@ -9,12 +9,10 @@
  * - Cookie consent with GA4: https://webreaper.dev/posts/google-tag-manager-cookie-consent/
  */
 
-import Button from "@components/button/Button.astro";
 import { getLocaleFromUrl } from "@js/localeUtils";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const _currLocale = getLocaleFromUrl(Astro.url);
 ---
 
 <div id="accept-banner" class="fixed inset-x-6 bottom-6 z-50 hidden justify-center">

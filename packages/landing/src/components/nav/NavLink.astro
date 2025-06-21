@@ -1,7 +1,6 @@
 ---
 import type { navLinkItem } from "@config/types/configDataTypes";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import { Icon } from "astro-icon/components";
 
 import { getLocalizedRoute } from "@/js/translationUtils";
 
@@ -11,7 +10,7 @@ import { getLocalizedRoute } from "@/js/translationUtils";
  * @param path2 Second path to compare
  * @returns boolean indicating if the paths are equal
  */
-const comparePathsWithTrailingSlash = (
+const _comparePathsWithTrailingSlash = (
 	path1: string,
 	path2: string,
 ): boolean => {
@@ -35,13 +34,13 @@ const { text, link, newTab = false, icon } = navItem;
 const currLocale = getLocaleFromUrl(Astro.url);
 
 const domain = import.meta.env.SITE; // pulls from astro.config.mjs
-let actualLink: string;
+let _actualLink: string;
 if (!link.includes(domain) && !link.startsWith("/") && !link.startsWith("#")) {
 	// it is an external link
-	actualLink = link;
+	_actualLink = link;
 } else {
 	// internal link, so we need to add the locale to the link
-	actualLink = getLocalizedRoute(currLocale, link);
+	_actualLink = getLocalizedRoute(currLocale, link);
 }
 ---
 

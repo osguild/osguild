@@ -1,12 +1,10 @@
 ---
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { getTranslatedData } from "@js/translationUtils";
-import { Icon } from "astro-icon/components";
 
-import TestimonialCard from "./TestimonialCard.astro";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const testimonials = getTranslatedData("testimonialData", currLocale);
+const _testimonials = getTranslatedData("testimonialData", currLocale);
 ---
 
 <section

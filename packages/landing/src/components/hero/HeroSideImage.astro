@@ -1,16 +1,11 @@
 ---
-import { Image } from "astro:assets";
-import Button from "@components/button/Button.astro";
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { useTranslations } from "@js/translationUtils";
-import { Icon } from "astro-icon/components";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTranslations(currLocale);
+const _t = useTranslations(currLocale);
 
-import heroImage from "@/assets/images/design-img-1-min.jpg";
 ---
 
 <section
