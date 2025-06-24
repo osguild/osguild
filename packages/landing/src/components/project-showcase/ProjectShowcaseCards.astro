@@ -4,8 +4,6 @@ import type { CollectionEntry } from "astro:content";
 import { filterCollectionByLanguage } from "@js/localeUtils";
 import { getLocaleFromUrl } from "@js/localeUtils";
 
-import ProjectCard from "@/components/projects/ProjectCard.astro";
-import { getLocalizedRoute } from "@/js/translationUtils";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 
@@ -17,7 +15,7 @@ const filteredProjects = filterCollectionByLanguage(
 	projects,
 	currLocale,
 ) as CollectionEntry<"projects">[];
-const sortedProjects = filteredProjects.sort(
+const _sortedProjects = filteredProjects.sort(
 	(a, b) =>
 		(a.data.order ?? Number.POSITIVE_INFINITY) -
 		(b.data.order ?? Number.POSITIVE_INFINITY),

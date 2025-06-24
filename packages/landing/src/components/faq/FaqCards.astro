@@ -7,7 +7,6 @@ import type { FaqItem } from "@config/types/configDataTypes";
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { getTranslatedData } from "@js/translationUtils";
 
-import FaqCard from "./FaqCard.astro";
 const currLocale = getLocaleFromUrl(Astro.url);
 const faqData = getTranslatedData("faqData", currLocale);
 

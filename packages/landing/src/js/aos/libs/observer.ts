@@ -44,7 +44,7 @@ function isSupported() {
 	return !!getMutationObserver();
 }
 
-function ready(selector, fn) {
+function ready(_selector, fn) {
 	const doc = window.document;
 	const MutationObserver = getMutationObserver();
 

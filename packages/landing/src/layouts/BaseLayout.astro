@@ -3,12 +3,7 @@
 import "@/styles/global.css";
 
 import type { CollectionEntry } from "astro:content";
-import CookieConsent from "@components/cookie-consent/CookieConsent.astro";
-import Footer from "@components/footer/Footer.astro";
-import Nav from "@components/nav/Nav.astro";
-import siteSettings from "@config/siteSettings.json";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import BaseHead from "@layouts/BaseHead.astro";
 
 // heroImage and authorData are defined on blog posts
 // authorData could also be defined on the about author page
@@ -32,7 +27,7 @@ const {
 	noindex = false,
 } = Astro.props as Props;
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const _currLocale = getLocaleFromUrl(Astro.url);
 ---
 
 <!doctype html>

@@ -1,11 +1,8 @@
 ---
-import NavLink from "@components/nav/NavLink.astro";
 import type {
 	navDropdownItem,
 	navMegaDropdownColumn,
 } from "@config/types/configDataTypes";
-import { slugify } from "@js/textUtils";
-import { Icon } from "astro-icon/components";
 
 interface Props {
 	navItem: navDropdownItem | navMegaDropdownColumn;
@@ -13,14 +10,14 @@ interface Props {
 
 const { navItem } = Astro.props as Props;
 
-let dropdownItem: navDropdownItem;
+let _dropdownItem: navDropdownItem;
 
 if ("dropdown" in navItem) {
 	// it is a normal dropdown item
-	dropdownItem = navItem;
+	_dropdownItem = navItem;
 } else {
 	// it is a mega menu dropdown column, so mock a dropdown item
-	dropdownItem = {
+	_dropdownItem = {
 		text: navItem.title,
 		dropdown: navItem.items,
 	};

@@ -1,11 +1,9 @@
 ---
-import CategoryCloud from "@components/category-cloud/CategoryCloud.astro";
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { useTranslations } from "@js/translationUtils";
-import BaseLayout from "@layouts/BaseLayout.astro";
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTranslations(currLocale);
+const _t = useTranslations(currLocale);
 ---
 
 <BaseLayout title="Blog Categories" description="Explore our blog posts by category">

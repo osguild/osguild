@@ -4,10 +4,9 @@
  * Uses info and utilities from src/js/i18nUtils.ts. Make sure this is updated with the languages you are using (to match the Astro config file)
  * Multiple dropdowns can be used on the same page
  */
-import { languageSwitcherMap, locales } from "@config/siteSettings.json";
+import { locales } from "@config/siteSettings.json";
 import { getLocaleFromUrl } from "@js/localeUtils";
 import { getLocalizedPathname } from "@js/translationUtils";
-import { Icon } from "astro-icon/components";
 
 interface Props {
 	class?: string; // any additional classes
@@ -16,10 +15,10 @@ interface Props {
 
 const { class: className, ...rest } = Astro.props as Props;
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const _currLocale = getLocaleFromUrl(Astro.url);
 
 // Precompute the localized paths for each locale (since getLocalizedPathname is async)
-const localizedPaths = Object.fromEntries(
+const _localizedPaths = Object.fromEntries(
 	await Promise.all(
 		locales.map(async (lang) => [
 			lang,

@@ -1,16 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import { type CollectionEntry, getEntries } from "astro:content";
-import Button from "@components/button/Button.astro";
-import KeyFeatures from "@components/projects/KeyFeatures.astro";
-import TechStack from "@components/projects/TechStack.astro";
+import type { CollectionEntry, } from "astro:content";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import { formatDate } from "@js/textUtils";
 import { useTranslations } from "@js/translationUtils";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
-import BaseLayout from "./BaseLayout.astro";
 
 interface Props {
 	project: CollectionEntry<"projects">;
@@ -29,7 +22,7 @@ const {
 } = project.data;
 
 const currLocale = getLocaleFromUrl(Astro.url);
-const t = useTranslations(currLocale);
+const _t = useTranslations(currLocale);
 ---
 
 <BaseLayout type="general" title={title} description={description} heroImage={image}>

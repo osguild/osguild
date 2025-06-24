@@ -1,6 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
-
 interface Props {
 	variant: "tip" | "caution" | "danger" | "info";
 }
@@ -8,7 +6,7 @@ interface Props {
 const { variant } = Astro.props as Props;
 
 // create a switch statement that switches on "variant" and returns the appropriate icon
-const icon = (() => {
+const _icon = (() => {
 	switch (variant) {
 		case "tip":
 			return "tabler/bulb";

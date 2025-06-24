@@ -1,11 +1,7 @@
 ---
-import { Image } from "astro:assets";
-import { type CollectionEntry, getEntries } from "astro:content";
+import type { CollectionEntry, } from "astro:content";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import { formatDate } from "@js/textUtils";
-import { Icon } from "astro-icon/components";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
 interface Props {
 	post: CollectionEntry<"blog">;
@@ -22,7 +18,7 @@ const {
 } = Astro.props as Props;
 const { title, description, categories, pubDate, heroImage } = post.data;
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const _currLocale = getLocaleFromUrl(Astro.url);
 ---
 
 <a

@@ -25,21 +25,21 @@ const {
 } = Astro.props;
 
 // if no specific padding is set, base it off of size
-let newPadding = padding;
+let _newPadding = padding;
 if (!padding) {
-	newPadding = size === "sm" ? 2 : size === "lg" ? 4 : 3;
+	_newPadding = size === "sm" ? 2 : size === "lg" ? 4 : 3;
 }
 
-const sizeMultiplier = size === "sm" ? 4 : size === "lg" ? 6 : 5;
+const _sizeMultiplier = size === "sm" ? 4 : size === "lg" ? 6 : 5;
 
-let ariaLabel;
+let _ariaLabel;
 if (rest["aria-label"]) {
-	ariaLabel = rest["aria-label"];
+	_ariaLabel = rest["aria-label"];
 	rest["aria-label"] = undefined;
 } else if (label) {
-	ariaLabel = label;
+	_ariaLabel = label;
 } else {
-	ariaLabel = "switch";
+	_ariaLabel = "switch";
 }
 ---
 

@@ -1,10 +1,8 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import ToolsComponent from "@components/resume/Tools.astro";
 import { filterCollectionByLanguage, getLocaleFromUrl } from "@js/localeUtils";
 import { useTranslations } from "@js/translationUtils";
 
-import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const resumes = await getCollection("resume");
@@ -28,10 +26,10 @@ const {
 	tools,
 } = resume.data;
 
-const t = useTranslations(currLocale);
+const _t = useTranslations(currLocale);
 
-const title = "Tools and Technologies";
-const description = "All the tools and technologies I know";
+const _title = "Tools and Technologies";
+const _description = "All the tools and technologies I know";
 ---
 
 <BaseLayout type="general" title={title} description={description}>

@@ -1,12 +1,8 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
-import FilterButton from "@components/button/FilterButton.astro";
-import ContactSectionSimple from "@components/contact/ContactSectionSimple.astro";
+import { getCollection, } from "astro:content";
 import { filterCollectionByLanguage } from "@js/localeUtils";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import BaseLayout from "@layouts/BaseLayout.astro";
 
-import ProjectCard from "@/components/projects/ProjectCard.astro";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 
@@ -15,14 +11,14 @@ const projects = await getCollection("projects", ({ data }) => {
 	return data.draft !== true;
 });
 const filteredProjects = filterCollectionByLanguage(projects, currLocale);
-const sortedProjects = filteredProjects.sort(
+const _sortedProjects = filteredProjects.sort(
 	(a, b) =>
 		(a.data.order ?? Number.POSITIVE_INFINITY) -
 		(b.data.order ?? Number.POSITIVE_INFINITY),
 );
 
 // Get unique technologies from all projects
-const allTechnologies = [
+const _allTechnologies = [
 	...new Set(projects.flatMap((project) => project.data.technologies)),
 ].sort();
 ---

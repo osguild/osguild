@@ -1,5 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
 import type { HTMLAttributes } from "astro/types";
 
 /**
@@ -21,9 +20,9 @@ const {
 	...rest
 } = Astro.props;
 
-let Component = "button";
+let _Component = "button";
 if (Astro.props.href) {
-	Component = "a";
+	_Component = "a";
 }
 ---
 

@@ -1,9 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
-import ContactSection from "@components/contact/ContactSectionSimple.astro";
 import { filterCollectionByLanguage } from "@js/localeUtils";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import ResumeLayout from "@layouts/ResumeLayout.astro";
 
 const currLocale = getLocaleFromUrl(Astro.url);
 const resumes = await getCollection("resume");
@@ -15,7 +13,7 @@ const filteredResumes = filterCollectionByLanguage(
 ) as CollectionEntry<"resume">[];
 
 // should only be one resume
-const resume = filteredResumes[0];
+const _resume = filteredResumes[0];
 ---
 
 <ResumeLayout title="Resume" description="My Professional Experience & Skills" {resume}>

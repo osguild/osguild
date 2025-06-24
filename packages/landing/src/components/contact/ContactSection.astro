@@ -1,9 +1,7 @@
 ---
-import ContactForm from "@components/forms/ContactForm.astro";
 // biome-ignore lint/style/useImportType: <explanation>
 import SocialIcon from "@components/social/SocialIcon.astro";
 import type { ComponentProps } from "astro/types";
-import { Icon } from "astro-icon/components";
 
 interface Props {
 	class?: string;
@@ -11,7 +9,7 @@ interface Props {
 
 const { class: className } = Astro.props as Props;
 
-const socialLinks: ComponentProps<typeof SocialIcon>[] = [
+const _socialLinks: ComponentProps<typeof SocialIcon>[] = [
 	{
 		name: "Twitter",
 		url: "https://x.com/BowTiedWebReapr",
@@ -34,7 +32,7 @@ const socialLinks: ComponentProps<typeof SocialIcon>[] = [
 	},
 ];
 
-const contactInfo = [
+const _contactInfo = [
 	{
 		title: "Email",
 		value: "contact@example.com",

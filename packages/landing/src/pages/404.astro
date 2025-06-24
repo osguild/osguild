@@ -1,13 +1,8 @@
 ---
-import { Image } from "astro:assets";
-import Button from "@components/button/Button.astro";
-import astronaut from "@images/404/astronaut-nobg.png";
 import { getLocaleFromUrl } from "@js/localeUtils";
-import BaseLayout from "@layouts/BaseLayout.astro";
 
-import { getLocalizedRoute } from "@/js/translationUtils";
 
-const currLocale = getLocaleFromUrl(Astro.url);
+const _currLocale = getLocaleFromUrl(Astro.url);
 ---
 
 <BaseLayout title="404" description="Error 404 page not found." noindex={true}>
