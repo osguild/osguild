@@ -12,6 +12,7 @@
 			"!**/*.json",
 			"!**/*.js",
 			"!**/*.d.ts",
+			"!**/dist/**/*",
 			"!**/packages/backend/cdk.out/**/*",
 			"!**/packages/landing/**/*"
 		]

@@ -9,6 +9,7 @@
     "ui:dev": "pnpm --filter ui dev --host",
     "storybook": "pnpm --filter ui storybook",
     "docs:dev": "pnpm --filter docs dev --host",
+    "docs:build": "pnpm --filter docs build",
     "cdk": "pnpm --filter backend cdk",
     "server:build": "pnpm --filter backend build",
     "server:deploy": "pnpm --filter backend cdk deploy --require-approval never",
