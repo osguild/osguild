@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { ACCESS_TOKEN } from "../utils/constants";
 
