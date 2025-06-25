@@ -49,43 +49,53 @@ export function useAuthenticateUser() {
 
 	const navigate = useNavigate();
 
-	const fetchTokens = useCallback(async () => {
-		const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-		if (accessToken) return;
-
-		// Send code to backend
-		try {
-			const response = await fetch(
-				"https://sp89tu7492.execute-api.us-east-1.amazonaws.com/prod/github/callback",
-				{
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ code }),
-				},
-			);
-
-			const data = await response.json();
-
-			if (isErrorResponse(data)) {
-				console.error("the token could not be read", data);
-
-				return;
-			}
-
-			if (isSuccessfulResponse(data)) {
-				// set tokens here
-				sessionStorage.setItem(ACCESS_TOKEN, JSON.stringify(data));
-			}
-		} catch (e) {
-			console.error("an error has occurred", e);
-		}
-
-		navigate("/");
-	}, [code, navigate]);
-
 	useEffect(() => {
+		const controller = new AbortController();
+		const signal = controller.signal;
+
+		const fetchTokens = async () => {
+			const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
+			if (accessToken) return;
+
+			// Send code to backend
+			try {
+				const response = await fetch(
+					"https://sp89tu7492.execute-api.us-east-1.amazonaws.com/prod/github/callback",
+					{
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ code }),
+					},
+				);
+
+				const data = await response.json();
+
+				if (isErrorResponse(data)) {
+					console.error("the token could not be read", data);
+
+					return;
+				}
+
+				if (isSuccessfulResponse(data)) {
+					// set tokens here
+					sessionStorage.setItem(ACCESS_TOKEN, JSON.stringify(data));
+				}
+			} catch (e) {
+				if (e instanceof Error && e.name === "AbortError") {
+					console.log("Request aborted", e);
+				} else {
+					console.error("an error has occurred", e);
+				}
+			}
+
+			navigate("/");
+		};
 		if (!code) return;
 
 		fetchTokens();
-	}, [fetchTokens, code]);
+
+		return () => {
+			controller.abort();
+		};
+	}, [navigate, code]);
 }
