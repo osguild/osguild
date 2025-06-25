@@ -1,3 +1,1 @@
-export function getAuth() {
-  
-}
+export function getAuth() {}

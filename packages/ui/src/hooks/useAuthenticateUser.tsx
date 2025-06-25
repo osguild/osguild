@@ -51,7 +51,6 @@ export function useAuthenticateUser() {
 
 	useEffect(() => {
 		const controller = new AbortController();
-		const signal = controller.signal;
 
 		const fetchTokens = async () => {
 			const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
