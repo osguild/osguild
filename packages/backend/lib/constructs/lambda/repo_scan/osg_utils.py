@@ -36,12 +36,11 @@ def write_data_to_s3(df,s3_bucket_location,folder,keyname):
     buffer = BytesIO()
     df.to_csv(buffer, index=False)
     buffer.seek(0)
+    # Upload to S3
     s3_client.put_object(
         Bucket=s3_bucket_location,
-        Key=keyname,
+        Key=folder + '/' + keyname,
         Body=buffer.getvalue()
     )
     return 'Loaded {keyname} to {s3_bucket_location}/{folder}/{keyname} successfully!'.format(keyname=keyname,s3_bucket_location=s3_bucket_location,folder=folder)
-
-
 
