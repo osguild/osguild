@@ -24,11 +24,13 @@ export class EtlConstruct extends Construct {
 		const lambdaFunction = new lambda.Function(this, "MyLambdaFunction", {
 			runtime: lambda.Runtime.PYTHON_3_9,
 			handler: "repo_scan_lambda.lambda_handler",
-			code: lambda.Code.fromAsset("../../packages/backend/src/python/lambda/repo_scan"), //cannot find code error
+			code: lambda.Code.fromAsset(
+				"../../packages/backend/src/python/lambda/repo_scan",
+			), //cannot find code error
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 128,
 			description:
-				"Lambda function with Pandas layer for repo scanning deployed with CDK", //packages\backend\src\python\lambda\repo_scan
+				"Lambda function with Pandas layer for repo scanning deployed with CDK",
 			layers: [pandasLayer],
 			environment: {
 				gh_api_key: "xxxx", // TODO: Update gh_api_key
