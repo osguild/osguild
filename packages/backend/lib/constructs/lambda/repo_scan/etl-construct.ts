@@ -5,11 +5,6 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
-/*
-pnpm cdk deploy # to deploy the code.
-
-*/
-
 export class EtlConstruct extends Construct {
 	constructor(scope: Construct, id: string) {
 		super(scope, id);
@@ -36,9 +31,9 @@ export class EtlConstruct extends Construct {
 				"Lambda function with Pandas layer for repo scanning deployed with CDK",
 			layers: [pandasLayer],
 			environment: {
-			gh_api_key:'xxxx', // TODO: Update gh_api_key
-			s3_bucket_location: bucket.bucketName,
-		},
+				gh_api_key: "xxxx", // TODO: Update gh_api_key
+				s3_bucket_location: bucket.bucketName,
+			},
 		});
 
 		bucket.grantWrite(lambdaFunction);
