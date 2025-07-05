@@ -1,5 +1,5 @@
+import { graphql } from "@octokit/graphql";
 import { Octokit } from "octokit";
-
 import { isSuccessfulResponse } from "../hooks/useAuthenticateUser";
 import { ACCESS_TOKEN } from "./constants";
 
@@ -48,4 +48,21 @@ export async function searchForIssues(platform = "macOS", language = "python") {
 	});
 
 	console.log(response.data);
+}
+
+
+export async function graphqlSearch() {
+	await graphql(`
+			{
+				search(query: $searchQuery, type: REPOSITORY, first: $first = 10) {
+					repos: edges {
+						repo:node {
+							... on Repository {
+								name
+							}
+						}
+					}
+				}
+			}
+		`, {searchQuery: 'osguild'})
 }
