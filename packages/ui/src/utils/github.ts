@@ -50,9 +50,9 @@ export async function searchForIssues(platform = "macOS", language = "python") {
 	console.log(response.data);
 }
 
-
 export async function graphqlSearch() {
-	await graphql(`
+	await graphql(
+		`
 			{
 				search(query: $searchQuery, type: REPOSITORY, first: $first = 10) {
 					repos: edges {
@@ -64,5 +64,7 @@ export async function graphqlSearch() {
 					}
 				}
 			}
-		`, {searchQuery: 'osguild'})
+		`,
+		{ searchQuery: "osguild" },
+	);
 }
