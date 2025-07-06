@@ -1,7 +1,5 @@
 import "@radix-ui/themes/styles.css";
 
-import { useState } from "react";
-
 import osguildLogo from "./assets/osguild.svg";
 
 import "./App.css";
@@ -15,8 +13,6 @@ const redirectURI = new URL(
 ).toString();
 
 function App() {
-	const [count, setCount] = useState(0);
-
 	useAuthenticateUser();
 
 	return (
