@@ -1,7 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 
 import type { Construct } from "constructs";
-import { EtlConstruct } from "../src/python/lambda/repo_scan/etl-construct";
+import { EtlConstruct } from "./constructs/etl-construct";
 import { RestApiConstruct } from "./constructs/rest-api-construct";
 
 interface BackendStackOptions extends cdk.StackProps {

@@ -1,10 +1,10 @@
+import path from "node:path";
 import { PythonFunction } from "@aws-cdk/aws-lambda-python-alpha";
 import * as cdk from "aws-cdk-lib";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
-import path from "node:path";
 
 export class EtlConstruct extends Construct {
 	constructor(scope: Construct, id: string) {
@@ -26,7 +26,7 @@ export class EtlConstruct extends Construct {
 			runtime: lambda.Runtime.PYTHON_3_9,
 			handler: "repo_scan_lambda.lambda_handler",
 			code: lambda.Code.fromAsset(
-				path.join(__dirname, '/packages/backend/src/python/lambda/repo_scan'), // "../../packages/backend/src/python/lambda/repo_scan",
+				path.join(__dirname, "/packages/backend/src/python/lambda/repo_scan"), // "../../packages/backend/src/python/lambda/repo_scan",
 			),
 			timeout: cdk.Duration.minutes(5),
 			memorySize: 128,
@@ -38,7 +38,9 @@ export class EtlConstruct extends Construct {
 				s3_bucket_location: bucket.bucketName,
 			},
 		});
-		console.log(path.join(__dirname, '/packages/backend/src/python/lambda/repo_scan'))
+		console.log(
+			path.join(__dirname, "/packages/backend/src/python/lambda/repo_scan"),
+		);
 		bucket.grantWrite(lambdaFunction);
 	}
 }
