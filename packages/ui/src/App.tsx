@@ -4,6 +4,7 @@ import osguildLogo from "./assets/osguild.svg";
 
 import "./App.css";
 import { Button } from "@radix-ui/themes";
+import { Navigation } from "./components/Navigation";
 import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
 import { PAGES_URL } from "./utils/constants";
 
@@ -16,8 +17,9 @@ function App() {
 	useAuthenticateUser();
 
 	return (
-		<>
-			<div>
+		<div>
+			<Navigation />
+			<div className="p-64">
 				<a href="https://osguild.io" target="_blank" rel="noreferrer">
 					<img src={osguildLogo} className="logo" alt="Vite logo" />
 				</a>
@@ -30,7 +32,7 @@ function App() {
 					<Button>Login with GitHub</Button>
 				</a>
 			</div>
-		</>
+		</div>
 	);
 }
 
