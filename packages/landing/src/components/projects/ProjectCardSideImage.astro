@@ -1,0 +1,78 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Button from "@components/button/Button.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { slugify } from "@js/textUtils";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+
+interface Props {
+	project: CollectionEntry<"projects">;
+	imageSide?: "left" | "right";
+	animations?: boolean;
+}
+
+const { project, imageSide = "left", animations = true } = Astro.props;
+const { title, description, image, technologies, ...rest } = project.data;
+---
+
+<div class="flex flex-col gap-12 lg:flex-row" {...rest}>
+	{/* Project Image */}
+	<div
+		class:list={[
+			"group flex-1",
+			"order-1", // Always first on mobile
+			imageSide === "right" ? "lg:order-2" : "lg:order-1", // Alternate order on desktop
+		]}
+		data-aos={animations ? (imageSide === "right" ? "fade-left" : "fade-right") : undefined}
+	>
+		<div class="relative">
+			<div class="relative overflow-hidden rounded-2xl border">
+				<Image
+					src={image}
+					width={800}
+					densities={[1.5, 2]}
+					alt={title}
+					class="aspect-[4/3] w-full transform object-cover transition-transform duration-500 group-hover:scale-105"
+				/>
+			</div>
+		</div>
+	</div>
+
+	{/* Project Info */}
+	<div
+		class:list={[
+			"mx-auto max-w-xl flex-1 lg:mx-0",
+			"order-2", // Always second on mobile
+			imageSide === "right" ? "lg:order-1" : "lg:order-2", // Alternate order on desktop
+		]}
+		data-aos={animations ? (imageSide === "right" ? "fade-right" : "fade-left") : undefined}
+	>
+		<div class="space-y-6">
+			<h3 class="h3">{title}</h3>
+			<p class="description leading-relaxed">{description}</p>
+
+			{/* Technologies */}
+			<div class="flex flex-wrap gap-2">
+				{
+					technologies.map((tech) => (
+						<span class="bg-primary/5 text-primary dark:bg-base-800 dark:text-primary-foreground rounded-full px-3 py-1 text-sm">
+							{tech}
+						</span>
+					))
+				}
+			</div>
+
+			<Button
+				href={getLocalizedRoute(currLocale, `/projects/${slugify(project.id)}`)}
+				variant="secondary"
+				arrow="right"
+			>
+				View Project Details
+			</Button>
+		</div>
+	</div>
+</div>

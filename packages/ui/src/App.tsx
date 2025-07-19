@@ -1,8 +1,9 @@
-import { useState } from "react";
+import "@radix-ui/themes/styles.css";
 
-import viteLogo from "/vite.svg";
-import reactLogo from "./assets/react.svg";
+import osguildLogo from "./assets/osguild.svg";
+
 import "./App.css";
+import { Button } from "@radix-ui/themes";
 import { useAuthenticateUser } from "./hooks/useAuthenticateUser";
 import { PAGES_URL } from "./utils/constants";
 
@@ -12,38 +13,23 @@ const redirectURI = new URL(
 ).toString();
 
 function App() {
-	const [count, setCount] = useState(0);
-
 	useAuthenticateUser();
 
 	return (
 		<>
 			<div>
-				<a href="https://vite.dev" target="_blank" rel="noreferrer">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank" rel="noreferrer">
-					<img src={reactLogo} className="logo react" alt="React logo" />
+				<a href="https://osguild.io" target="_blank" rel="noreferrer">
+					<img src={osguildLogo} className="logo" alt="Vite logo" />
 				</a>
 			</div>
-			<h1>Vite + React</h1>
+			<h1>OS Guild</h1>
 			<div className="card">
-				<button type="button" onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-
 				<a
 					href={`https://github.com/login/oauth/authorize?client_id=${import.meta.env.VITE_GITHUB_CLIENT}&redirect_uri=${redirectURI}`}
 				>
-					<button type="button">Login with GitHub</button>
+					<Button>Login with GitHub</Button>
 				</a>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
 			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
 		</>
 	);
 }

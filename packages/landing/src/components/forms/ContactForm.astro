@@ -1,0 +1,23 @@
+---
+import Button from "@components/button/Button.astro";
+
+import { Input, InputWrapper } from "@/components/starwind/input";
+import { Label } from "@/components/starwind/label";
+import { Textarea } from "@/components/starwind/textarea";
+---
+
+<form class="space-y-8">
+	<InputWrapper>
+		<Label for="name">Name</Label>
+		<Input name="name" type="text" />
+	</InputWrapper>
+	<InputWrapper>
+		<Label for="email">Email</Label>
+		<Input required name="email" type="email" />
+	</InputWrapper>
+	<InputWrapper>
+		<Label for="message">Message</Label>
+		<Textarea name="message" required rows="4" />
+	</InputWrapper>
+	<Button type="submit" class="w-full">Send Message</Button>
+</form>

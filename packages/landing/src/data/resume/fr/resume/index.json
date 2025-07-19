@@ -1,0 +1,132 @@
+{
+	"diplomas": [
+		{
+			"title": "Master's in Computer Science",
+			"school": "Stanford University",
+			"year": 2020
+		},
+		{
+			"title": "Bachelor's in Software Engineering",
+			"school": "MIT",
+			"year": 2018
+		}
+	],
+	"certifications": [
+		{
+			"title": "AWS Certified Solutions Architect",
+			"year": 2022
+		},
+		{
+			"title": "Google Cloud Professional Developer",
+			"year": 2021
+		}
+	],
+	"experience": [
+		{
+			"title": "Senior Software Engineer",
+			"company": "TechCorp",
+			"companyImage": "./index/experience/0/companyImage.png",
+			"dates": "Jan 2021 - Present",
+			"location": "San Francisco, CA",
+			"responsibilities": [
+				"Led development of microservices architecture",
+				"Mentored junior developers and conducted code reviews",
+				"Implemented CI/CD pipelines reducing deployment time by 50%",
+				"Architected scalable cloud solutions using AWS"
+			]
+		},
+		{
+			"title": "Technical Lead",
+			"company": "InnovateLabs",
+			"companyImage": "./index/experience/1/companyImage.png",
+			"dates": "Mar 2019 - Dec 2020",
+			"location": "New York, NY",
+			"responsibilities": [
+				"Managed team of 8 developers across multiple projects",
+				"Established coding standards and best practices",
+				"Reduced technical debt by 40% through strategic refactoring",
+				"Implemented agile methodologies improving team productivity"
+			]
+		}
+	],
+	"hardSkills": [
+		{
+			"skill": "JavaScript",
+			"percentage": 95
+		},
+		{
+			"skill": "TypeScript",
+			"percentage": 90
+		},
+		{
+			"skill": "React",
+			"percentage": 92
+		}
+	],
+	"softSkills": [
+		{
+			"skill": "Leadership",
+			"icon": "👑"
+		},
+		{
+			"skill": "Communication",
+			"icon": "🗣️"
+		},
+		{
+			"skill": "Problem Solving",
+			"icon": "🧩"
+		}
+	],
+	"languages": [
+		{
+			"language": "English",
+			"level": 10
+		},
+		{
+			"language": "Spanish",
+			"level": 8
+		},
+		{
+			"language": "French",
+			"level": 6
+		}
+	],
+	"tools": [
+		{
+			"name": "Astro",
+			"category": "Development",
+			"image": "./index/tools/0/image.svg",
+			"link": "https://astro.build"
+		},
+		{
+			"name": "Visual Studio Code",
+			"category": "Development",
+			"image": "./index/tools/1/image.png",
+			"link": "https://code.visualstudio.com"
+		},
+		{
+			"name": "Figma",
+			"category": "Design",
+			"image": "./index/tools/2/image.png",
+			"link": "https://figma.com"
+		},
+		{
+			"name": "Adobe XD",
+			"category": "Design",
+			"image": "./index/tools/3/image.png",
+			"link": "https://adobe.com/products/xd"
+		},
+		{
+			"name": "Webstorm",
+			"category": "Development",
+			"image": "./index/tools/4/image.png",
+			"link": "https://jetbrains.com/webstorm"
+		},
+		{
+			"name": "Docker",
+			"category": "DevOps",
+			"image": "./index/tools/5/image.png",
+			"link": "https://docker.com"
+		}
+	]
+}

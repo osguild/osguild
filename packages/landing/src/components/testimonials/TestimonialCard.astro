@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import type { TestimonialItem } from "@config/types/configDataTypes";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	testimonial: TestimonialItem;
+	isOffset?: boolean;
+}
+
+const { testimonial, isOffset = false, ...rest } = Astro.props;
+---
+
+<div class:list={["group relative", isOffset ? "md:translate-y-12" : ""]} {...rest}>
+	<div
+		class="bg-base-50 dark:bg-base-900 relative rounded-2xl p-8 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+	>
+		<div
+			class="bg-primary absolute -top-4 -left-4 flex h-8 w-8 -rotate-8 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-0"
+		>
+			<Icon name="voyager/quote" class="h-4 w-4" />
+		</div>
+
+		<blockquote class="mb-6">
+			<p class="description leading-relaxed">{testimonial.testimonial}</p>
+		</blockquote>
+
+		<div class="flex items-center gap-4">
+			<div class="relative z-10 h-12 w-12 overflow-hidden rounded-full border">
+				<Image
+					src={testimonial.avatar}
+					alt={`${testimonial.name}'s avatar`}
+					class="h-full w-full object-cover"
+					width={60}
+				/>
+			</div>
+			<div>
+				<div class="text-foreground font-medium">{testimonial.name}</div>
+				<div class="description text-sm">{testimonial.title}</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,139 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry, getEntries } from "astro:content";
+import Button from "@components/button/Button.astro";
+import CategoryBadge from "@components/category/CategoryBadge.astro";
+import ShareButtons from "@components/share-buttons/ShareButtons.astro";
+import TableOfContents from "@components/table-of-contents/TableOfContents.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { formatDate } from "@js/textUtils";
+import { useTranslations } from "@js/translationUtils";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+	post: CollectionEntry<"blog">;
+	headings?: import("astro").MarkdownHeading[];
+}
+
+const { post, headings } = Astro.props as Props;
+const {
+	title,
+	description,
+	authors,
+	pubDate,
+	categories,
+	updatedDate,
+	heroImage,
+} = post.data;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(currLocale);
+const authorsData = await getEntries(authors);
+---
+
+<BaseLayout
+	type="blog"
+	title={title}
+	description={description}
+	heroImage={heroImage}
+	authorsData={authorsData}
+	postFrontmatter={post.data}
+>
+	<article class="mt-16">
+		<!-- Hero Section -->
+		<div class="bg-base-950 relative mt-16 h-[60vh] min-h-[400px]">
+			<div class="absolute inset-0">
+				<Image
+					src={heroImage}
+					alt={title}
+					loading="eager"
+					class="h-full w-full object-cover opacity-50"
+				/>
+				<div class="from-base-950 via-base-950/50 absolute inset-0 bg-gradient-to-t to-transparent">
+				</div>
+			</div>
+
+			<div class="site-container dark relative mx-auto flex h-full items-end px-4 pb-16">
+				<div class="max-w-3xl">
+					<div class="mb-4 flex flex-wrap gap-2">
+						{
+							categories &&
+								categories.map((category) => <CategoryBadge category={category} variant="dark" />)
+						}
+					</div>
+					<h1 class="text-foreground font-heading mb-4 text-4xl md:text-5xl">
+						{title}
+					</h1>
+					<p class="description text-lg md:text-xl">{description}</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Content Section -->
+		<div class="site-container mx-auto px-4 py-16">
+			<div class="mx-auto max-w-3xl">
+				<!-- Article Meta -->
+				<div class="mb-8 flex items-center justify-between border-b pb-8">
+					<div class="flex items-center gap-4">
+						{
+							authorsData.map((author) => (
+								<a href={author.data.authorLink} class="group flex items-center gap-3">
+									<div class="size-12 overflow-hidden rounded-full border">
+										<Image
+											src={author.data.avatar}
+											alt={author.data.name}
+											loading="eager"
+											width={100}
+											class="h-full w-full object-cover"
+										/>
+									</div>
+									<div>
+										<span class="group-hover:text-primary block font-medium transition-colors">
+											{author.data.name}
+										</span>
+										<time datetime={pubDate.toISOString()} class="text-sm opacity-70">
+											{formatDate(pubDate, currLocale)}
+										</time>
+									</div>
+								</a>
+							))
+						}
+					</div>
+
+					{
+						updatedDate && (
+							<div class="text-base-500 text-sm">
+								{t("updated")}: {formatDate(updatedDate, currLocale)}
+							</div>
+						)
+					}
+				</div>
+
+				<!-- Article Content -->
+				<div class="markdown-content">
+					<slot />
+				</div>
+
+				<!-- After Content Section -->
+				<div class="mt-12 flex items-center justify-between border-t pt-8">
+					<div class="text-sm opacity-70">{t("share_this_article")}:</div>
+					<!-- Share Links -->
+					<div class="flex items-center gap-4">
+						<ShareButtons title={title} url={Astro.url} />
+					</div>
+				</div>
+				<Button
+					href={getLocalizedRoute(currLocale, "/blog")}
+					variant="secondary"
+					arrow="left"
+					class="mt-12"
+				>
+					{t("back_to_all_posts")}
+				</Button>
+			</div>
+		</div>
+	</article>
+</BaseLayout>

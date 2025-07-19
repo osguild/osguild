@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	languages: CollectionEntry<"resume">["data"]["languages"];
+}
+
+const { languages } = Astro.props;
+---
+
+<div class="space-y-4">
+	<h2 class="h3">Languages</h2>
+	<div class="space-y-6">
+		{
+			languages.map((lang) => (
+				<div class="space-y-2">
+					<div class="flex justify-between">
+						<span class="font-medium opacity-70">{lang.language}</span>
+						<span class="text-primary">{lang.level}/10</span>
+					</div>
+					<div class="flex gap-1">
+						{Array.from({ length: 10 }).map((_, i) => (
+							<div
+								class:list={[
+									"h-2 flex-1 rounded-full transition-colors",
+									i < lang.level ? "bg-primary" : "bg-base-200/50 dark:bg-base-900",
+								]}
+							/>
+						))}
+					</div>
+				</div>
+			))
+		}
+	</div>
+</div>

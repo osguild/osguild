@@ -1,0 +1,44 @@
+---
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { categorify, humanize, slugify } from "@js/textUtils";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+interface Props {
+	category: string | undefined;
+	variant?: "default" | "dark";
+	count?: number;
+	class?: string;
+}
+
+const {
+	category,
+	variant = "default",
+	count,
+	class: classList,
+} = Astro.props as Props;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+---
+
+{
+	category && (
+		<a
+			href={getLocalizedRoute(currLocale, `/categories/${slugify(category)}/`)}
+			class:list={[
+				"rounded-full px-3 py-1 text-sm",
+				"transition-colors",
+				"inline-flex items-center gap-1",
+				classList,
+				{
+					"bg-primary/5 text-primary dark:bg-base-800 dark:text-primary-foreground hover:bg-primary/10 hover:text-primary dark:hover:bg-base-700/60 dark:hover:text-primary-foreground":
+						variant === "default",
+					"bg-base-800 text-base-50 hover:bg-base-700": variant === "dark",
+				},
+			]}
+		>
+			{humanize(category)}
+			{count !== undefined && <span class="mt-0.5 text-xs opacity-70">({count})</span>}
+		</a>
+	)
+}

@@ -1,11 +1,55 @@
 ---
-import Welcome from "../components/Welcome.astro";
-import Layout from "../layouts/Layout.astro";
+import About from "@components/about/About.astro";
+import AboutAlternative from "@components/about/AboutAlternative.astro";
+import BlogSectionGrid from "@components/blog/BlogSectionGrid.astro";
+import BlogSectionGridDetailed from "@components/blog/BlogSectionGridDetailed.astro";
+import ContactSection from "@components/contact/ContactSection.astro";
+import ContactSectionSimple from "@components/contact/ContactSectionSimple.astro";
+import FaqAccordions from "@components/faq/FaqAccordions.astro";
+import FaqCards from "@components/faq/FaqCards.astro";
+import HeroCentered from "@components/hero/HeroCentered.astro";
+import HeroGradient from "@components/hero/HeroGradient.astro";
+import HeroSideImage from "@components/hero/HeroSideImage.astro";
+import LogoCloudMarquee from "@components/logo-cloud/LogoCloudMarquee.astro";
+import LogoCloudStatic from "@components/logo-cloud/LogoCloudStatic.astro";
+import PricingOnePrice from "@components/pricing/PricingOnePrice.astro";
+import PricingThreeCards from "@components/pricing/PricingThreeCards.astro";
+import PricingTwoCards from "@components/pricing/PricingTwoCards.astro";
+import ProcessSectionHorizontal from "@components/process/ProcessSectionHorizontal.astro";
+import ProcessSectionVertical from "@components/process/ProcessSectionVertical.astro";
+import ProjectShowcaseCards from "@components/project-showcase/ProjectShowcaseCards.astro";
+import ProjectShowcaseSideImage from "@components/project-showcase/ProjectShowcaseSideImage.astro";
+import TestimonialCards from "@components/testimonials/TestimonialCards.astro";
+import TestimonialSwiper from "@components/testimonials/TestimonialSwiper.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { getTranslatedData } from "@js/translationUtils";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const currLocale = getLocaleFromUrl(Astro.url);
+const siteData = getTranslatedData("siteData", currLocale);
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={siteData.title} description={siteData.description}>
+	<!-- <HeroCentered /> -->
+	<HeroGradient />
+	<!-- <HeroSideImage /> -->
+	<!-- <LogoCloudStatic /> -->
+	<LogoCloudMarquee />
+	<!-- <About /> -->
+	<!-- <AboutAlternative /> -->
+	<!-- <ProjectShowcaseCards /> -->
+	<ProjectShowcaseSideImage />
+	<ProcessSectionVertical />
+	<!-- <ProcessSectionHorizontal /> -->
+	<!-- <PricingThreeCards /> -->
+	<!-- <PricingTwoCards /> -->
+	<PricingOnePrice />
+	<!-- <TestimonialSwiper /> -->
+	<TestimonialCards />
+	<!-- <BlogSectionGrid /> -->
+	<BlogSectionGridDetailed />
+	<ContactSection />
+	<!-- <ContactSectionSimple /> -->
+	<FaqAccordions />
+	<!-- <FaqCards /> -->
+</BaseLayout>

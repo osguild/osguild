@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	technologies: CollectionEntry<"projects">["data"]["technologies"];
+}
+
+const { technologies } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-3">
+	{
+		technologies.map((tech) => (
+			<span class="hover:bg-primary bg-base-200/50 text-foreground dark:bg-base-900 rounded-full px-4 py-2 text-sm font-medium transition-colors hover:text-white">
+				{tech}
+			</span>
+		))
+	}
+</div>

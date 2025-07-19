@@ -4,6 +4,9 @@ dist/
 # generated types
 .astro/
 
+# pagefind search for dev purposes
+public/pagefind/
+
 # dependencies
 node_modules/
 
@@ -20,5 +23,7 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
-.idea/
+# Local hosting provider folders
+.netlify
+.vercel
+.wrangler

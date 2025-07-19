@@ -1,3 +1,4 @@
+import { graphql } from "@octokit/graphql";
 import { Octokit } from "octokit";
 import { isSuccessfulResponse } from "../hooks/useAuthenticateUser";
 import { ACCESS_TOKEN } from "./constants";
@@ -31,10 +32,13 @@ export async function getUserRepos() {
 
 export async function searchForIssues(platform = "macOS", language = "python") {
 	const octokitClient = getOctokitClient();
+
 	// Documentation on how to search issues https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-issues-and-pull-requests
-
 	const query = `${platform}+label:good-first-issue+language:${language}+state:open`;
-
+	octokitClient.graphql({
+		query: `
+		`,
+	});
 	const response = await octokitClient.request("GET /search/issues", {
 		q: query,
 		sort: "updated",
@@ -44,4 +48,23 @@ export async function searchForIssues(platform = "macOS", language = "python") {
 	});
 
 	console.log(response.data);
+}
+
+export async function graphqlSearch() {
+	await graphql(
+		`
+			{
+				search(query: $searchQuery, type: REPOSITORY, first: $first = 10) {
+					repos: edges {
+						repo:node {
+							... on Repository {
+								name
+							}
+						}
+					}
+				}
+			}
+		`,
+		{ searchQuery: "osguild" },
+	);
 }

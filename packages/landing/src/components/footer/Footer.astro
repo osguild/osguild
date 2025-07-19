@@ -1,0 +1,173 @@
+---
+import Button from "@components/button/Button.astro";
+import FooterLink from "@components/footer/FooterLink.astro";
+import SiteLogo from "@components/site-logo/SiteLogo.astro";
+// biome-ignore lint/style/useImportType: <explanation>
+import SocialIconSimple from "@components/social/SocialIconSimple.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { getTranslatedData } from "@js/translationUtils";
+import { Icon } from "astro-icon/components";
+import type { ComponentProps } from "astro/types";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const siteData = getTranslatedData("siteData", currLocale);
+
+const today = new Date();
+
+interface FooterLinkItem {
+	label: string;
+	href: string;
+	newTab?: boolean;
+}
+
+const quickLinks: FooterLinkItem[] = [
+	{ label: "Projects", href: "/projects", newTab: false },
+	{ label: "Blog", href: "/blog", newTab: false },
+	{ label: "Resume", href: "/resume", newTab: false },
+	{ label: "Contact", href: "/#contact", newTab: false },
+];
+
+const legalLinks: FooterLinkItem[] = [
+	{
+		label: "Refund Policy",
+		href: "https://cosmicthemes.com/refund/",
+		newTab: true,
+	},
+	{
+		label: "Terms of Service",
+		href: "https://cosmicthemes.com/terms/",
+		newTab: true,
+	},
+	{ label: "Support", href: "https://cosmicthemes.com/support/", newTab: true },
+];
+
+const socialLinks: ComponentProps<typeof SocialIconSimple>[] = [
+	{
+		name: "Twitter",
+		url: "https://x.com/BowTiedWebReapr",
+		icon: "tabler/brand-x",
+	},
+	{
+		name: "Threads",
+		url: "https://www.threads.net/@bowtiedwebreaper",
+		icon: "tabler/brand-threads",
+	},
+	{
+		name: "BlueSky",
+		url: "https://bsky.app/profile/webreaper.dev",
+		icon: "tabler/brand-bluesky",
+	},
+	{
+		name: "GitHub",
+		url: "https://github.com/Boston343",
+		icon: "tabler/brand-github",
+	},
+];
+
+const contactInfo = [
+	{
+		value: "contact@example.com",
+		href: "mailto:contact@example.com",
+		icon: "tabler/mail",
+	},
+	{
+		value: "+1 (234) 567-890",
+		href: "tel:+1234567890",
+		icon: "tabler/phone",
+	},
+	{
+		value: "123 Design Street\nCreative City, DC 12345",
+		icon: "tabler/map-pin",
+	},
+];
+---
+
+<div class="bg-background text-foreground dark relative border-t py-12 md:py-20">
+	<!-- Background Pattern -->
+	<div class="absolute inset-0" aria-hidden="true">
+		<svg class="absolute h-full w-full opacity-3" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<pattern id="footer-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+					<path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-width="1"></path>
+				</pattern>
+			</defs>
+			<rect width="100%" height="100%" fill="url(#footer-grid)"></rect>
+		</svg>
+	</div>
+
+	<footer class="site-container relative m-auto w-full pb-6">
+		<div class="flex w-full flex-col justify-between gap-x-4 gap-y-10 md:flex-row md:gap-10">
+			<div class="flex max-w-sm flex-col items-start">
+				<SiteLogo />
+				<p class="text-base-600 dark:text-base-400 mt-4">
+					Creating meaningful digital experiences through thoughtful design and innovation.
+				</p>
+				<!-- Social Links -->
+				<div class="mt-5 flex flex-wrap gap-4">
+					{socialLinks.map((social) => <SocialIconSimple {...social} />)}
+				</div>
+			</div>
+			<div class="grid gap-x-4 gap-y-10 sm:grid-cols-2 md:w-1/2">
+				<!-- Navigation -->
+				<div class="flex flex-col gap-2">
+					<h3 class="mb-6 text-lg font-semibold">Navigation</h3>
+					{
+						quickLinks.map((link) => (
+							<FooterLink href={link.href} newTab={link.newTab}>
+								{link.label}
+							</FooterLink>
+						))
+					}
+				</div>
+
+				<div class="">
+					<h3 class="mb-8 text-lg font-semibold">Contact</h3>
+					<div class="space-y-4">
+						{
+							contactInfo.map((info) => (
+								<div class="flex items-start gap-4">
+									<Icon name={info.icon} class="text-primary h-6 w-6" />
+									<div>
+										{info.href ? (
+											<a
+												href={info.href}
+												class="primary-focus hover:text-primary text-base-600 dark:text-base-400 transition-colors"
+											>
+												{info.value}
+											</a>
+										) : (
+											<div class="text-base-600 dark:text-base-400 whitespace-pre-line">
+												{info.value}
+											</div>
+										)}
+									</div>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bottom Bar -->
+		<div class="mt-16 border-t pt-8">
+			<div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+				<p class="opacity-60">
+					&copy; {today.getFullYear()}
+					{" "}{siteData.name}. All rights reserved.
+				</p>
+				<div class="flex flex-wrap gap-6">
+					{legalLinks.map((link) => <FooterLink href={link.href}>{link.label}</FooterLink>)}
+				</div>
+			</div>
+		</div>
+		<div class="sr-only">
+			<p>
+				A website template crafted with love by <a href="https://cosmicthemes.com/">Cosmic Themes</a
+				>
+			</p>
+		</div>
+	</footer>
+</div>

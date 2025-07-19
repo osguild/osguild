@@ -11,7 +11,7 @@ export default defineConfig({
 		proxy: {
 			// Target is your backend API
 			"/api": {
-				target: "http://localhost:3000",
+				target: "https://sp89tu7492.execute-api.us-east-1.amazonaws.com/prod/",
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/api/, ""),
 

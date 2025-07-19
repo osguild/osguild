@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+
+interface AboutItem {
+	title: string;
+	description: string;
+	icon: string;
+}
+
+import authorImage from "@/assets/images/designer.jpg";
+
+const aboutItems: AboutItem[] = [
+	{
+		title: "UI/UX Design",
+		description:
+			"Creating intuitive and engaging user experiences through thoughtful design",
+		icon: "✏️",
+	},
+	{
+		title: "Web Development",
+		description:
+			"Building modern, responsive websites using the latest technologies",
+		icon: "💻",
+	},
+	{
+		title: "Brand Identity",
+		description:
+			"Developing cohesive brand identities that tell compelling stories",
+		icon: "🎨",
+	},
+];
+---
+
+<section id="about" class="bg-background text-foreground overflow-hidden py-16 md:py-32">
+	<div class="site-container" id="about-section">
+		<div class="mx-auto max-w-3xl">
+			<h2
+				class="text-foreground h2 mb-16 text-center"
+				data-aos="fade-down"
+				data-aos-trigger="#about-section"
+			>
+				About Me
+			</h2>
+			<div class="grid items-center gap-16 md:grid-cols-2">
+				<div
+					class="from-primary/20 to-primary/5 dark:from-primary/30 dark:to-primary/10 aspect-square rounded-2xl bg-gradient-to-br"
+					data-aos="fade-right"
+					data-aos-delay="0.4"
+					data-aos-trigger="#about-section"
+				>
+					<Image
+						src={authorImage}
+						alt="Designer"
+						class="h-full w-full rounded-2xl object-cover p-3"
+					/>
+				</div>
+				<div>
+					<p
+						class="description mb-8 leading-relaxed"
+						data-aos="fade-left"
+						data-aos-delay="0.4"
+						data-aos-trigger="#about-section"
+					>
+						With over a decade of experience in digital design, I specialize in creating
+						user-centered experiences that combine aesthetics with functionality.
+					</p>
+					<ul class="space-y-2" id="about-li-trigger">
+						{
+							aboutItems.map((item, idx) => (
+								<li
+									class="group"
+									data-aos="fade-left"
+									data-aos-delay={0.2 + idx * 0.2}
+									data-aos-trigger="#about-li-trigger"
+								>
+									<div class="flex items-start gap-4">
+										<span class="bg-primary mt-1 h-8 w-1 transition-all duration-300 group-hover:h-16" />
+										<div>
+											<span class="group-hover:text-primary description block text-base transition-colors">
+												{item.title}
+											</span>
+											<span class="description invisible mt-2 text-sm opacity-0 transition-all duration-300 group-hover:visible group-hover:opacity-100">
+												{item.description}
+											</span>
+										</div>
+									</div>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

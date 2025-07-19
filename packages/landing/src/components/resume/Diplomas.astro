@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	diplomas: CollectionEntry<"resume">["data"]["diplomas"];
+}
+
+const { diplomas } = Astro.props;
+---
+
+<div class="@container space-y-4">
+	<h2 class="h3">Education</h2>
+	<div class="grid gap-4 @2xl:grid-cols-2">
+		{
+			diplomas.map((diploma) => (
+				<div class="hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 flex items-start justify-between rounded-lg border bg-white p-4 transition-all hover:shadow-lg">
+					<div>
+						<h3 class="font-medium">{diploma.title}</h3>
+						<p class="text-sm opacity-70">{diploma.school}</p>
+					</div>
+					<span class="text-primary">{diploma.year}</span>
+				</div>
+			))
+		}
+	</div>
+</div>

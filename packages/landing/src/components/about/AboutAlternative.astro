@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+import authorImage from "@/assets/images/designer.jpg";
+
+interface AboutItem {
+	title: string;
+	description: string;
+	icon: string;
+}
+
+const aboutItems: AboutItem[] = [
+	{
+		title: "UI/UX Design",
+		description:
+			"Creating intuitive and engaging user experiences through thoughtful design",
+		icon: "tabler/pencil",
+	},
+	{
+		title: "Web Development",
+		description:
+			"Building modern, responsive websites using the latest technologies",
+		icon: "tabler/devices",
+	},
+	{
+		title: "Brand Identity",
+		description:
+			"Developing cohesive brand identities that tell compelling stories",
+		icon: "tabler/palette",
+	},
+];
+---
+
+<section id="about-alt" class="bg-background text-foreground overflow-hidden py-16 md:py-32">
+	<div class="site-container">
+		<div class="mx-auto max-w-6xl">
+			<div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+				<div class="order-2 lg:order-1">
+					<div data-aos="fade-right" data-aos-trigger="#about-alt">
+						<h2 class="text-foreground h2 mb-6">About Me</h2>
+						<p class="description mb-12 leading-relaxed">
+							With over a decade of experience in digital design, I specialize in creating
+							user-centered experiences that combine aesthetics with functionality.
+						</p>
+					</div>
+					<div class="grid gap-6 md:grid-cols-2">
+						{
+							aboutItems.map((item, idx) => (
+								<div
+									class="dark:bg-base-900 group hover:border-primary/30 hover:shadow-primary/5 rounded-xl border bg-white p-6 transition-colors duration-300 hover:shadow-lg"
+									data-aos="fade-in"
+									data-aos-trigger="#about-alt"
+									data-aos-delay={0.8 + idx * 0.2}
+								>
+									<Icon name={item.icon} class="text-primary h-8 w-8" />
+									<h3 class="text-foreground group-hover:text-primary mt-2 mb-2 text-lg font-semibold transition-colors duration-300">
+										{item.title}
+									</h3>
+									<p class="description text-sm">{item.description}</p>
+								</div>
+							))
+						}
+					</div>
+				</div>
+				<div class="order-1 lg:order-2">
+					<div class="relative" data-aos="fade-left" data-aos-trigger="#about-alt">
+						<div
+							class="from-primary/20 to-primary/5 absolute inset-0 rotate-6 transform rounded-2xl bg-gradient-to-tr"
+						>
+						</div>
+						<div class="relative">
+							<Image
+								src={authorImage}
+								alt="Designer"
+								class="aspect-square w-full rounded-2xl object-cover shadow-2xl"
+							/>
+						</div>
+						<div class="bg-primary/10 absolute -right-4 -bottom-4 h-32 w-32 rounded-full blur-2xl">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

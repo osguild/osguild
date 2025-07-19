@@ -1,0 +1,182 @@
+---
+/**
+ * * pricing section with toggle for monthly or yearly payments
+ * This is designed for a single pricing option
+ */
+import Button from "@components/button/Button.astro";
+import Switch from "@components/starwind/switch";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { Icon } from "astro-icon/components";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+// get the current page locale to use in links to other pages
+const currLocale = getLocaleFromUrl(Astro.url);
+
+interface PricingFeature {
+	text: string;
+	included: boolean;
+}
+
+interface PricingPlan {
+	title?: string;
+	description?: string;
+	name?: string;
+	monthlyPrice?: number;
+	yearlyPrice?: number;
+	planDescription?: string;
+	features: PricingFeature[];
+	ctaText?: string;
+	ctaHref?: string;
+}
+
+const plan: PricingPlan = {
+	title: "Transparent Pricing",
+	description: "Let me help you achieve the success you deserve",
+	name: "Professional",
+	monthlyPrice: 300,
+	yearlyPrice: 3000,
+	planDescription: "Perfect for startups and small businesses",
+	features: [
+		{ text: "Website Design and Development", included: true },
+		{ text: "Unlimited Changes", included: true },
+		{ text: "One Request at a Time", included: true },
+		{ text: "Updates Weekly", included: true },
+		{ text: "Hosting and Maintenance Included", included: true },
+		{ text: "Slack Communication", included: true },
+	],
+	ctaText: "Get Started",
+	ctaHref: "#contact",
+};
+
+const {
+	title,
+	description,
+	name,
+	monthlyPrice,
+	yearlyPrice,
+	planDescription,
+	features,
+	ctaText,
+	ctaHref,
+} = plan;
+---
+
+<section
+	id="pricing-one-price"
+	class="bg-background dark text-foreground relative overflow-clip py-20 md:py-32 dark:border-y"
+>
+	<!-- Background Pattern -->
+	<div class="absolute inset-0 scale-125 rotate-6" aria-hidden="true">
+		<svg class="absolute h-full w-full opacity-5" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<pattern id="pricing-one-price-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+					<path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+				</pattern>
+			</defs>
+			<rect width="100%" height="100%" fill="url(#pricing-one-price-grid)"></rect>
+		</svg>
+	</div>
+
+	<div class="site-container relative">
+		<div class="mx-auto mb-16 max-w-3xl text-center">
+			<h2 class="h2 mb-4">{title}</h2>
+			<p class="description text-xl">{description}</p>
+		</div>
+
+		<div class="mb-16 flex items-center justify-center gap-4">
+			<span class="description font-medium">Monthly</span>
+			<Switch variant="primary" id="pricing-one-price__toggle" size="lg" />
+			<span class="description font-medium">
+				Yearly <span class="text-primary text-sm">(Save 20%)</span>
+			</span>
+		</div>
+
+		<div class="mx-auto max-w-xl">
+			<div class="group relative">
+				<!-- Decorative gradient blur -->
+				<div
+					class="from-primary/50 to-primary-300/50 absolute -inset-px rounded-2xl bg-gradient-to-r opacity-30 blur-lg transition-all duration-500 group-hover:opacity-100"
+				>
+				</div>
+
+				<div
+					class="from-base-100 to-base-200 dark:from-base-900 dark:to-base-950/90 border-primary/20 hover:border-primary/40 relative rounded-2xl border bg-gradient-to-br p-8 backdrop-blur-sm transition-all duration-300 md:p-12"
+				>
+					<div class="mb-8 text-center">
+						<h3 class="font-heading text-primary mb-2 text-3xl">{name}</h3>
+						<p class="description text-base">{planDescription}</p>
+					</div>
+
+					<div class="mb-12 text-center">
+						<div class="relative">
+							<p class="pricing-monthly text-primary text-5xl font-bold md:text-7xl">
+								${monthlyPrice}
+								<span class="text-base-400 text-2xl font-normal">/mo</span>
+							</p>
+							<p class="pricing-yearly text-primary hidden text-5xl font-bold md:text-7xl">
+								${yearlyPrice}
+								<span class="text-base-400 text-2xl font-normal">/yr</span>
+							</p>
+						</div>
+					</div>
+
+					<ul class="mb-12 space-y-5">
+						{
+							features.map((feature) => (
+								<li class="description flex items-center gap-4 rounded-lg">
+									<span class:list={[feature.included ? "text-primary" : "text-base-500"]}>
+										<Icon name={feature.included ? "tabler/check" : "tabler/x"} class="h-5 w-5" />
+									</span>
+									<span class:list={[feature.included ? "" : "opacity-70"]}>{feature.text}</span>
+								</li>
+							))
+						}
+					</ul>
+
+					<Button
+						href={getLocalizedRoute(currLocale, ctaHref)}
+						variant="primary"
+						class="w-full text-lg"
+					>
+						{ctaText}
+					</Button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const setupPricingToggle = () => {
+		const pricingSection = document.getElementById("pricing-one-price");
+		const toggle = pricingSection?.querySelector("#pricing-one-price__toggle");
+		const monthlyPrices = pricingSection?.querySelectorAll(".pricing-monthly");
+		const yearlyPrices = pricingSection?.querySelectorAll(".pricing-yearly");
+
+		if (!toggle || !monthlyPrices || !yearlyPrices) return;
+
+		// Create a new MutationObserver to watch for aria-checked changes
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.type === "attributes" && mutation.attributeName === "aria-checked") {
+					const isYearly = toggle.getAttribute("aria-checked") === "true";
+					monthlyPrices.forEach((price) => price.classList.toggle("hidden", isYearly));
+					yearlyPrices.forEach((price) => price.classList.toggle("hidden", !isYearly));
+				}
+			});
+		});
+
+		// Start observing the toggle button for attribute changes
+		observer.observe(toggle, {
+			attributes: true,
+			attributeFilter: ["aria-checked"], // only watch for aria-checked changes
+		});
+	};
+
+	setupPricingToggle();
+
+	document.addEventListener("astro:after-swap", () => {
+		setupPricingToggle();
+	});
+</script>

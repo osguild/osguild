@@ -6,13 +6,15 @@
     "synth": "pnpm --filter backend build && pnpm --filter backend cdk synth",
     "server:start": "pnpm synth && sam local start-api -t ./packages/backend/cdk.out/BackendStack.template.json",
     "server:start-auth": "pnpm synth && sam local start-api --env-vars ./packages/backend/env.json -t ./packages/backend/cdk.out/BackendStack.template.json",
-    "dev:ui": "pnpm --filter ui dev --host",
+    "ui:dev": "pnpm --filter ui dev --host",
     "storybook": "pnpm --filter ui storybook",
     "cdk": "pnpm --filter backend cdk",
     "server:build": "pnpm --filter backend build",
     "server:deploy": "pnpm --filter backend cdk deploy --require-approval never",
     "lint": "biome lint",
     "lint:write": "biome lint --write",
+    "landing:build": "pnpm --filter landing build",
+    "landing:dev": "pnpm --filter landing dev",
     "format": "biome format",
     "format:write": "biome format --write",
     "order-imports": "biome check --formatter-enabled=false --linter-enabled=false --organize-imports-enabled=true --write",
@@ -24,7 +26,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.0.0",
     "husky": "^9.1.7"
   }
 }

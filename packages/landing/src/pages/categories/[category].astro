@@ -1,0 +1,74 @@
+---
+import CategoryCloud from "@components/category-cloud/CategoryCloud.astro";
+import { defaultLocale } from "@config/siteSettings.json";
+import { countItems, getAllPosts, sortByValue } from "@js/blogUtils";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { humanize, slugify } from "@js/textUtils";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import BlogIndexLayout from "@layouts/BlogIndexGridDetailed.astro";
+import type { InferGetStaticParamsType, InferGetStaticPropsType } from "astro";
+
+// generate pagination for tag pages if there are a bunch of posts for a single tag
+export async function getStaticPaths() {
+	const posts = await getAllPosts(defaultLocale);
+	const allCategories = posts.flatMap((post) => post.data.categories);
+	const filteredCategories = allCategories.filter(
+		(category): category is string => typeof category === "string",
+	);
+	const countedCategories = countItems(filteredCategories);
+	const processedCategories = sortByValue(countedCategories);
+
+	return processedCategories.map(([category, count]) => ({
+		params: { category: category },
+	}));
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+type Params = InferGetStaticParamsType<typeof getStaticPaths>;
+
+// const filteredPosts = Astro.props as Props;
+const { category } = Astro.params as Params;
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const posts = await getAllPosts(currLocale);
+const filteredPosts = posts.filter((post) => {
+	if (!post.data.categories) return false;
+	// make sure to slugify them for comparison
+	const slugifiedCategory = post.data.categories
+		.filter((category): category is string => typeof category === "string")
+		.map((category) => slugify(category));
+
+	return slugifiedCategory.includes(category);
+});
+---
+
+<BaseLayout
+	title={`Blog posts about ${humanize(category)}`}
+	description={`My blog posts on ${humanize(category)} to help you on your journey`}
+>
+	<div class="site-container mt-24 md:mt-36">
+		<!-- Header -->
+		<div class="mx-auto mb-16 max-w-7xl">
+			<div class="grid gap-8 md:grid-cols-5">
+				<!-- Left Column - Blog Heading -->
+				<div class="text-center md:col-span-3 md:text-left">
+					<h1 class="h2 mb-4">Blog</h1>
+					<p class="description opacity-80 lg:text-xl">
+						My blog posts on <span class="decoration-primary underline">{humanize(category)}</span>
+					</p>
+				</div>
+
+				<!-- Right Column - Tags Box -->
+				<div
+					class="bg-base-100 dark:bg-base-900 flex flex-col items-center justify-center rounded-2xl p-6 text-center md:col-span-2 md:items-start md:text-left"
+				>
+					<h2 class="mb-4 text-lg font-bold">Categories</h2>
+					<CategoryCloud showCount={true} class="justify-center md:justify-start" />
+				</div>
+			</div>
+		</div>
+
+		<!-- Blog Posts Grid -->
+		<BlogIndexLayout posts={filteredPosts} class="mt-10 pb-12 md:pb-24" />
+	</div>
+</BaseLayout>

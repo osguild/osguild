@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+	certifications: CollectionEntry<"resume">["data"]["certifications"];
+}
+
+const { certifications } = Astro.props;
+---
+
+<div class="space-y-4">
+	<h2 class="h3">Certifications</h2>
+	<div class="space-y-4">
+		{
+			certifications.map((cert) => (
+				<div class="hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 flex items-center justify-between rounded-lg border bg-white p-4 transition-all hover:shadow-lg">
+					<h3 class="font-medium">{cert.title}</h3>
+					<span class="text-primary">{cert.year}</span>
+				</div>
+			))
+		}
+	</div>
+</div>

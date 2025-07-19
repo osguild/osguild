@@ -1,0 +1,212 @@
+---
+import Button from "@components/button/Button.astro";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+---
+
+<BaseLayout
+	title="Theme Overview"
+	description="The various pages, sections, and widgets of OS Guild"
+>
+	<div class="relative min-h-[100lvh] overflow-clip">
+		<!-- Background Pattern -->
+		<div class="absolute inset-0 scale-125 rotate-6" aria-hidden="true">
+			<svg class="absolute h-full w-full opacity-4" xmlns="http://www.w3.org/2000/svg">
+				<defs>
+					<pattern id="contact-simple-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+						<path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+					</pattern>
+				</defs>
+				<rect width="100%" height="100%" fill="url(#contact-simple-grid)"></rect>
+			</svg>
+		</div>
+
+		<!-- <div class="absolute inset-0" aria-hidden="true">
+			<svg class="absolute h-full w-full opacity-4" xmlns="http://www.w3.org/2000/svg">
+				<defs>
+					<pattern id="contact-simple-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+						<path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" stroke-width="1.5"></path>
+					</pattern>
+				</defs>
+				<rect width="100%" height="100%" fill="url(#contact-simple-grid)"></rect>
+			</svg>
+		</div> -->
+
+		<div class="site-container relative mx-auto max-w-4xl pt-36">
+			<h1 class="h1 text-center">Overview</h1>
+			<p class="description mt-2 text-center">The various pages of OS Guild</p>
+			<div class="xs:grid-cols-2 mx-auto mt-10 grid gap-x-8 gap-y-4 md:grid-cols-3">
+				<!-- Landing Pages -->
+				<div class="flex flex-col">
+					<h3 class="overview-heading">Landing Pages</h3>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/")}>Landing 1</a>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/examples/landing2")}
+						>Landing 2</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/examples/landing3")}
+						>Landing 3</a
+					>
+				</div>
+
+				<!-- Blog pages -->
+				<div class="flex flex-col">
+					<h3 class="overview-heading">Blog</h3>
+					<a
+						class="overview-link"
+						href={getLocalizedRoute(currLocale, "/blog/tsconfig-paths-setup")}>Post Layout 1</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/examples/blog-post-2")}
+						>Post Layout 2</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/blog")}
+						>Blog Detailed Cards</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/examples/blog-index-2")}
+						>Blog Simple Cards</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/categories/development")}
+						>Category Page</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/categories")}
+						>Categories Index</a
+					>
+				</div>
+
+				<!-- Project pages -->
+				<div class="flex flex-col">
+					<h3 class="overview-heading">Projects</h3>
+					<a
+						class="overview-link"
+						href={getLocalizedRoute(currLocale, "/projects/virtual-event-platform")}
+						>Project Layout</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/projects")}
+						>Projects Index 1</a
+					>
+					<a
+						class="overview-link"
+						href={getLocalizedRoute(currLocale, "/examples/projects-index-2")}>Projects Index 2</a
+					>
+				</div>
+
+				<!-- Sections -->
+				<div class="flex flex-col">
+					<h3 class="overview-heading">Sections</h3>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "examples/pricing-faq")}
+						>Pricing and FAQ Sections</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/examples/hero-sections")}
+						>Hero Sections</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/examples/project-process")}
+						>Project Showcase and Process Sections</a
+					>
+					<a
+						class="overview-link"
+						href={getLocalizedRoute(currLocale, "/examples/testimonial-logo-sections")}
+						>Testimonial and Logo Cloud Sections</a
+					>
+				</div>
+
+				<!-- Other -->
+				<div class="flex flex-col">
+					<h3 class="overview-heading">Other Pages</h3>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/elements")}
+						>MDX Page Elements</a
+					>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/resume")}>Resume</a>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/tools")}>Tools</a>
+
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/privacy-policy")}>Legal</a>
+					<a class="overview-link" href="/not-a-link/">404</a>
+					<a
+						class="overview-link"
+						href={getLocalizedRoute(currLocale, "/rss.xml")}
+						target="_blank"
+						rel="noopener noreferrer">RSS Feed</a
+					>
+				</div>
+
+				<!-- Widgets -->
+				<div class="flex flex-col">
+					<h3 class="overview-heading">Widgets and Forms</h3>
+					<!-- CookieConsent component should be used in BaseLayout.astro if desired -->
+					<button id="test-consent-demo-btn" class="overview-link text-left">Cookie Consent</button>
+					<a class="overview-link" href={getLocalizedRoute(currLocale, "/contact")}>Contact</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- CookieConsent component should be used in BaseLayout.astro if desired -->
+		<div id="test-banner" class="fixed inset-x-6 bottom-6 z-50 hidden justify-center">
+			<div
+				class="dark:bg-base-900 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 rounded-xl border bg-white p-4"
+			>
+				<div class="text-center">
+					<p class="text-sm lg:text-base">
+						We use cookies to improve your experience on this site. To learn more, see our <a
+							href={getLocalizedRoute(currLocale, "/privacy-policy")}
+							class="hover:text-primary text-foreground decoration-primary underline transition"
+							>Privacy Policy</a
+						>.
+					</p>
+				</div>
+				<div class="mx-auto flex gap-2">
+					<Button variant="primary" type="button" class="min-w-0 px-6 py-2">Accept</Button>
+					<Button variant="ghost" type="button" class="min-w-0 px-6 py-2">Decline</Button>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>
+
+<style>
+	@import "tailwindcss/theme" theme(reference);
+	@import "@/styles/tailwind-theme.css" theme(reference);
+
+	.overview-heading {
+		@apply mt-6 mb-2 text-lg font-semibold;
+	}
+	.overview-link {
+		@apply text-foreground/80 hover:text-primary my-[.2rem] py-0.5 leading-snug transition;
+	}
+</style>
+
+<script>
+	//Script purely for demo of the CookieConsent component. Use the actual <CookieConsent /> component in BaseLayout.astro if desired.
+	function cookieConsentSetup() {
+		const cookieBanner = document.getElementById("test-banner");
+		const acceptButton = document.querySelector("#test-banner button:first-of-type");
+		const declineButton = document.querySelector("#test-banner button:last-of-type");
+		const cookieConsentDemoBtn = document.getElementById("test-consent-demo-btn");
+
+		cookieConsentDemoBtn?.addEventListener("click", () => {
+			cookieBanner?.classList.toggle("hidden");
+			cookieBanner?.classList.toggle("flex");
+		});
+
+		// If the user clicks the accept button, hide the banner and set a cookie
+		acceptButton?.addEventListener("click", () => {
+			console.log("cookies accepted example");
+			cookieBanner?.classList.toggle("hidden");
+			cookieBanner?.classList.toggle("flex");
+		});
+
+		// If the user clicks the decline button, hide the banner and set a cookie
+		declineButton?.addEventListener("click", () => {
+			console.log("cookies declined example");
+			cookieBanner?.classList.toggle("hidden");
+			cookieBanner?.classList.toggle("flex");
+		});
+	}
+
+	// runs on initial page load
+	cookieConsentSetup();
+
+	// runs on view transitions navigation
+	document.addEventListener("astro:after-swap", cookieConsentSetup);
+</script>

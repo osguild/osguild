@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+	name: string;
+	url: string;
+	icon: string;
+}
+
+const { name, url, icon } = Astro.props;
+---
+
+<a
+	href={url}
+	target="_blank"
+	rel="noopener noreferrer"
+	class="primary-focus hover:bg-primary bg-primary/5 dark:bg-base-800 text-primary dark:text-base-400 flex h-12 w-12 items-center justify-center !rounded-full transition-colors hover:text-white"
+	aria-label={`Follow me on ${name}`}
+>
+	<Icon name={icon} class="h-6 w-6" />
+</a>

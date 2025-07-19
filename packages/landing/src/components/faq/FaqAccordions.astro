@@ -1,0 +1,44 @@
+---
+/**
+ * * FAQ section in accordions
+ */
+
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@components/starwind/accordion";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import { getTranslatedData } from "@js/translationUtils";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const faqData = getTranslatedData("faqData", currLocale);
+---
+
+<section id="faq-accordions" class="bg-base-100 dark:bg-background py-16 md:py-32">
+	<div class="site-container">
+		<div class="mx-auto mb-16 max-w-3xl text-center" data-aos="fade-up">
+			<h2 class="h2 mb-4">Frequently Asked Questions</h2>
+			<p class="description text-xl">
+				Find answers to common questions about our services and process
+			</p>
+		</div>
+		<div
+			class="mx-auto mt-10 flex max-w-3xl flex-col gap-3"
+			data-aos="fade-up"
+			data-aos-delay="0.4"
+		>
+			<Accordion class="space-y-3">
+				{
+					faqData.map((faqItem, idx) => (
+						<AccordionItem value={`item-${idx}`}>
+							<AccordionTrigger>{faqItem.question}</AccordionTrigger>
+							<AccordionContent class="markdown-content" details={faqItem.answer} />
+						</AccordionItem>
+					))
+				}
+			</Accordion>
+		</div>
+	</div>
+</section>

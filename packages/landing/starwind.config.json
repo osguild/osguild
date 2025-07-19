@@ -1,0 +1,30 @@
+{
+	"tailwind": {
+		"css": "src/styles/starwind.css",
+		"baseColor": "neutral",
+		"cssVariables": true
+	},
+	"componentDir": "src/components",
+	"components": [
+		{
+			"name": "accordion",
+			"version": "0.0.1"
+		},
+		{
+			"name": "switch",
+			"version": "0.0.1"
+		},
+		{
+			"name": "input",
+			"version": "0.0.1"
+		},
+		{
+			"name": "label",
+			"version": "0.0.1"
+		},
+		{
+			"name": "textarea",
+			"version": "0.0.1"
+		}
+	]
+}

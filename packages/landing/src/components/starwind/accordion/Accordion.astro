@@ -1,0 +1,171 @@
+---
+type Props = {
+	type?: "single" | "multiple";
+	defaultValue?: string;
+	class?: string;
+};
+
+const {
+	type = "single",
+	defaultValue,
+	class: className,
+	...rest
+} = Astro.props;
+---
+
+<div
+	class:list={["starwind-accordion", className]}
+	data-type={type}
+	data-value={defaultValue}
+	{...rest}
+>
+	<slot />
+</div>
+
+<script>
+	class AccordionHandler {
+		private accordion: HTMLElement;
+		private type: string;
+
+		constructor(accordion: HTMLElement, idx: number) {
+			this.accordion = accordion;
+			this.type = accordion.dataset.type || "single";
+			this.init(idx);
+		}
+
+		private init(accordionIdx: number) {
+			const items = this.accordion.querySelectorAll(".starwind-accordion-item");
+			const defaultValue = this.accordion.dataset.value;
+
+			items.forEach((item, itemIdx) => {
+				const content = item.querySelector(".starwind-accordion-content") as HTMLElement;
+				const trigger = item.querySelector(".starwind-accordion-trigger") as HTMLElement;
+				if (!content || !trigger) return;
+
+				// Setup IDs and attributes
+				this.setupAccessibility(trigger, content, accordionIdx, itemIdx);
+				this.setContentHeight(content);
+
+				// Setup event listeners
+				trigger.addEventListener("click", (e) => this.handleClick(e));
+				trigger.addEventListener("keydown", (e) => this.handleKeyDown(e));
+
+				// Set initial state if there's a default value
+				if (defaultValue && item.getAttribute("data-value") === defaultValue) {
+					this.setItemState(item, true);
+				}
+			});
+		}
+
+		private setupAccessibility(
+			trigger: HTMLElement,
+			content: HTMLElement,
+			accordionIdx: number,
+			itemIdx: number,
+		) {
+			const triggerId = `starwind-accordion${accordionIdx}-t${itemIdx}`;
+			const contentId = `starwind-accordion${accordionIdx}-c${itemIdx}`;
+
+			trigger.id = triggerId;
+			trigger.setAttribute("aria-controls", contentId);
+			trigger.setAttribute("aria-expanded", "false");
+
+			content.id = contentId;
+			content.setAttribute("aria-labelledby", triggerId);
+			content.setAttribute("role", "region");
+		}
+
+		private setContentHeight(content: HTMLElement) {
+			const contentInner = content.firstElementChild as HTMLElement;
+			if (contentInner) {
+				const height = contentInner.getBoundingClientRect().height;
+				content.style.setProperty("--starwind-accordion-content-height", `${height}px`);
+			}
+		}
+
+		private handleClick(event: Event) {
+			const trigger = event.currentTarget as HTMLElement;
+			const item = trigger.closest(".starwind-accordion-item");
+			if (!item) return;
+
+			this.toggleItem(item);
+		}
+
+		private handleKeyDown(event: KeyboardEvent) {
+			const trigger = event.currentTarget as HTMLElement;
+			const item = trigger.closest(".starwind-accordion-item");
+			if (!item) return;
+
+			const items = Array.from(this.accordion.querySelectorAll(".starwind-accordion-item"));
+			const index = items.indexOf(item);
+
+			const keyActions = {
+				ArrowDown: () => this.focusItem(items, index + 1),
+				ArrowUp: () => this.focusItem(items, index - 1),
+				Home: () => this.focusItem(items, 0),
+				End: () => this.focusItem(items, items.length - 1),
+			};
+
+			const action = keyActions[event.key as keyof typeof keyActions];
+			if (action) {
+				event.preventDefault();
+				action();
+			}
+		}
+
+		private focusItem(items: Element[], index: number) {
+			const targetIndex = (index + items.length) % items.length;
+			const targetTrigger = items[targetIndex].querySelector(
+				".starwind-accordion-trigger",
+			) as HTMLElement;
+			targetTrigger?.focus();
+		}
+
+		private toggleItem(item: Element) {
+			const isOpen = item.getAttribute("data-state") === "open";
+
+			if (this.type === "single") {
+				// Close other items if in single mode
+				this.accordion.querySelectorAll(".starwind-accordion-item").forEach((otherItem) => {
+					if (otherItem !== item && otherItem.getAttribute("data-state") === "open") {
+						this.setItemState(otherItem, false);
+					}
+				});
+			}
+
+			this.setItemState(item, !isOpen);
+		}
+
+		private setItemState(item: Element, isOpen: boolean) {
+			const state = isOpen ? "open" : "closed";
+			const content = item.querySelector(".starwind-accordion-content") as HTMLElement;
+			const trigger = item.querySelector(".starwind-accordion-trigger") as HTMLElement;
+
+			if (isOpen) {
+				content.style.removeProperty("animation");
+			}
+
+			// Set content height variable for animations
+			this.setContentHeight(content);
+
+			item.setAttribute("data-state", state);
+			content.setAttribute("data-state", state);
+			trigger.setAttribute("data-state", state);
+			trigger.setAttribute("aria-expanded", isOpen.toString());
+		}
+	}
+
+	// Initialize all accordions
+	const setupAccordions = () => {
+		document.querySelectorAll(".starwind-accordion").forEach((accordion, idx) => {
+			if (accordion instanceof HTMLElement) {
+				new AccordionHandler(accordion, idx);
+			}
+		});
+	};
+
+	setupAccordions();
+
+	// Handle view transitions
+	document.addEventListener("astro:after-swap", setupAccordions);
+</script>

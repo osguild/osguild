@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = Omit<HTMLAttributes<"label">, "for"> & {
+	for: string;
+};
+
+const { for: forAttribute, class: className, ...rest } = Astro.props;
+---
+
+<label class:list={["text-foreground text-sm font-medium", className]} for={forAttribute} {...rest}>
+	<slot />
+</label>

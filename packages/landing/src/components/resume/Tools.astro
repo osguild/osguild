@@ -1,0 +1,183 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import FilterButton from "@components/button/FilterButton.astro";
+
+interface Props {
+	tools: CollectionEntry<"resume">["data"]["tools"];
+	/**
+	 * Limit the number of tools to display
+	 */
+	limit?: number;
+	showHeading?: boolean;
+}
+
+const { tools, limit, showHeading = true } = Astro.props;
+
+let toolsToDisplay = tools;
+if (limit) {
+	toolsToDisplay = tools.slice(0, limit);
+}
+
+// Get unique categories for tools to display
+const categories = [
+	"All",
+	...new Set(toolsToDisplay.map((tool) => tool.category)),
+].sort();
+---
+
+<div class="">
+	{showHeading && <h2 class="h3">Tools & Technologies</h2>}
+
+	<!-- Category Filters -->
+	<div class="mt-4 flex flex-wrap gap-2">
+		{
+			categories.map((category) => (
+				<FilterButton
+					text={category}
+					data-category={category}
+					aria-pressed={category === "All" ? "true" : "false"}
+					class="category-filter"
+				/>
+			))
+		}
+	</div>
+
+	<!-- Tools Grid -->
+	<div class="tools-wrapper mt-8 mb-auto w-full animate-[height]">
+		<div class="tools-grid grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+			{
+				toolsToDisplay.map((tool) => (
+					<a
+						href={tool.link}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="tool-item group hover:border-primary/30 hover:shadow-primary/5 dark:bg-base-900 flex flex-col items-center gap-2 rounded-lg border bg-white p-4 opacity-0 transition-colors hover:shadow-lg"
+						data-category={tool.category}
+					>
+						<Image
+							src={tool.image}
+							alt={tool.name}
+							class="h-12 w-12 object-contain transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 dark:opacity-50 dark:grayscale dark:invert dark:group-hover:grayscale-100"
+						/>
+						<span class="group-hover:text-primary text-base-800 dark:text-base-200 text-sm font-medium transition-colors duration-300">
+							{tool.name}
+						</span>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</div>
+
+<script>
+	import anime from "animejs";
+
+	// Get all filter buttons and tool items
+	const filterButtons = document.querySelectorAll(".category-filter");
+	const toolItems = document.querySelectorAll(".tool-item") as NodeListOf<HTMLElement>;
+	const toolsGrid = document.querySelector(".tools-grid") as HTMLDivElement;
+	const toolsWrapper = document.querySelector(".tools-wrapper") as HTMLDivElement;
+
+	const setupToolsFiltering = () => {
+		// Initial animation
+		anime({
+			targets: ".tool-item",
+			opacity: [0, 1],
+			translateY: [20, 0],
+			duration: 800,
+			delay: anime.stagger(50),
+			easing: "easeOutExpo",
+		});
+
+		// Add click event listeners to filter buttons
+		filterButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const selectedCategory = button.getAttribute("data-category");
+
+				if (button.getAttribute("aria-pressed") === "true") {
+					return;
+				}
+
+				// Update button states
+				filterButtons.forEach((btn) => {
+					btn.setAttribute("aria-pressed", "false");
+				});
+				button.setAttribute("aria-pressed", "true");
+
+				// Get initial height
+				const initialHeight = toolsWrapper.offsetHeight;
+
+				// Set initial height explicitly to enable animation
+				toolsWrapper.style.height = `${initialHeight}px`;
+
+				// First fade out all items
+				anime({
+					targets: ".tool-item",
+					opacity: 0,
+					translateY: 20,
+					duration: 400,
+					easing: "easeOutQuad",
+					complete: function () {
+						// Update visibility after fade out
+						toolItems.forEach((item) => {
+							const itemCategory = item.getAttribute("data-category");
+							if (selectedCategory === "All" || selectedCategory === itemCategory) {
+								item.classList.remove("hidden");
+							} else {
+								item.classList.add("hidden");
+							}
+						});
+
+						// Calculate new height based on grid layout
+						const visibleItems = Array.from(toolItems).filter(
+							(item) => !item.classList.contains("hidden"),
+						);
+
+						// Get dimensions of a single item (they're all the same size)
+						const sampleItem = visibleItems[0];
+						const itemHeight = sampleItem ? sampleItem.offsetHeight : 0;
+						const gridGap = 16; // 4 in Tailwind's gap-4 equals 16px
+
+						// Get the number of columns based on current viewport
+						const computedStyle = window.getComputedStyle(toolsGrid);
+						const columns = computedStyle.gridTemplateColumns.split(" ").length;
+
+						// Calculate number of rows needed
+						const rows = Math.ceil(visibleItems.length / columns);
+
+						// Calculate total height including gaps
+						const newHeight = rows * itemHeight + (rows - 1) * gridGap;
+
+						// Set height back to auto after all animations complete
+						const timeline = anime.timeline({
+							easing: "easeOutExpo",
+						});
+
+						// Animate container height and fade in items
+						timeline
+							.add({
+								targets: ".tools-wrapper",
+								height: [initialHeight, newHeight],
+								duration: 600,
+							})
+							.add(
+								{
+									targets: ".tool-item:not(.hidden)",
+									opacity: [0, 1],
+									translateY: [20, 0],
+									duration: 600,
+									delay: anime.stagger(50),
+								},
+								"-=400",
+							); // Start before height animation ends
+					},
+				});
+			});
+		});
+	};
+
+	setupToolsFiltering();
+	// Handle view transitions
+	document.addEventListener("astro:after-swap", setupToolsFiltering);
+</script>

@@ -1,0 +1,25 @@
+---
+import ChevronDown from "@tabler/icons/outline/chevron-down.svg";
+
+type Props = {
+	class?: string;
+};
+
+const { class: className } = Astro.props;
+---
+
+<button
+	type="button"
+	class:list={[
+		"starwind-accordion-trigger",
+		"flex w-full items-center justify-between gap-4 rounded-md px-5 py-4 text-lg",
+		"hover:text-primary text-left font-medium transition-all",
+		"[&[data-state=open]>svg]:rotate-180",
+		"focus-visible:outline-outline focus-visible:outline-2 focus-visible:outline-offset-0",
+		className,
+	]}
+	aria-expanded="false"
+>
+	<slot />
+	<ChevronDown class="size-6 shrink-0 transition-transform duration-200" />
+</button>

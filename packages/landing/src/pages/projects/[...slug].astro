@@ -1,0 +1,34 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import ExternalLink from "@components/markdown-components/ExternalLink.astro";
+import { defaultLocale } from "@config/siteSettings.json";
+import { filterCollectionByLanguage } from "@js/localeUtils";
+import ProjectLayout from "@layouts/ProjectLayout.astro";
+import type { InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
+	const projects = await getCollection("projects", ({ data }) => {
+		// filter out draft pages
+		return data.draft !== true;
+	});
+
+	// get rid of pages from other languages and remove locale from slug
+	const filteredProjects = filterCollectionByLanguage(
+		projects,
+		defaultLocale,
+	) as CollectionEntry<"projects">[];
+
+	return filteredProjects.map((project) => ({
+		params: { slug: project.id },
+		props: project,
+	}));
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const project = Astro.props as Props;
+const { Content } = await render(project);
+---
+
+<ProjectLayout project={project}>
+	<Content components={{ a: ExternalLink }} />
+</ProjectLayout>

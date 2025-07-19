@@ -1,0 +1,56 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import ToolsComponent from "@components/resume/Tools.astro";
+import { filterCollectionByLanguage, getLocaleFromUrl } from "@js/localeUtils";
+import { useTranslations } from "@js/translationUtils";
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const resumes = await getCollection("resume");
+
+// get rid of pages from other languages and remove locale from slug
+const filteredResumes = filterCollectionByLanguage(
+	resumes,
+	currLocale,
+) as CollectionEntry<"resume">[];
+
+// should only be one resume
+const resume = filteredResumes[0];
+
+const {
+	diplomas,
+	experience,
+	hardSkills,
+	softSkills,
+	certifications,
+	languages,
+	tools,
+} = resume.data;
+
+const t = useTranslations(currLocale);
+
+const title = "Tools and Technologies";
+const description = "All the tools and technologies I know";
+---
+
+<BaseLayout type="general" title={title} description={description}>
+	<div class="site-container mt-24 md:mt-36">
+		<div class="mx-auto max-w-4xl">
+			<!-- Header -->
+			<div class="mb-16 flex flex-col items-center justify-between gap-6">
+				<div class="text-center">
+					<h1 class="font-heading mb-4 text-4xl">{title}</h1>
+					<p class="description opacity-80">{description}</p>
+				</div>
+			</div>
+
+			<!-- Resume Sections -->
+			<div class="space-y-16 pb-10">
+				<ToolsComponent {tools} showHeading={false} />
+			</div>
+		</div>
+	</div>
+
+	<slot />
+</BaseLayout>

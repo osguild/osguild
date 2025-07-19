@@ -1,0 +1,42 @@
+---
+import { render } from "astro:content";
+import CustomH1 from "@components/markdown-components/CustomH1.astro";
+import CustomH2 from "@components/markdown-components/CustomH2.astro";
+import CustomH3 from "@components/markdown-components/CustomH3.astro";
+import CustomH4 from "@components/markdown-components/CustomH4.astro";
+import CustomH5 from "@components/markdown-components/CustomH5.astro";
+import CustomH6 from "@components/markdown-components/CustomH6.astro";
+// import BlogLayout from "@layouts/BlogLayoutCentered.astro";
+import ExternalLink from "@components/markdown-components/ExternalLink.astro";
+import { defaultLocale } from "@config/siteSettings.json";
+import { getAllPosts } from "@js/blogUtils";
+import BlogLayout from "@layouts/BlogLayoutSidebar.astro";
+import type { InferGetStaticPropsType } from "astro";
+
+export async function getStaticPaths() {
+	const posts = await getAllPosts("fr");
+
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const post = Astro.props as Props;
+const { Content, headings } = await render(post);
+---
+
+<BlogLayout post={post} headings={headings}>
+	<Content
+		components={{
+			a: ExternalLink,
+			h1: CustomH1,
+			h2: CustomH2,
+			h3: CustomH3,
+			h4: CustomH4,
+			h5: CustomH5,
+			h6: CustomH6,
+		}}
+	/>
+</BlogLayout>

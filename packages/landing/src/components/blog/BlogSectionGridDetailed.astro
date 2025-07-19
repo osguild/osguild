@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import PostCard from "@components/post-card/PostCardDetailed.astro";
+import { getAllPosts } from "@js/blogUtils";
+import { getLocaleFromUrl } from "@js/localeUtils";
+import BlogIndexGridDetailed from "@layouts/BlogIndexGridDetailed.astro";
+
+import Button from "@/components/button/Button.astro";
+import { getLocalizedRoute } from "@/js/translationUtils";
+
+const currLocale = getLocaleFromUrl(Astro.url);
+const posts = await getAllPosts(currLocale);
+
+// get first 6 posts
+const slicedPosts = posts.slice(0, 6);
+---
+
+<section class="bg-background text-foreground py-16 md:py-32">
+	<div class="site-container">
+		<div class="mx-auto mb-16 max-w-3xl text-center">
+			<h2 class="h2 mb-4">Latest Insights</h2>
+			<p class="description text-xl">
+				Explore our thoughts on design, development, and creative processes
+			</p>
+		</div>
+
+		<BlogIndexGridDetailed posts={posts} />
+
+		<div class="mt-16 flex justify-center">
+			<Button
+				href={getLocalizedRoute(currLocale, `/blog`)}
+				variant="secondary"
+				class="group"
+				arrow="right"
+			>
+				View All Posts
+			</Button>
+		</div>
+	</div>
+</section>
