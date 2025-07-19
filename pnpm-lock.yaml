@@ -17,6 +17,9 @@ importers:
 
   packages/backend:
     dependencies:
+      '@aws-cdk/aws-lambda-python-alpha':
+        specifier: 2.202.0-alpha.0
+        version: 2.202.0-alpha.0(aws-cdk-lib@2.177.0(constructs@10.4.2))(constructs@10.4.2)
       '@aws-sdk/client-ssm':
         specifier: ^3.806.0
         version: 3.817.0
@@ -435,6 +438,13 @@ packages:
 
   '@aws-cdk/asset-node-proxy-agent-v6@2.1.0':
     resolution: {integrity: sha512-7bY3J8GCVxLupn/kNmpPc5VJz8grx+4RKfnnJiO1LG+uxkZfANZG3RMHhE+qQxxwkyQ9/MfPtTpf748UhR425A==}
+
+  '@aws-cdk/aws-lambda-python-alpha@2.202.0-alpha.0':
+    resolution: {integrity: sha512-xfTFgRU8nV+fRwwwdK6JejhpUvl2+2J6gdVY/Ad3S+ZBrB+oBP2y7ZK9gNyfi2bESsleD/fKqcwm5CrFbm1Jzg==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      aws-cdk-lib: ^2.202.0
+      constructs: ^10.0.0
 
   '@aws-cdk/cloud-assembly-schema@39.2.11':
     resolution: {integrity: sha512-/iDXQtxtqKOuUpds51GK/neVzq/UdxLWuGgLs01HdA30xOunVbAe+CAExvHPw0/h2qlfaEkJRpAxZ0Ch6gJnJQ==}
@@ -2058,6 +2068,10 @@ packages:
   '@octokit/endpoint@11.0.0':
     resolution: {integrity: sha512-hoYicJZaqISMAI3JfaDr1qMNi48OctWuOih1m80bkYow/ayPw6Jj52tqWJ6GEoFTk1gBqfanSoI1iY99Z5+ekQ==}
     engines: {node: '>= 20'}
+
+  '@octokit/graphql@8.1.2':
+    resolution: {integrity: sha512-bdlj/CJVjpaz06NBpfHhp4kGJaRZfz7AzC+6EwUImRtrwIw8dIgJ63Xg0OzV9pRn3rIzrt5c2sa++BL0JJ8GLw==}
+    engines: {node: '>= 18'}
 
   '@octokit/graphql@8.2.2':
     resolution: {integrity: sha512-Yi8hcoqsrXGdt0yObxbebHXFOiUA+2v3n53epuOg1QUgOB6c4XzvisBNVXJSl8RYA5KrDuSL2yq9Qmqe5N0ryA==}
@@ -8962,6 +8976,9 @@ packages:
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
   zod@3.25.49:
     resolution: {integrity: sha512-JMMPMy9ZBk3XFEdbM3iL1brx4NUSejd6xr3ELrrGEfGb355gjhiAWtG3K5o+AViV/3ZfkIrCzXsZn6SbLwTR8Q==}
 
@@ -9293,6 +9310,11 @@ snapshots:
   '@aws-cdk/asset-kubectl-v20@2.1.3': {}
 
   '@aws-cdk/asset-node-proxy-agent-v6@2.1.0': {}
+
+  '@aws-cdk/aws-lambda-python-alpha@2.202.0-alpha.0(aws-cdk-lib@2.177.0(constructs@10.4.2))(constructs@10.4.2)':
+    dependencies:
+      aws-cdk-lib: 2.177.0(constructs@10.4.2)
+      constructs: 10.4.2
 
   '@aws-cdk/cloud-assembly-schema@39.2.11': {}
 
@@ -11054,9 +11076,9 @@ snapshots:
     dependencies:
       '@octokit/auth-oauth-app': 8.1.2
       '@octokit/auth-oauth-user': 5.1.2
-      '@octokit/request': 9.2.3
+      '@octokit/request': 9.2.0
       '@octokit/request-error': 6.1.6
-      '@octokit/types': 13.10.0
+      '@octokit/types': 13.7.0
       toad-cache: 3.7.0
       universal-github-app-jwt: 2.2.0
       universal-user-agent: 7.0.2
@@ -11065,23 +11087,23 @@ snapshots:
     dependencies:
       '@octokit/auth-oauth-device': 7.1.2
       '@octokit/auth-oauth-user': 5.1.2
-      '@octokit/request': 9.2.3
-      '@octokit/types': 13.10.0
+      '@octokit/request': 9.2.0
+      '@octokit/types': 13.7.0
       universal-user-agent: 7.0.2
 
   '@octokit/auth-oauth-device@7.1.2':
     dependencies:
       '@octokit/oauth-methods': 5.1.3
-      '@octokit/request': 9.2.3
-      '@octokit/types': 13.10.0
+      '@octokit/request': 9.2.0
+      '@octokit/types': 13.7.0
       universal-user-agent: 7.0.2
 
   '@octokit/auth-oauth-user@5.1.2':
     dependencies:
       '@octokit/auth-oauth-device': 7.1.2
       '@octokit/oauth-methods': 5.1.3
-      '@octokit/request': 9.2.3
-      '@octokit/types': 13.10.0
+      '@octokit/request': 9.2.0
+      '@octokit/types': 13.7.0
       universal-user-agent: 7.0.2
 
   '@octokit/auth-token@5.1.2': {}
@@ -11089,12 +11111,12 @@ snapshots:
   '@octokit/auth-unauthenticated@6.1.1':
     dependencies:
       '@octokit/request-error': 6.1.6
-      '@octokit/types': 13.10.0
+      '@octokit/types': 13.7.0
 
   '@octokit/core@6.1.3':
     dependencies:
       '@octokit/auth-token': 5.1.2
-      '@octokit/graphql': 8.2.2
+      '@octokit/graphql': 8.1.2
       '@octokit/request': 9.2.0
       '@octokit/request-error': 6.1.6
       '@octokit/types': 13.7.0
@@ -11113,7 +11135,7 @@ snapshots:
 
   '@octokit/endpoint@10.1.2':
     dependencies:
-      '@octokit/types': 13.10.0
+      '@octokit/types': 13.7.0
       universal-user-agent: 7.0.2
 
   '@octokit/endpoint@10.1.4':
@@ -11124,6 +11146,12 @@ snapshots:
   '@octokit/endpoint@11.0.0':
     dependencies:
       '@octokit/types': 14.0.0
+      universal-user-agent: 7.0.2
+
+  '@octokit/graphql@8.1.2':
+    dependencies:
+      '@octokit/request': 9.2.0
+      '@octokit/types': 13.7.0
       universal-user-agent: 7.0.2
 
   '@octokit/graphql@8.2.2':
@@ -11154,9 +11182,9 @@ snapshots:
   '@octokit/oauth-methods@5.1.3':
     dependencies:
       '@octokit/oauth-authorization-url': 7.1.1
-      '@octokit/request': 9.2.3
+      '@octokit/request': 9.2.0
       '@octokit/request-error': 6.1.6
-      '@octokit/types': 13.10.0
+      '@octokit/types': 13.7.0
 
   '@octokit/openapi-types@23.0.1': {}
 
@@ -11231,7 +11259,7 @@ snapshots:
     dependencies:
       '@octokit/endpoint': 10.1.2
       '@octokit/request-error': 6.1.6
-      '@octokit/types': 13.10.0
+      '@octokit/types': 13.7.0
       fast-content-type-parse: 2.0.1
       universal-user-agent: 7.0.2
 
@@ -12669,7 +12697,7 @@ snapshots:
       jsdoc-type-pratt-parser: 4.1.0
       process: 0.11.10
       recast: 0.23.11
-      semver: 7.7.2
+      semver: 7.6.3
       util: 0.12.5
       ws: 8.18.0
     optionalDependencies:
@@ -13183,7 +13211,7 @@ snapshots:
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.5
-      semver: 7.7.2
+      semver: 7.6.3
       ts-api-utils: 2.0.0(typescript@5.6.3)
       typescript: 5.6.3
     transitivePeerDependencies:
@@ -16468,7 +16496,7 @@ snapshots:
       jest-util: 29.7.0
       natural-compare: 1.4.0
       pretty-format: 29.7.0
-      semver: 7.7.2
+      semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -16803,7 +16831,7 @@ snapshots:
 
   make-dir@4.0.0:
     dependencies:
-      semver: 7.7.2
+      semver: 7.6.3
 
   make-error@1.3.6: {}
 
@@ -17332,7 +17360,7 @@ snapshots:
       workerd: 1.20241230.0
       ws: 8.18.0
       youch: 3.3.4
-      zod: 3.25.74
+      zod: 3.24.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -19798,6 +19826,8 @@ snapshots:
       zod: 3.25.49
 
   zod@3.22.3: {}
+
+  zod@3.24.1: {}
 
   zod@3.25.49: {}
 
