@@ -63,7 +63,7 @@ export class RestApiConstruct extends Construct {
 
 		// this adds a POST method to myapi.com/github/callback
 		githubCallbackResource.addMethod(
-			"POST",
+			"GET",
 			new LambdaIntegration(githubCallbackFunction),
 		);
 
