@@ -26,4 +26,4 @@ dist-ssr
 !packages/ui/.env
 
 #Local Personal notes file
-notes.txt
+notes.md
