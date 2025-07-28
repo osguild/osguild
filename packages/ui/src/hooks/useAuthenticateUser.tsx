@@ -54,7 +54,10 @@ export function useAuthenticateUser() {
 
 		const fetchTokens = async () => {
 			const accessToken = sessionStorage.getItem(ACCESS_TOKEN);
-			if (accessToken) return;
+			if (accessToken) {
+				navigate("/");
+				return;
+			}
 
 			// Send code to backend
 			try {
