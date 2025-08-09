@@ -9,7 +9,11 @@ import AutoImport from "astro-auto-import";
 import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
+<<<<<<< HEAD
 	site: "https://www.osguild.io",
+=======
+	site: "https://voyager.cosmicthemes.com",
+>>>>>>> 5527818 (add cloudflare)
 
 	redirects: {},
 

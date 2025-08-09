@@ -52,9 +52,14 @@ export const dataTranslations = {
  */
 export const textTranslations = {
 	en: {
+<<<<<<< HEAD
 		hero_text: "Building Software. Together.",
 		hero_description:
 			"Transforming ideas into beautiful, functional designs that leave lasting impressions.",
+=======
+		hero_text: "Crafting Digital Experiences",
+		hero_description: "Transforming ideas into beautiful, functional designs that leave lasting impressions.",
+>>>>>>> 5527818 (add cloudflare)
 		back_to_all_posts: "Back to all posts",
 		updated: "Updated",
 		share_this_article: "Share this article",
