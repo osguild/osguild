@@ -85,7 +85,7 @@ export function useAuthenticateUser() {
 				if (e instanceof Error && e.name === "AbortError") {
 					console.log("Request aborted", e);
 				} else {
-					console.error("an error has occurred", e);
+					console.error("The API call to authenticate users has failed", e);
 				}
 			}
 

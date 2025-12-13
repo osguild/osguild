@@ -27,4 +27,4 @@ Once the command completes, the server should be running on `localhost:3000`.
 
 ### Frontend Setup 
 
-To start the frontend locally, run `pnpm dev:ui`. The frontend web server will be running `localhost:5173`
+To start the frontend locally, run `pnpm ui:dev`. The frontend web server will be running `localhost:5173`
